@@ -1,0 +1,181 @@
+Turbo Dump  Version 6.4.1.0 Copyright (c) 1988-2011 Embarcadero Technologies, Inc.
+                    Display of File mimetex.dll
+
+Old Executable Header
+
+DOS File Size                                      7F000h  (520192. )
+Load Image Size                                      450h  (  1104. )
+Relocation Table entry count                          0000h  (     0. )
+Relocation Table address                              0040h  (    64. )
+Size of header record      (in paragraphs)            0004h  (     4. )
+Minimum Memory Requirement (in paragraphs)            0000h  (     0. )
+Maximum Memory Requirement (in paragraphs)            FFFFh  ( 65535. )
+File load checksum                                    0000h  (     0. )
+Overlay Number                                        0000h  (     0. )
+
+Initial Stack Segment  (SS:SP)			  0000:00B8
+Program Entry Point    (CS:IP)			  0000:0000
+
+
+Portable Executable (PE) File
+
+Header base: 000000F0
+
+CPU type                 80386
+Flags                    210E [ executable backwards 32bit library ]
+DLL flags                0000 [ ]
+Linker Version           7.A
+Time stamp               4320CFD4 : Fri Sep  9 02:57:08 2005
+O/S Version              4.0
+User Version             0.0
+Subsystem Version        4.0
+Subsystem                0002 [ Windows GUI ]
+Object count             00000004
+Symbols offset           00000000
+Symbols count            00000000
+Optional header size     00E0
+Magic #                  10B
+Code size                00021000
+Init Data size           00060000
+Uninit Data size         00000000
+Entry RVA                0001767E
+Image base               10000000
+Code base                00001000
+Data base                00022000
+Object/File align        00001000/00001000
+Reserved                 00000000
+Image size               00082000
+Header size              00001000
+Checksum                 00000000
+Stack reserve/commit     00100000/00001000
+Heap reserve/commit      00100000/00001000
+Number interesting RVAs  00000010
+Name                   RVA       Size  
+------------------  --------  --------
+Exports             0003DDF0  0000004E
+Imports             0003D7C8  00000028
+Resources           00000000  00000000
+Exceptions          00000000  00000000
+Security            00000000  00000000
+Fixups              0007C000  00005000
+Debug               00022120  0000001C
+Description         00000000  00000000
+Global Ptr          00000000  00000000
+TLS                 00000000  00000000
+Callbacks           0003D708  00000048
+Bound Imports       00000000  00000000
+Import Addr Table   00022000  00000118
+Delayed Imports     00000000  00000000
+COM Runtime         00000000  00000000
+reserved            00000000  00000000
+
+Object table:
+#   Name      VirtSize    RVA     PhysSize  Phys off  Flags   
+--  --------  --------  --------  --------  --------  --------
+01  .text     00020140  00001000  00021000  00001000  60000020 [CER]
+02  .rdata    0001BE3E  00022000  0001C000  00022000  40000040 [IR]
+03  .data     0003D804  0003E000  0003B000  0003E000  C0000040 [IRW]
+04  .reloc    000057F2  0007C000  00006000  00079000  42000040 [DIR]
+
+Key to section flags:
+  C - contains code
+  D - discardable
+  E - executable
+  I - contains initialized data
+  R - readable
+  W - writeable
+
+******************************************************************************
+Section:             Import
+File Offset:         00022000 (139264)
+  ImportLookUpTblRVA:0003D7F0
+  Time Stamp:        00000000
+  Forwarder Chain:   00000000 (index of first forwarder reference)
+
+Imports from KERNEL32.dll
+    (hint = 008F) EnterCriticalSection
+    (hint = 0247) LeaveCriticalSection
+    (hint = 020C) HeapFree
+    (hint = 0206) HeapAlloc
+    (hint = 00AF) ExitProcess
+    (hint = 01C0) GetSystemTimeAsFileTime
+    (hint = 013E) GetCurrentThreadId
+    (hint = 0108) GetCommandLineA
+    (hint = 01DF) GetVersionExA
+    (hint = 0317) SetHandleCount
+    (hint = 01B1) GetStdHandle
+    (hint = 015E) GetFileType
+    (hint = 01AF) GetStartupInfoA
+    (hint = 007A) DeleteCriticalSection
+    (hint = 0198) GetProcAddress
+    (hint = 0177) GetModuleHandleA
+    (hint = 034F) TerminateProcess
+    (hint = 013A) GetCurrentProcess
+    (hint = 0169) GetLastError
+    (hint = 0394) WriteFile
+    (hint = 002E) CloseHandle
+    (hint = 020A) HeapDestroy
+    (hint = 0208) HeapCreate
+    (hint = 0376) VirtualFree
+    (hint = 0373) VirtualAlloc
+    (hint = 0210) HeapReAlloc
+    (hint = 00E5) FlushFileBuffers
+    (hint = 0297) QueryPerformanceCounter
+    (hint = 01D5) GetTickCount
+    (hint = 013B) GetCurrentProcessId
+    (hint = 0175) GetModuleFileNameA
+    (hint = 0354) TlsAlloc
+    (hint = 031B) SetLastError
+    (hint = 0355) TlsFree
+    (hint = 0357) TlsSetValue
+    (hint = 0356) TlsGetValue
+    (hint = 030E) SetFilePointer
+    (hint = 023A) LCMapStringA
+    (hint = 0387) WideCharToMultiByte
+    (hint = 026B) MultiByteToWideChar
+    (hint = 023B) LCMapStringW
+    (hint = 01D8) GetTimeZoneInformation
+    (hint = 02A9) ReadFile
+    (hint = 00ED) FreeEnvironmentStringsA
+    (hint = 014D) GetEnvironmentStrings
+    (hint = 00EE) FreeEnvironmentStringsW
+    (hint = 014F) GetEnvironmentStringsW
+    (hint = 0360) UnhandledExceptionFilter
+    (hint = 004D) CreateFileA
+    (hint = 0219) InitializeCriticalSection
+    (hint = 02CA) RtlUnwind
+    (hint = 021F) InterlockedExchange
+    (hint = 037B) VirtualQuery
+    (hint = 032A) SetStdHandle
+    (hint = 0248) LoadLibraryA
+    (hint = 01B2) GetStringTypeA
+    (hint = 01B5) GetStringTypeW
+    (hint = 00FC) GetCPInfo
+    (hint = 016C) GetLocaleInfoA
+    (hint = 00F5) GetACP
+    (hint = 018B) GetOEMCP
+    (hint = 029B) RaiseException
+    (hint = 0379) VirtualProtect
+    (hint = 01BB) GetSystemInfo
+    (hint = 0034) CompareStringA
+    (hint = 0035) CompareStringW
+    (hint = 0306) SetEnvironmentVariableA
+    (hint = 0303) SetEndOfFile
+    (hint = 0212) HeapSize
+
+******************************************************************************
+Section:             Exports
+File Offset:         00022000 (139264)
+  Flags:             00000000
+  Time Stamp:        4320CFD4 : Fri Sep  9 02:57:08 2005
+  Major Version:     0000
+  Minor Version:     0000
+
+Exports from MimeTeX.dll
+  1 exported name(s), 1 export addresse(s).  Ordinal base is 1.
+  Sorted by Name:
+    RVA      Ord. Hint Name
+    -------- ---- ---- ----
+    00015810    1 0000 CreateGifFromEq
+
+

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.932,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.291,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.401,=D:\WORK\Electric\SharedCode\uConstsShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.164,=D:\WORK\Electric\SharedCode\ArrowUnit.Pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.177,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.888,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.593,=D:\WORK\Electric\SharedCode\uStringUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.889,D:\WORK\Electric\Task2\uLocalize.pas=D:\WORK\Electric\Task2\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.963,=D:\WORK\Electric\SharedCode\ExprMake.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.663,D:\WORK\Electric\Task2\Unit1.dfm=D:\WORK\Electric\Task2\fMain.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.220,C:\Users\alex_kart\Documents\RAD Studio\Projects\Project1.dproj=D:\WORK\Electric\Task2\Series_connection.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.420,=D:\WORK\Electric\SharedCode\uLocalizeShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.362,=D:\WORK\Electric\SharedCode\fMain.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.783,=D:\WORK\Electric\SharedCode\uStringUtilsShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.515,D:\WORK\Electric\Task2\Unit1.pas=D:\WORK\Electric\Task2\uCalc.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.348,D:\WORK\Electric\Task2\Unit1.pas=D:\WORK\Electric\Task2\uElements.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.410,=D:\WORK\Electric\SharedCode\uFormulaUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.949,=D:\WORK\Electric\SharedCode\ExprDraw.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.890,=D:\WORK\Electric\SharedCode\uGraphicUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.038,D:\WORK\Electric\Task2\Unit1.pas=D:\WORK\Electric\Task2\uConsts.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.283,=D:\WORK\Electric\Task2\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.078,=D:\WORK\Electric\Task2\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.176,=D:\WORK\Electric\Task2\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.663,D:\WORK\Electric\Task2\Unit1.pas=D:\WORK\Electric\Task2\fMain.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.663,=D:\WORK\Electric\Task2\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.149,=D:\WORK\Electric\Task2\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

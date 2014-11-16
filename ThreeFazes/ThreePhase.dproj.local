@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.623,=D:\WORK\Electric\SharedCode\uComplexUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.434,=D:\WORK\Electric\ThreeFazes\test.jpg</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.635,=D:\WORK\Electric\SharedCode\uConstsShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.222,D:\WORK\Electric\ThreeFazes\Unit2.pas=D:\WORK\Electric\ThreeFazes\fEditRounding.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.785,D:\WORK\Electric\ThreeFazes\Unit2.pas=D:\WORK\Electric\ThreeFazes\uComplexUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.049,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.164,D:\WORK\Electric\ThreeFazes\uComplexUtils.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.930,=D:\WORK\Electric\SharedCode\fMainTemplate.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.113,D:\WORK\Electric\ThreeFazes\fEditDiagram.dfm=D:\WORK\Electric\ThreeFazes\Unit2.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.715,=D:\WORK\Electric\SharedCode\uLocalizeShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.945,=D:\WORK\Electric\SharedCode\ArrowUnit.Pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.985,=D:\WORK\Electric\SharedCode\fEditRounding.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.668,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.634,D:\WORK\Electric\ThreeFazes\Unit2.pas=D:\WORK\Electric\ThreeFazes\uLocalize.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.549,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.735,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.597,D:\WORK\Electric\ThreeFazes\Unit2.pas=D:\WORK\Electric\ThreeFazes\fEditDiagram.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.493,D:\WORK\Electric\ThreeFazes\Unit2.pas=D:\WORK\Electric\SharedCode\uRounding.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.770,D:\WORK\Electric\ThreeFazes\Unit2.pas=D:\WORK\Electric\ThreeFazes\uConsts.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.410,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.619,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.044,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.849,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.374,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.693,=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.222,D:\WORK\Electric\ThreeFazes\Unit2.dfm=D:\WORK\Electric\ThreeFazes\fEditRounding.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.741,=D:\WORK\Electric\SharedCode\uStringUtilsShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.515,=D:\WORK\Electric\SharedCode\fEditDiagramShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.228,C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas=D:\WORK\Electric\ThreeFazes\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.177,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.597,D:\WORK\Electric\ThreeFazes\Unit2.dfm=D:\WORK\Electric\ThreeFazes\fEditDiagram.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.853,=D:\WORK\Electric\ThreeFazes\TestuFormulaUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.022,=D:\WORK\Electric\ThreeFazes\TestuFormulaUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.057,=D:\WORK\Electric\SharedCode\ExprDraw.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.228,C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.dfm=D:\WORK\Electric\ThreeFazes\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.578,D:\WORK\Electric\ThreeFazes\fMain.pas=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.923,D:\WORK\Electric\ThreeFazes\Unit1.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.941,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.944,=D:\WORK\Electric\SharedCode\uSystem.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.578,D:\WORK\Electric\ThreeFazes\fMain.dfm=D:\WORK\Electric\ThreeFazes\Unit2.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.227,D:\WORK\Electric\ThreeFazes\fEditDiagram.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.699,=D:\WORK\Electric\SharedCode\uGraphicUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.676,=D:\WORK\Electric\SharedCode\uFormulaUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.082,=D:\WORK\Electric\SharedCode\ExprMake.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.888,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.932,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.737,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.113,D:\WORK\Electric\ThreeFazes\fEditDiagram.pas=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.412,C:\Users\alex_kart\Documents\RAD Studio\Projects\Project1.dproj=D:\WORK\Electric\ThreeFazes\ThreePhase.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.457,D:\WORK\Electric\ThreeFazes\uCalc.pas=D:\WORK\Electric\ThreeFazes\Unit2.pas</Transaction>
+  </Transactions>
+</BorlandProject>

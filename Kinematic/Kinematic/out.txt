@@ -1,0 +1,52 @@
+При t=0 {tex}x=0{\tex} м {tex}y=0{\tex} м. Тобто в початковий момент часу матеріальна точка знаходиться в точці з координатами {tex}M_0(0;0){\tex}
+З плином часу координата х збільшується, координата у збільшується. Напрям руху точки показано на малюнку
+При {tex}t_1=1{\tex} c {tex}x=1{\tex} м {tex}y=1{\tex} м 
+Матеріальна точка має координату {tex}M_1=(1;1){\tex} (див. малюнок)
+Визначимо проекцію вектора швидкості на осі координат
+{tex}v_x=\frac{dx}{dt}=\frac{dx}{dt}\left(t\right)=1{\tex} м/с
+{tex}v_y=\frac{dy}{dt}=\frac{dy}{dt}\left(t^{2}\right)=2 t{\tex} м/с
+В початковий момент часу
+{tex}v_{0_x}=1{\tex} м/с
+{tex}v_{0_y}=0{\tex} м/с
+Модуль швидкості{tex}v_0=sqrt{v_{0_x}^2+v_{0_y}^2}=sqrt{1^2+0^2}=1{\tex} м/с
+Напрямні косинуси вектора швидкості в початковий момент часу
+{tex}\cos(ox,\overrightarrow{v_0})=\frac{v_{0_x}}{v_0}=\frac{1}{1}=1{\tex}
+{tex}\cos(oy,\overrightarrow{v_0})=\frac{v_{0_y}}{v_0}=\frac{0}{1}=0{\tex}
+В момент часу {tex}t_1=1{\tex}
+{tex}v_{1_x}=1{\tex} м/с
+{tex}v_{1_y}=2{\tex} м/с
+{tex}v_1=sqrt{v_{1_x}^2+v_{1_y}^2}=sqrt{1^2+2^2}=2.236{\tex} м/с
+Напрямні косинуси вектора швидкості в момент часу
+{tex}\cos(ox,\overrightarrow{v_1})=\frac{v_{1_x}}{v_1}=\frac{1}{2.236}=0.447{\tex}
+{tex}\cos(oy,\overrightarrow{v_1})=\frac{v_{1_y}}{v_1}=\frac{2}{2.236}=0.894{\tex}
+Знайдемо проекції вектора прискорення на осі координат:
+{tex}W_x=\frac{dv_x}{dt}=\frac{dx}{dt}\left(1\right)=0, \; \frac{\cyr{m}}{c^2}{\tex}
+{tex}W_y=\frac{dv_y}{dt}=\frac{dy}{dt}\left(2 t\right)=2, \; \frac{\cyr{m}}{c^2}{\tex}
+В початковий момент часу  {tex}t=0{\tex}
+{tex}W_{0_x}=0, \;  \frac{\cyr{m}}{c^2}{\tex}
+{tex}W_{0_y}=2, \;  \frac{\cyr{m}}{c^2}{\tex}
+За модулем {tex}W_0=sqrt{W_{0_x}^2+W_{0_y}^2}=sqrt{0^2+2^2}=2,\; \frac{\cyr{m}}{c^2}{\tex}
+Напрямні косинуси вектора прискорення в початковий момент
+{tex}\cos(ox,\overrightarrow{W_0})=\frac{W_{0_x}}{W_0}=\frac{0}{2}=0{\tex}
+{tex}\cos(oy,\overrightarrow{W_0})=\frac{W_{0_y}}{W_0}=\frac{0}{2}=1{\tex}
+В момент часу  {tex}t_1=1{\tex}
+{tex}W_{1_x}=0,\; \frac{\cyr{m}}{c^2}{\tex}
+{tex}W_{1_y}=2,\; \frac{\cyr{m}}{c^2}{\tex}
+За модулем {tex}W_1=sqrt{W_{1_x}^2+W_{1_y}^2}=sqrt{0^2+2^2}=2,\; \frac{\cyr{m}}{c^2}{\tex}
+Напрямні косинуси вектора прискорення в момент часу {tex}t_1{\tex}
+{tex}\cos(ox,\overrightarrow{W_1})=\frac{W_{1_x}}{W_1}=\frac{0}{2}=0{\tex}
+{tex}\cos(oy,\overrightarrow{W_1})=\frac{W_{1_y}}{W_1}=\frac{0}{2}=1{\tex}
+Знайдемо проекцію вектора прискорення {tex}\overrightarrow{{W_1}}{\tex}в момент часу {tex}t_1{\tex} на дотичну
+{tex}W_1^{{\tau}}=\frac{{v_{{1_x}} \cdot W_{{1_x}}+v_{{1_y}} \cdot W_{{1_y}}}}{{v_1}}{\tex}
+Підставивши числові дані, отримаємо:
+{tex}W_1^{\tau}=\frac{1\cdot 0+ 2 \cdot 2 }{ 2.236 }=1.789,\; \frac{\cyr{m}}{c^2}{\tex}
+Оскільки {tex}W_1^\tau>0{\tex}, то напрям вектора {tex}\overrightarrow{W_1}{\tex}  буде співпадати з вектором швидкості {tex}\overrightarrow{v_1}{\tex}, отже рух точки в момент часу {tex}t_1{\tex} буде прискореним.
+Нормальне прискорення точки в момент часу {tex}t_1{\tex} буде визначатися:
+{tex}W_1^n=\sqrt{W_1^2-(W_1^{\tau})^2}=\sqrt{ (2)^2-(1.789)^2}=0.894,\; \frac{\cyr{m}}{c^2}{\tex}
+При плоскому русі останнє нормальне прискорення можна знайти також за формулою
+{tex}W^n=\|\frac{{v_xW_y-v_yW_x}}{{v}}\|{\tex}
+Для моменту часу {tex}t_1{\tex}:
+{tex}W_1^n=\|\frac{v_{1_x}W_{1_y}-v_{1_y}W_{1_x}}{v_1}\|=\|\frac{1\cdot2-2\cdot0}{2.236}\|=0.894,\; \frac{\cyr{m}}{c^2}{\tex}
+Радіус кривизни в точці в момент часу {tex}t_1{\tex} (т. {tex}M_1{\tex}) визначається:
+{tex}\rho_1=\frac{v_1^2}{W_1^n}=\frac{2.236^2}{0.894}=5.59{\tex}  м
+Відповідь:

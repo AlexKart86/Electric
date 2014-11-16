@@ -1,0 +1,11 @@
+from sympy import *
+f=open('in.txt', 'r')
+expr=f.readline()
+f.close()
+t=symbols('t')
+out=latex(simplify(diff(expr)))
+outh=str(simplify(diff(expr)))
+f=open('out.txt', 'w')
+f.write(out+'\n')
+f.write(outh)
+f.close()

@@ -1,0 +1,1 @@
+{tex}x(t)=t{\tex}, ì{tex}y(t)=t^{2}{\tex}, ì{tex}t_1=1{\tex}, ñ

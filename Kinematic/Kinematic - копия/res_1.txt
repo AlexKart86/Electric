@@ -1,0 +1,8 @@
+{tex}t_0=0\;\cyr{{m}}{\tex}
+{tex}M_0(3;0){\tex}
+{tex}v_0_x=0{\tex}
+{tex}v_0_y=4{\tex}
+{tex}v_0=4{\tex}
+{tex}W_{0_x}=-3{\tex}
+{tex}W_{0_y}=0{\tex}
+{tex}W_0=3{\tex}

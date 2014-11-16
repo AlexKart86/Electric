@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.700,=D:\WORK\Electric\SharedCode\uConstsShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.154,=D:\WORK\Electric\SharedCode\uStringUtilsShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.305,=D:\WORK\Electric\SharedCode\ExprMake.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.824,=D:\WORK\Electric\SharedCode\uFormulaUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.192,=D:\WORK\Electric\SharedCode\ExprDraw.pas</Transaction>
+  </Transactions>
+</BorlandProject>

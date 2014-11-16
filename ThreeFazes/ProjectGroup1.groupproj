@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{E2EBA180-5CBE-473A-A365-39BABBA94CE1}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="ThreePhase.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Test\ThreePhaseTests.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="ThreePhase">
+			<MSBuild Projects="ThreePhase.dproj"/>
+		</Target>
+		<Target Name="ThreePhase:Clean">
+			<MSBuild Targets="Clean" Projects="ThreePhase.dproj"/>
+		</Target>
+		<Target Name="ThreePhase:Make">
+			<MSBuild Targets="Make" Projects="ThreePhase.dproj"/>
+		</Target>
+		<Target Name="ThreePhaseTests">
+			<MSBuild Projects="Test\ThreePhaseTests.dproj"/>
+		</Target>
+		<Target Name="ThreePhaseTests:Clean">
+			<MSBuild Targets="Clean" Projects="Test\ThreePhaseTests.dproj"/>
+		</Target>
+		<Target Name="ThreePhaseTests:Make">
+			<MSBuild Targets="Make" Projects="Test\ThreePhaseTests.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="ThreePhase;ThreePhaseTests"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="ThreePhase:Clean;ThreePhaseTests:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="ThreePhase:Make;ThreePhaseTests:Make"/>
+		</Target>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+	</Project>

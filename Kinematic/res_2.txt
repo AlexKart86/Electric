@@ -1,0 +1,11 @@
+{tex}t_1=5\;c{\tex}
+{tex}M_1(-3.798;2.601){\tex}
+{tex}v_1_x=-9.754{\tex}
+{tex}v_1_y=-9.116{\tex}
+{tex}v_1=13.351{\tex}
+{tex}W_{1_x}=34.186{\tex}
+{tex}W_{1_y}=-23.41{\tex}
+{tex}W_1=41.433\; \frac{\cyr{m}}{c^2}{\tex}
+{tex}W_1^{\tau}=-8.991{\tex}
+{tex}W_1^n=40.446{\tex}
+{tex}\rho_1=OM_1=4.407{\tex}

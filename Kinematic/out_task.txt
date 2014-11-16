@@ -1,0 +1,1 @@
+{tex}x(t)=5 \cos{\left (3 t \right )}{\tex}, ì{tex}y(t)=4 \sin{\left (3 t \right )}{\tex}, ì{tex}t_1=5{\tex}, ñ

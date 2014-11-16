@@ -1,0 +1,52 @@
+При t=0 {tex}x=5{\tex} м {tex}y=0{\tex} м. Тобто в початковий момент часу матеріальна точка знаходиться в точці з координатами {tex}M_0(5;0){\tex}
+З плином часу координата х зменшується, координата у збільшується. Напрям руху точки показано на малюнку
+При {tex}t_1=5{\tex} c {tex}x=-3.798{\tex} м {tex}y=2.601{\tex} м 
+Матеріальна точка має координату {tex}M_1=(-3.798;2.601){\tex} (див. малюнок)
+Визначимо проекцію вектора швидкості на осі координат
+{tex}v_x=\frac{dx}{dt}=\frac{dx}{dt}\left(5 \cos{\left (3 t \right )}\right)=- 15 \sin{\left (3 t \right )}{\tex} м/с
+{tex}v_y=\frac{dy}{dt}=\frac{dy}{dt}\left(4 \sin{\left (3 t \right )}\right)=12 \cos{\left (3 t \right )}{\tex} м/с
+В початковий момент часу
+{tex}v_{0_x}=0{\tex} м/с
+{tex}v_{0_y}=12{\tex} м/с
+Модуль швидкості{tex}v_0=sqrt{v_{0_x}^2+v_{0_y}^2}=sqrt{0^2+12^2}=12{\tex} м/с
+Напрямні косинуси вектора швидкості в початковий момент часу
+{tex}\cos(ox,\overrightarrow{v_0})=\frac{v_{0_x}}{v_0}=\frac{0}{12}=0{\tex}
+{tex}\cos(oy,\overrightarrow{v_0})=\frac{v_{0_y}}{v_0}=\frac{12}{12}=1{\tex}
+В момент часу {tex}t_1=5{\tex}
+{tex}v_{1_x}=- 15 \sin{\left (15 \right )}=-9.754{\tex} м/с
+{tex}v_{1_y}=12 \cos{\left (15 \right )}=-9.116{\tex} м/с
+{tex}v_1=sqrt{v_{1_x}^2+v_{1_y}^2}=sqrt{(-9.754)^2+(-9.116)^2}=13.351{\tex} м/с
+Напрямні косинуси вектора швидкості в момент часу
+{tex}\cos(ox,\overrightarrow{v_1})=\frac{v_{1_x}}{v_1}=\frac{-9.754}{13.351}=-0.731{\tex}
+{tex}\cos(oy,\overrightarrow{v_1})=\frac{v_{1_y}}{v_1}=\frac{-9.116}{13.351}=-0.683{\tex}
+Знайдемо проекції вектора прискорення на осі координат:
+{tex}W_x=\frac{dv_x}{dt}=\frac{dx}{dt}\left(- 15 \sin{\left (3 t \right )}\right)=- 45 \cos{\left (3 t \right )}, \; \frac{\cyr{m}}{c^2}{\tex}
+{tex}W_y=\frac{dv_y}{dt}=\frac{dy}{dt}\left(12 \cos{\left (3 t \right )}\right)=- 36 \sin{\left (3 t \right )}, \; \frac{\cyr{m}}{c^2}{\tex}
+В початковий момент часу  {tex}t=0{\tex}
+{tex}W_{0_x}=-45, \;  \frac{\cyr{m}}{c^2}{\tex}
+{tex}W_{0_y}=0, \;  \frac{\cyr{m}}{c^2}{\tex}
+За модулем {tex}W_0=sqrt{W_{0_x}^2+W_{0_y}^2}=sqrt{(-45)^2+0^2}=45,\; \frac{\cyr{m}}{c^2}{\tex}
+Напрямні косинуси вектора прискорення в початковий момент
+{tex}\cos(ox,\overrightarrow{W_0})=\frac{W_{0_x}}{W_0}=\frac{-45}{45}=-1{\tex}
+{tex}\cos(oy,\overrightarrow{W_0})=\frac{W_{0_y}}{W_0}=\frac{-45}{45}=0{\tex}
+В момент часу  {tex}t_1=5{\tex}
+{tex}W_{1_x}=- 45 \cos{\left (15 \right )}=34.186,\; \frac{\cyr{m}}{c^2}{\tex}
+{tex}W_{1_y}=- 36 \sin{\left (15 \right )}=-23.41,\; \frac{\cyr{m}}{c^2}{\tex}
+За модулем {tex}W_1=sqrt{W_{1_x}^2+W_{1_y}^2}=sqrt{34.186^2+(-23.41)^2}=41.433,\; \frac{\cyr{m}}{c^2}{\tex}
+Напрямні косинуси вектора прискорення в момент часу {tex}t_1{\tex}
+{tex}\cos(ox,\overrightarrow{W_1})=\frac{W_{1_x}}{W_1}=\frac{34.186}{41.433}=0.825{\tex}
+{tex}\cos(oy,\overrightarrow{W_1})=\frac{W_{1_y}}{W_1}=\frac{34.186}{41.433}=-0.565{\tex}
+Знайдемо проекцію вектора прискорення {tex}\overrightarrow{{W_1}}{\tex}в момент часу {tex}t_1{\tex} на дотичну
+{tex}W_1^{{\tau}}=\frac{{v_{{1_x}} \cdot W_{{1_x}}+v_{{1_y}} \cdot W_{{1_y}}}}{{v_1}}{\tex}
+Підставивши числові дані, отримаємо:
+{tex}W_1^{\tau}=\frac{(-9.754)\cdot 34.186+ (-9.116) \cdot (-23.41) }{ 13.351 }=(-8.991),\; \frac{\cyr{m}}{c^2}{\tex}
+Оскільки {tex}W_1^\tau<0{\tex}, то напрям вектора {tex}\overrightarrow{W_1}{\tex}  буде протилежним до напрямку вектора швидкості {tex}\overrightarrow{v_1}{\tex}, отже рух точки в момент часу {tex}t_1{\tex} буде сповільненим.
+Нормальне прискорення точки в момент часу {tex}t_1{\tex} буде визначатися:
+{tex}W_1^n=\sqrt{W_1^2-(W_1^{\tau})^2}=\sqrt{ (41.433)^2-(-8.991)^2}=40.446,\; \frac{\cyr{m}}{c^2}{\tex}
+При плоскому русі останнє нормальне прискорення можна знайти також за формулою
+{tex}W^n=\|\frac{{v_xW_y-v_yW_x}}{{v}}\|{\tex}
+Для моменту часу {tex}t_1{\tex}:
+{tex}W_1^n=\|\frac{v_{1_x}W_{1_y}-v_{1_y}W_{1_x}}{v_1}\|=\|\frac{(-9.754)\cdot(-23.41)-(-9.116)\cdot34.186}{13.351}\|=40.446,\; \frac{\cyr{m}}{c^2}{\tex}
+Радіус кривизни в точці в момент часу {tex}t_1{\tex} (т. {tex}M_1{\tex}) визначається:
+{tex}\rho_1=\frac{v_1^2}{W_1^n}=\frac{13.351^2}{40.446}=4.407{\tex}  м
+Відповідь:

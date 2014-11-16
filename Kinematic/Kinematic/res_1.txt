@@ -1,0 +1,8 @@
+{tex}t_0=0\;c{\tex}
+{tex}M_0(0;0){\tex}
+{tex}v_0_x=1{\tex}
+{tex}v_0_y=0{\tex}
+{tex}v_0=1{\tex}
+{tex}W_{0_x}=0{\tex}
+{tex}W_{0_y}=2{\tex}
+{tex}W_0=2{\tex}

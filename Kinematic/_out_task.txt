@@ -1,0 +1,1 @@
+{tex}x(t)=\sin{\left (t \right )}{\tex}, ì{tex}y(t)=\cos{\left (t \right )}{\tex}, ì{tex}t_1=20{\tex}, ñ
