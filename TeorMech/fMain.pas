@@ -24,10 +24,11 @@ type
     grp1: TGroupBox;
     spl1: TSplitter;
     grp2: TGroupBox;
-    sbMain: TJvScrollBox;
+    sbMain: TScrollBox;
     procedure pbMainPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure act1Execute(Sender: TObject);
+    procedure sbMainClick(Sender: TObject);
   public
     FObjectList: TDrawObjectList;
   end;
@@ -49,14 +50,14 @@ begin
   vLine.Parent := sbMain;
   vLine.Left := 20;
   vLine.Top := 30;
-
+  FObjectList.Add(vLine);
 
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
    pbMain.Canvas.Pen.Color := clSilver;
-   FObjectList := TDrawObjectList.Create(True);
+   FObjectList := TDrawObjectList.Create;
 end;
 
 procedure TfrmMain.pbMainPaint(Sender: TObject);
@@ -76,6 +77,11 @@ begin
       canvas.LineTo(width,i*cnstGridSize);
     end;
   end;
+end;
+
+procedure TfrmMain.sbMainClick(Sender: TObject);
+begin
+  FObjectList.ClearAllSelection;
 end;
 
 end.

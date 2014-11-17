@@ -55,8 +55,8 @@ object Form1: TForm1
       OnMouseMove = ScrollBox1MouseMove
       OnMouseUp = ScrollBox1MouseUp
       OnPaint = PaintBox1Paint
-      ExplicitLeft = -3
-      ExplicitTop = -4
+      ExplicitLeft = -2
+      ExplicitTop = 3
     end
   end
   object PopupMenu1: TPopupMenu
