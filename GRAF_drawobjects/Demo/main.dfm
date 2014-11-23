@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 259
   Top = 164
   Caption = 'DrawObjectsDemo'
-  ClientHeight = 458
-  ClientWidth = 735
+  ClientHeight = 462
+  ClientWidth = 739
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -24,8 +24,8 @@ object Form1: TForm1
   TextHeight = 15
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 439
-    Width = 735
+    Top = 443
+    Width = 739
     Height = 19
     Panels = <>
     ParentFont = True
@@ -36,8 +36,8 @@ object Form1: TForm1
   object ScrollBox1: TScrollBox
     Left = 0
     Top = 0
-    Width = 735
-    Height = 439
+    Width = 739
+    Height = 443
     Align = alClient
     TabOrder = 1
     OnClick = ScrollBox1Click
@@ -47,8 +47,8 @@ object Form1: TForm1
     object PaintBox1: TPaintBox
       Left = 0
       Top = 0
-      Width = 731
-      Height = 435
+      Width = 735
+      Height = 439
       Align = alClient
       Visible = False
       OnMouseDown = ScrollBox1MouseDown

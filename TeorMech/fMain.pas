@@ -25,10 +25,15 @@ type
     spl1: TSplitter;
     grp2: TGroupBox;
     sbMain: TScrollBox;
+    act2: TAction;
+    act3: TAction;
     procedure pbMainPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure act1Execute(Sender: TObject);
     procedure sbMainClick(Sender: TObject);
+    procedure act2Execute(Sender: TObject);
+    procedure pbMainMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   public
     FObjectList: TDrawObjectList;
   end;
@@ -51,13 +56,38 @@ begin
   vLine.Left := 20;
   vLine.Top := 30;
   FObjectList.Add(vLine);
+end;
 
+procedure TfrmMain.act2Execute(Sender: TObject);
+var
+  vSolidPoint: TSolidPoint;
+  vText: TText;
+begin
+  vSolidPoint := TSolidPoint.Create(self);
+  vSolidPoint.Parent := sbMain;
+  vSolidPoint.Left := 100;
+  vSolidPoint.Top := 200;
+  FObjectList.Add(vSolidPoint);
+  vText := TText.Create(self);
+  vText.Parent := sbMain;
+  vText.Strings.Text := 'A';
+  vText.OwnerObject := vSolidPoint;
+  vText.Left := 100;
+  vText.Top := 200;
+  vText.IsLinkedObjectNeed := True;
+  FObjectList.Add(vText);
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
    pbMain.Canvas.Pen.Color := clSilver;
    FObjectList := TDrawObjectList.Create;
+end;
+
+procedure TfrmMain.pbMainMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+   FObjectList.ClearAllSelection;
 end;
 
 procedure TfrmMain.pbMainPaint(Sender: TObject);

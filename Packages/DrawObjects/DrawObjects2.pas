@@ -249,15 +249,23 @@ type
 
   TText = class(TRectangle)
   private
+    FOwnerBoundsRect: TRect;
+    FOwnerLinkObject: TDrawObject;
+    procedure OnResizeLinkObject(Sender: TObject);
     function GetStrings: TStrings;
     procedure SetStrings(strings: TStrings);
+    procedure SetLinkedObject(AValue: TDrawObject);
   protected
+    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     procedure DrawObject(Canvas: TCanvas; IsShadow: boolean); override;
   public
+    IsLinkedObjectNeed: Boolean;
     constructor Create(AOwner: TComponent); override;
   published
     property Strings: TStrings read GetStrings write SetStrings;
+    property OwnerObject: TDrawObject read FOwnerLinkObject write SetLinkedObject;
   end;
+
 
   TEllipse = class(TSolidWithText)
   private
@@ -3052,6 +3060,7 @@ begin
   ShadowSize := -1;
   DoSaveInfo;
   CanConnect := false;
+  IsLinkedObjectNeed := False;
 end;
 //------------------------------------------------------------------------------
 
@@ -3059,7 +3068,40 @@ function TText.GetStrings: TStrings;
 begin
   result := inherited Strings;
 end;
+procedure TText.Notification(AComponent: TComponent; Operation: TOperation);
+begin
+  inherited;
+  if (AComponent = FOwnerLinkObject) and (Operation = opRemove)  then
+    FOwnerLinkObject := nil;
+end;
+
+procedure TText.OnResizeLinkObject(Sender: TObject);
+var
+  vNewRect: TRect;
+begin
+  if Sender is TDrawObject then
+  begin
+    vNewRect := (Sender as TDrawObject).BoundsRect;
+    self.Top := self.Top + vNewRect.Top - FOwnerBoundsRect.Top;
+    self.Left := self.Left + vNewRect.Left - FOwnerBoundsRect.Left;
+    FOwnerBoundsRect := vNewRect;
+  end;
+end;
+
 //------------------------------------------------------------------------------
+
+procedure TText.SetLinkedObject(AValue: TDrawObject);
+begin
+  FOwnerLinkObject := AValue;
+  if Assigned(FOwnerLinkObject) then
+  begin
+    FOwnerBoundsRect := FOwnerLinkObject.BoundsRect;
+    FOwnerLinkObject.FreeNotification(Self);
+    FOwnerLinkObject.OnResize := OnResizeLinkObject;
+  end;
+  if not Assigned(FOwnerLinkObject) and IsLinkedObjectNeed then
+    Free;
+end;
 
 procedure TText.SetStrings(strings: TStrings);
 begin

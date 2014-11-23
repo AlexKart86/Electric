@@ -132,6 +132,7 @@ type
     property Width default 2;
   end;
 
+
   {:Each object is it's own TGraphicControl to avoid repainting the whole
   drawing surface whenever any object is changed.}
   TDrawObject = class(TGraphicControl)
@@ -158,6 +159,7 @@ type
     fStreamID: string;
     fDataStream: TMemoryStream;
     fFocusChangedEvent: TNotifyEvent;
+    fOnResize: TNotifyEvent;
     procedure WriteBtnData(S : TStream);
     procedure WriteData(S : TStream);
     procedure ReadBtnData(S : TStream);
@@ -257,6 +259,7 @@ type
     {:Moving: differentiates between a move and a resize operation
     and is typically useful when coding an OnMouseMove event.}
     property Moving: boolean read fMoving;
+    property OnResize: TNotifyEvent read fOnResize write fOnResize;
   published
     property ButtonSize: integer read fBtnSize write SetBtnSize;
     property Color read GetColor write SetColor;
@@ -828,6 +831,7 @@ end;
 constructor TDrawObject.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  fOnResize := nil;
   fBitmap := TBitmap.Create;
   fPen := TPenEx.create;
   fPen.Width := 2;
@@ -1173,6 +1177,8 @@ begin
   DoSaveInfo;
   fResizeNeeded := false;
   fUpdateNeeded := true;
+  if Assigned(fOnResize) then
+     fOnResize(Self);
 end;
 //------------------------------------------------------------------------------
 
@@ -2377,7 +2383,7 @@ var
 begin
   //nb: Self.parent needed for ClientToScreen().
   //    (Would normally only get here without a parent while loading.)
-  if not assigned(Parent) then exit;
+   if not assigned(Parent) then exit;
 
   //make sure connection parents are assigned otherwise quit ...
   if (assigned(fConnection1) and not assigned(fConnection1.Parent)) or

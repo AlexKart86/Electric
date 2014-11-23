@@ -583,7 +583,7 @@ var
   drawObj: TDrawObject;
   str: string;
 begin
-  ClearAllDrawObjFocuses;
+   ClearAllDrawObjFocuses;
 
   //create a new DrawObject control ...
   if Sender = actRectangle then
@@ -626,7 +626,7 @@ begin
 
   MakeNameForControl(drawObj);
   drawObj.parent := ScrollBox1;
-  DrawObjLoaded(drawObj);
+ // DrawObjLoaded(drawObj);
   with ScreenToClient(popupPt) do
   begin
     drawObj.Left := X;
@@ -687,10 +687,10 @@ procedure TForm1.DrawObjLoaded(Sender: TObject);
 begin
   with TDrawObject(Sender) do
   begin
-    OnMouseDown := DrawObjMouseDown;
-    OnMouseMove := DrawObjMouseMove;
-    OnMouseUp := DrawObjMouseUp;
-    OnDblClick := DrawObjDblClick;
+   // OnMouseDown := DrawObjMouseDown;
+   // OnMouseMove := DrawObjMouseMove;
+   // OnMouseUp := DrawObjMouseUp;
+   // OnDblClick := DrawObjDblClick;
     CanFocus := not DisableDesigning1.Checked;
     Focused := CanFocus;
     if Sender is TBaseLine then
@@ -1710,6 +1710,7 @@ begin
   if not (ssLeft in Shift) then exit;
   SelectionRec := Rect(X,Y,X,Y);
   DrawFocusRec(SelectionRec);
+
 end;
 //------------------------------------------------------------------------------
 
