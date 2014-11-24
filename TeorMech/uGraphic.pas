@@ -35,12 +35,27 @@ type
   public
     procedure ClearAllSelection;
     constructor Create;
+    procedure GetCaptionForControl(ctrl: TDrawObject);
+    procedure GetNameForControl(ctrl: TDrawObject);
   end;
 
+function RusText(AEngText: String): String;
+
 implementation
-uses Windows;
+uses Windows, SysUtils;
 
 { TDrawObjectList }
+
+function RusText(AEngText: String): String;
+begin
+  if LowerCase(AEngText) = 'tline' then
+    Result := 'Стержень';
+  if LowerCase(AEngText) = 'ttext' then
+    Result := 'Надпись';
+  if LowerCase(AEngText) = 'tsolidpoint' then
+    Result := 'Простой узел';
+
+end;
 
 procedure TDrawObjectList.AddToDragList(AControl: TControl);
 var
@@ -64,6 +79,54 @@ constructor TDrawObjectList.Create;
 begin
   inherited Create;
   FDragObjectList := TDragObjectList.Create;
+end;
+
+procedure TDrawObjectList.GetCaptionForControl(ctrl: TDrawObject);
+var
+  i,j: integer;
+  s: string;
+  vIsFound: Boolean;
+begin
+  vIsFound := False;
+
+  if not assigned(ctrl) or (ctrl.Name <> '') then exit;
+  j := 0;
+  while not vIsFound do
+  begin
+    inc(j);
+    vIsFound := true;
+    for i:= 0 to Count-1  do
+      if SameText(Items[i].Caption, s+IntToStr(j)) then
+      begin
+        vIsFound := false;
+        break;
+      end;
+  end;
+  ctrl.Caption := s+IntToStr(j);
+end;
+
+procedure TDrawObjectList.GetNameForControl(ctrl: TDrawObject);
+var
+  i,j: integer;
+  s: string;
+  vIsFound: Boolean;
+begin
+  vIsFound := False;
+  if not assigned(ctrl) or (ctrl.Name <> '') then exit;
+  s := copy(ctrl.ClassName, 2, 256);
+  j := 0;
+  while not vIsFound do
+  begin
+    inc(j);
+    vIsFound := true;
+    for i:= 0 to Count-1  do
+      if SameText(Items[i].Name, s+IntToStr(j)) then
+      begin
+        vIsFound := false;
+        break;
+      end;
+  end;
+  ctrl.Name := s+IntToStr(j);
 end;
 
 function TDrawObjectList.ConnectorHasStuckEnd(connector: TConnector): boolean;

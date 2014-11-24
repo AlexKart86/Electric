@@ -160,6 +160,7 @@ type
     fDataStream: TMemoryStream;
     fFocusChangedEvent: TNotifyEvent;
     fOnResize: TNotifyEvent;
+    fCaption: String;
     procedure WriteBtnData(S : TStream);
     procedure WriteData(S : TStream);
     procedure ReadBtnData(S : TStream);
@@ -278,6 +279,7 @@ type
     property PopupMenu;
     property Tag;
     property UseHitTest: boolean read fUseHitTest write SetUseHitTest;
+    property Caption: String read fCaption write fCaption;
 
     property OnMouseDown;
     property OnMouseMove;
@@ -1587,6 +1589,7 @@ begin
   AddToPropStrings('ShadowSize', inttostr(ShadowSize));
   AddToPropStrings('Top', inttostr(Top));
   AddToPropStrings('Width', inttostr(Width));
+  AddToPropStrings('Caption', Caption);
   AddToPropStrings('UseHitTest', GetEnumProp(self, 'UseHitTest'));
   if fStreamID <> '' then AddToPropStrings('ObjId', fStreamID);
   if assigned(fDataStream) then ConvertBinaryToText;

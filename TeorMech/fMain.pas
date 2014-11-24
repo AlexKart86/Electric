@@ -8,13 +8,13 @@ uses
   Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls, Vcl.Ribbon,
   Vcl.RibbonLunaStyleActnCtrls, Vcl.ActnList, DBGridEhGrouping, ToolCtrlsEh,
   DBGridEhToolCtrls, DynVarsEh, GridsEh, DBAxisGridsEh, DBGridEh, uGraphic,
-  Vcl.StdCtrls, JvExForms, JvScrollBox;
+  Vcl.StdCtrls, JvExForms, JvScrollBox, Data.DB, MemTableDataEh, MemTableEh;
 
 type
   TfrmMain = class(TForm)
     pbMain: TPaintBox;
     Ribbon1: TRibbon;
-    RibbonPage1: TRibbonPage;
+    rbStructure: TRibbonPage;
     RibbonGroup1: TRibbonGroup;
     RibbonGroup2: TRibbonGroup;
     RibbonPage2: TRibbonPage;
@@ -27,6 +27,11 @@ type
     sbMain: TScrollBox;
     act2: TAction;
     act3: TAction;
+    RibbonPage3: TRibbonPage;
+    RibbonGroup3: TRibbonGroup;
+    dbgrdh1: TDBGridEh;
+    dsObjectList: TDataSource;
+    memObjectList: TMemTableEh;
     procedure pbMainPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure act1Execute(Sender: TObject);

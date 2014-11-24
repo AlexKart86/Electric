@@ -24,35 +24,54 @@ object frmMain: TfrmMain
     ShowHelpButton = False
     Tabs = <
       item
+        Caption = #1060#1072#1081#1083
+        Page = RibbonPage2
+      end
+      item
         Caption = #1050#1086#1085#1089#1090#1088#1091#1082#1094#1080#1103
-        Page = RibbonPage1
+        Page = rbStructure
       end
       item
         Caption = #1053#1072#1075#1088#1091#1079#1082#1072
-        Page = RibbonPage2
+        Page = RibbonPage3
       end>
-    ExplicitWidth = 887
+    TabIndex = 1
     DesignSize = (
       860
       143)
     StyleName = 'Ribbon - Luna'
+    object RibbonPage3: TRibbonPage
+      Left = 0
+      Top = 50
+      Width = 859
+      Height = 93
+      Caption = #1060#1072#1081#1083
+      Index = 2
+    end
     object RibbonPage2: TRibbonPage
       Left = 0
       Top = 50
       Width = 859
       Height = 93
       Caption = #1053#1072#1075#1088#1091#1079#1082#1072
-      Index = 1
-      ExplicitWidth = 886
+      Index = 0
+      object RibbonGroup3: TRibbonGroup
+        Left = 4
+        Top = 3
+        Width = 101
+        Height = 86
+        ActionManager = amMain
+        Caption = #1057#1086#1093#1088#1072#1085#1077#1085#1080#1077
+        GroupIndex = 0
+      end
     end
-    object RibbonPage1: TRibbonPage
+    object rbStructure: TRibbonPage
       Left = 0
       Top = 50
       Width = 859
       Height = 93
       Caption = #1050#1086#1085#1089#1090#1088#1091#1082#1094#1080#1103
-      Index = 0
-      ExplicitWidth = 886
+      Index = 1
       object RibbonGroup1: TRibbonGroup
         Left = 4
         Top = 3
@@ -82,38 +101,57 @@ object frmMain: TfrmMain
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = 632
-    ExplicitHeight = 617
     object spl1: TSplitter
       Left = 0
-      Top = 169
+      Top = 233
       Width = 255
       Height = 5
       Cursor = crVSplit
       Align = alTop
       Color = clHighlight
       ParentColor = False
+      ExplicitTop = 169
     end
     object grp1: TGroupBox
       Left = 0
       Top = 0
       Width = 255
-      Height = 169
+      Height = 233
       Align = alTop
       BiDiMode = bdRightToLeftNoAlign
       Caption = #1057#1087#1080#1089#1086#1082' '#1086#1073#1098#1077#1082#1090#1086#1074
       ParentBiDiMode = False
       TabOrder = 0
+      object dbgrdh1: TDBGridEh
+        Left = 2
+        Top = 18
+        Width = 251
+        Height = 213
+        Align = alClient
+        DataSource = dsObjectList
+        DynProps = <>
+        IndicatorOptions = [gioShowRowIndicatorEh]
+        TabOrder = 0
+        Columns = <
+          item
+            DynProps = <>
+            EditButtons = <>
+            Footers = <>
+          end>
+        object RowDetailData: TRowDetailPanelControlEh
+        end
+      end
     end
     object grp2: TGroupBox
       Left = 0
-      Top = 174
+      Top = 238
       Width = 255
-      Height = 351
+      Height = 287
       Align = alClient
       Caption = #1057#1074#1086#1081#1089#1090#1074#1072' '#1086#1073#1098#1077#1082#1090#1072
       TabOrder = 1
-      ExplicitHeight = 443
+      ExplicitTop = 174
+      ExplicitHeight = 351
     end
   end
   object sbMain: TScrollBox
@@ -124,8 +162,6 @@ object frmMain: TfrmMain
     Align = alClient
     TabOrder = 2
     OnClick = sbMainClick
-    ExplicitWidth = 632
-    ExplicitHeight = 617
     object pbMain: TPaintBox
       Left = 0
       Top = 0
@@ -174,5 +210,15 @@ object frmMain: TfrmMain
     object act3: TAction
       Caption = #1064#1072#1088#1085#1080#1088#1085#1086'-'#1085#1077#1087#1086#1076#1074#1080#1078#1085#1072#1103' '#1086#1087#1086#1088#1072
     end
+  end
+  object dsObjectList: TDataSource
+    DataSet = memObjectList
+    Left = 200
+    Top = 408
+  end
+  object memObjectList: TMemTableEh
+    Params = <>
+    Left = 696
+    Top = 448
   end
 end
