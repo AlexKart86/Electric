@@ -35,19 +35,11 @@ object frmMain: TfrmMain
         Caption = #1053#1072#1075#1088#1091#1079#1082#1072
         Page = RibbonPage3
       end>
-    TabIndex = 1
+    TabIndex = 2
     DesignSize = (
       860
       143)
     StyleName = 'Ribbon - Luna'
-    object RibbonPage3: TRibbonPage
-      Left = 0
-      Top = 50
-      Width = 859
-      Height = 93
-      Caption = #1060#1072#1081#1083
-      Index = 2
-    end
     object RibbonPage2: TRibbonPage
       Left = 0
       Top = 50
@@ -91,6 +83,14 @@ object frmMain: TfrmMain
         GroupIndex = 1
       end
     end
+    object RibbonPage3: TRibbonPage
+      Left = 0
+      Top = 50
+      Width = 859
+      Height = 93
+      Caption = #1060#1072#1081#1083
+      Index = 2
+    end
   end
   object pnl1: TPanel
     Left = 605
@@ -122,12 +122,13 @@ object frmMain: TfrmMain
       Caption = #1057#1087#1080#1089#1086#1082' '#1086#1073#1098#1077#1082#1090#1086#1074
       ParentBiDiMode = False
       TabOrder = 0
-      object dbgrdh1: TDBGridEh
+      object dbgObjectList: TDBGridEh
         Left = 2
         Top = 18
         Width = 251
         Height = 213
         Align = alClient
+        AutoFitColWidths = True
         DataSource = dsObjectList
         DynProps = <>
         IndicatorOptions = [gioShowRowIndicatorEh]
@@ -136,7 +137,17 @@ object frmMain: TfrmMain
           item
             DynProps = <>
             EditButtons = <>
+            FieldName = 'CONTROL_NAME'
             Footers = <>
+            Width = 122
+          end
+          item
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'CONTROL_TYPE'
+            Footers = <>
+            ReadOnly = True
+            Width = 79
           end>
         object RowDetailData: TRowDetailPanelControlEh
         end
@@ -150,8 +161,8 @@ object frmMain: TfrmMain
       Align = alClient
       Caption = #1057#1074#1086#1081#1089#1090#1074#1072' '#1086#1073#1098#1077#1082#1090#1072
       TabOrder = 1
-      ExplicitTop = 174
-      ExplicitHeight = 351
+      ExplicitLeft = 4
+      ExplicitTop = 239
     end
   end
   object sbMain: TScrollBox
@@ -218,7 +229,21 @@ object frmMain: TfrmMain
   end
   object memObjectList: TMemTableEh
     Params = <>
-    Left = 696
-    Top = 448
+    OnCalcFields = memObjectListCalcFields
+    Left = 480
+    Top = 296
+    object memObjectListCONTROL_NAME: TStringField
+      DisplayLabel = #1053#1072#1079#1074#1072#1085#1080#1077
+      FieldName = 'CONTROL_NAME'
+      Size = 300
+    end
+    object memObjectListCONTROL_TYPE: TStringField
+      DisplayLabel = #1058#1080#1087
+      FieldName = 'CONTROL_TYPE'
+      Size = 300
+    end
+    object memObjectListOBJECT: TRefObjectField
+      FieldName = 'OBJECT'
+    end
   end
 end

@@ -29,9 +29,12 @@ type
     act3: TAction;
     RibbonPage3: TRibbonPage;
     RibbonGroup3: TRibbonGroup;
-    dbgrdh1: TDBGridEh;
+    dbgObjectList: TDBGridEh;
     dsObjectList: TDataSource;
     memObjectList: TMemTableEh;
+    memObjectListCONTROL_NAME: TStringField;
+    memObjectListCONTROL_TYPE: TStringField;
+    memObjectListOBJECT: TRefObjectField;
     procedure pbMainPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure act1Execute(Sender: TObject);
@@ -39,8 +42,10 @@ type
     procedure act2Execute(Sender: TObject);
     procedure pbMainMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure memObjectListCalcFields(DataSet: TDataSet);
   public
     FObjectList: TDrawObjectList;
+    procedure ReloadControlList;
   end;
 
 var
@@ -61,6 +66,7 @@ begin
   vLine.Left := 20;
   vLine.Top := 30;
   FObjectList.Add(vLine);
+  ReloadControlList;
 end;
 
 procedure TfrmMain.act2Execute(Sender: TObject);
@@ -81,12 +87,21 @@ begin
   vText.Top := 200;
   vText.IsLinkedObjectNeed := True;
   FObjectList.Add(vText);
+  ReloadControlList;
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
-   pbMain.Canvas.Pen.Color := clSilver;
-   FObjectList := TDrawObjectList.Create;
+  pbMain.Canvas.Pen.Color := clSilver;
+  FObjectList := TDrawObjectList.Create;
+  memObjectList.CreateDataSet;
+  memObjectList.Open;
+end;
+
+procedure TfrmMain.memObjectListCalcFields(DataSet: TDataSet);
+begin
+  memObjectListCONTROL_NAME.Value :=  TDrawObject(memObjectListOBJECT).Caption;
+  memObjectListCONTROL_TYPE.Value := RusText(memObjectListOBJECT.ClassName);
 end;
 
 procedure TfrmMain.pbMainMouseDown(Sender: TObject; Button: TMouseButton;
@@ -112,6 +127,22 @@ begin
       canvas.LineTo(width,i*cnstGridSize);
     end;
   end;
+end;
+
+procedure TfrmMain.ReloadControlList;
+var
+  i: Integer;
+begin
+  memObjectList.EmptyTable;
+  for i := 0 to FObjectList.Count-1 do
+  begin
+    memObjectList.Insert;
+    memObjectListCONTROL_NAME.Value := FObjectList.Items[i].Caption;
+    memObjectListCONTROL_TYPE.Value := RusText(FObjectList.Items[i].ClassName);
+    memObjectListOBJECT.Value := FObjectList.Items[i];
+    memObjectList.Post;
+  end;
+
 end;
 
 procedure TfrmMain.sbMainClick(Sender: TObject);

@@ -49,11 +49,13 @@ uses Windows, SysUtils;
 function RusText(AEngText: String): String;
 begin
   if LowerCase(AEngText) = 'tline' then
-    Result := 'Стержень';
-  if LowerCase(AEngText) = 'ttext' then
-    Result := 'Надпись';
-  if LowerCase(AEngText) = 'tsolidpoint' then
-    Result := 'Простой узел';
+    Result := 'Стержень'
+  else if LowerCase(AEngText) = 'ttext' then
+    Result := 'Надпись'
+  else if LowerCase(AEngText) = 'tsolidpoint' then
+    Result := 'Простой узел'
+  else
+    Result := AEngText;
 
 end;
 
@@ -88,8 +90,8 @@ var
   vIsFound: Boolean;
 begin
   vIsFound := False;
-
-  if not assigned(ctrl) or (ctrl.Name <> '') then exit;
+  if not assigned(ctrl) or (ctrl.Caption <> '') then exit;
+  s := RusText(ctrl.ClassName);
   j := 0;
   while not vIsFound do
   begin
@@ -195,6 +197,8 @@ begin
     Value.OnMouseDown := ItemMouseDown;
     Value.OnMouseMove := ItemMouseMove;
     Value.OnMouseUp := ItemMouseUp;
+    GetNameForControl(Value);
+    GetCaptionForControl(Value);
   end;
 end;
 
