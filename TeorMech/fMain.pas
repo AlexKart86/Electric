@@ -35,6 +35,11 @@ type
     memObjectListCONTROL_NAME: TStringField;
     memObjectListCONTROL_TYPE: TStringField;
     memObjectListOBJECT: TRefObjectField;
+    acSave: TAction;
+    dlgSave: TSaveDialog;
+    actLoadFromFile: TAction;
+    RibbonGroup4: TRibbonGroup;
+    dlgOpen: TOpenDialog;
     procedure pbMainPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure act1Execute(Sender: TObject);
@@ -43,6 +48,8 @@ type
     procedure pbMainMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure memObjectListCalcFields(DataSet: TDataSet);
+    procedure acSaveExecute(Sender: TObject);
+    procedure actLoadFromFileExecute(Sender: TObject);
   public
     FObjectList: TDrawObjectList;
     procedure ReloadControlList;
@@ -56,6 +63,12 @@ const
   cnstGridSize = 10;
 
 {$R *.dfm}
+
+procedure TfrmMain.acSaveExecute(Sender: TObject);
+begin
+  if dlgSave.Execute then
+     FObjectList.SaveToFile(dlgSave.FileName);
+end;
 
 procedure TfrmMain.act1Execute(Sender: TObject);
 var
@@ -88,6 +101,16 @@ begin
   vText.IsLinkedObjectNeed := True;
   FObjectList.Add(vText);
   ReloadControlList;
+end;
+
+procedure TfrmMain.actLoadFromFileExecute(Sender: TObject);
+begin
+  if dlgOpen.Execute then
+  begin
+    FObjectList.LoadFromFile(dlgOpen.FileName, self, sbMain);
+    ReloadControlList;
+  end;
+
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);

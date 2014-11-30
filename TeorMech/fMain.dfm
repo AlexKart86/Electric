@@ -35,27 +35,17 @@ object frmMain: TfrmMain
         Caption = #1053#1072#1075#1088#1091#1079#1082#1072
         Page = RibbonPage3
       end>
-    TabIndex = 2
     DesignSize = (
       860
       143)
     StyleName = 'Ribbon - Luna'
-    object RibbonPage2: TRibbonPage
+    object RibbonPage3: TRibbonPage
       Left = 0
       Top = 50
       Width = 859
       Height = 93
-      Caption = #1053#1072#1075#1088#1091#1079#1082#1072
-      Index = 0
-      object RibbonGroup3: TRibbonGroup
-        Left = 4
-        Top = 3
-        Width = 101
-        Height = 86
-        ActionManager = amMain
-        Caption = #1057#1086#1093#1088#1072#1085#1077#1085#1080#1077
-        GroupIndex = 0
-      end
+      Caption = #1060#1072#1081#1083
+      Index = 2
     end
     object rbStructure: TRibbonPage
       Left = 0
@@ -83,13 +73,31 @@ object frmMain: TfrmMain
         GroupIndex = 1
       end
     end
-    object RibbonPage3: TRibbonPage
+    object RibbonPage2: TRibbonPage
       Left = 0
       Top = 50
       Width = 859
       Height = 93
-      Caption = #1060#1072#1081#1083
-      Index = 2
+      Caption = #1053#1072#1075#1088#1091#1079#1082#1072
+      Index = 0
+      object RibbonGroup3: TRibbonGroup
+        Left = 4
+        Top = 3
+        Width = 125
+        Height = 86
+        ActionManager = amMain
+        Caption = #1057#1086#1093#1088#1072#1085#1077#1085#1080#1077
+        GroupIndex = 0
+      end
+      object RibbonGroup4: TRibbonGroup
+        Left = 131
+        Top = 3
+        Width = 134
+        Height = 86
+        ActionManager = amMain
+        Caption = #1047#1072#1075#1088#1091#1079#1082#1072
+        GroupIndex = 1
+      end
     end
   end
   object pnl1: TPanel
@@ -161,8 +169,6 @@ object frmMain: TfrmMain
       Align = alClient
       Caption = #1057#1074#1086#1081#1089#1090#1074#1072' '#1086#1073#1098#1077#1082#1090#1072
       TabOrder = 1
-      ExplicitLeft = 4
-      ExplicitTop = 239
     end
   end
   object sbMain: TScrollBox
@@ -181,8 +187,7 @@ object frmMain: TfrmMain
       Align = alClient
       OnMouseDown = pbMainMouseDown
       OnPaint = pbMainPaint
-      ExplicitLeft = -32
-      ExplicitTop = -16
+      ExplicitLeft = 3
     end
   end
   object amMain: TActionManager
@@ -204,8 +209,27 @@ object frmMain: TfrmMain
           end
           item
             Action = act3
+          end
+          item
+            Caption = '&ActionToolBar1'
           end>
         ActionBar = RibbonGroup2
+      end
+      item
+      end
+      item
+        Items = <
+          item
+            Action = acSave
+          end>
+        ActionBar = RibbonGroup3
+      end
+      item
+        Items = <
+          item
+            Action = actLoadFromFile
+          end>
+        ActionBar = RibbonGroup4
       end>
     Left = 256
     Top = 328
@@ -220,6 +244,16 @@ object frmMain: TfrmMain
     end
     object act3: TAction
       Caption = #1064#1072#1088#1085#1080#1088#1085#1086'-'#1085#1077#1087#1086#1076#1074#1080#1078#1085#1072#1103' '#1086#1087#1086#1088#1072
+    end
+    object acSave: TAction
+      Category = 'SaveLoadCategory'
+      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074' '#1092#1072#1081#1083
+      OnExecute = acSaveExecute
+    end
+    object actLoadFromFile: TAction
+      Category = 'SaveLoadCategory'
+      Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '#1080#1079' '#1092#1072#1081#1083#1072
+      OnExecute = actLoadFromFileExecute
     end
   end
   object dsObjectList: TDataSource
@@ -245,5 +279,19 @@ object frmMain: TfrmMain
     object memObjectListOBJECT: TRefObjectField
       FieldName = 'OBJECT'
     end
+  end
+  object dlgSave: TSaveDialog
+    DefaultExt = 'dob'
+    Filter = 'DrawObject Files|*.dob'
+    Options = [ofOverwritePrompt, ofHideReadOnly, ofEnableSizing]
+    Left = 112
+    Top = 296
+  end
+  object dlgOpen: TOpenDialog
+    DefaultExt = 'dob'
+    Filter = 'DrawObject Files|*.dob'
+    Options = [ofHideReadOnly, ofFileMustExist, ofEnableSizing]
+    Left = 104
+    Top = 224
   end
 end

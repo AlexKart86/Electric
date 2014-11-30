@@ -24,6 +24,7 @@ type
   private
     startDragPt: TPoint;
     FDragObjectList: TDragObjectList;
+    procedure OnObjectLoadedFromFile(AObject: TObject);
   protected
     function  ConnectorHasStuckEnd(connector: TConnector): boolean;
     procedure AddToDragList(AControl: TControl);
@@ -35,8 +36,11 @@ type
   public
     procedure ClearAllSelection;
     constructor Create;
+    procedure ClearObjects;
     procedure GetCaptionForControl(ctrl: TDrawObject);
     procedure GetNameForControl(ctrl: TDrawObject);
+    procedure SaveToFile(AFileName: String);
+    procedure LoadFromFile(AFileName: String; AOwner: TComponent; AParent: TWinControl);
   end;
 
 function RusText(AEngText: String): String;
@@ -75,6 +79,16 @@ var
 begin
   for i:=0 to Count-1 do
     Items[i].Focused := False;
+end;
+
+procedure TDrawObjectList.ClearObjects;
+var
+  i: Integer;
+begin
+  {for i := 0 to Count-1 do
+    Items[i].Free;}
+  Clear;
+  FDragObjectList.Clear;
 end;
 
 constructor TDrawObjectList.Create;
@@ -188,6 +202,24 @@ begin
   FDragObjectList.Clear;
 end;
 
+procedure TDrawObjectList.LoadFromFile(AFileName: String; AOwner: TComponent; AParent: TWinControl);
+var
+  i: Integer;
+  strings: TStringList;
+begin
+  //first clear existing objects ...
+  ClearObjects;
+
+  //now load new objects from file ...
+  strings := TStringList.Create;
+  try
+    strings.LoadFromFile(AFileName);
+    DrawObjects1.LoadDrawObjectsFromStrings(strings, AOwner, AParent, OnObjectLoadedFromFile);
+  finally
+    strings.Free;
+  end;
+end;
+
 procedure TDrawObjectList.Notify(const Value: TDrawObject;
   Action: TCollectionNotification);
 begin
@@ -199,6 +231,31 @@ begin
     Value.OnMouseUp := ItemMouseUp;
     GetNameForControl(Value);
     GetCaptionForControl(Value);
+  end;
+end;
+
+procedure TDrawObjectList.OnObjectLoadedFromFile(AObject: TObject);
+begin
+  if AObject is TDrawObject then
+    Add(TDrawObject(AObject));
+end;
+
+procedure TDrawObjectList.SaveToFile(AFileName: String);
+var
+  i: integer;
+  saveList: TList;
+  strings: TStringList;
+begin
+  saveList := TList.Create;
+  strings := TStringList.Create;
+  try
+    for i := 0 to Count-1 do
+      saveList.Add(Items[i]);
+    DrawObjects1.SaveDrawObjectsToStrings(saveList, strings);
+    strings.SaveToFile(AFileName);
+  finally
+    saveList.Free;
+    strings.Free;
   end;
 end;
 
