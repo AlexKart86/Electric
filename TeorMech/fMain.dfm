@@ -12,6 +12,7 @@ object frmMain: TfrmMain
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 16
   object Ribbon1: TRibbon
@@ -166,7 +167,7 @@ object frmMain: TfrmMain
         end
       end
     end
-    object grp2: TGroupBox
+    object gbObjectInspector: TGroupBox
       Left = 0
       Top = 238
       Width = 255
@@ -174,6 +175,8 @@ object frmMain: TfrmMain
       Align = alClient
       Caption = #1057#1074#1086#1081#1089#1090#1074#1072' '#1086#1073#1098#1077#1082#1090#1072
       TabOrder = 1
+      ExplicitLeft = 4
+      ExplicitTop = 239
     end
   end
   object sbMain: TScrollBox

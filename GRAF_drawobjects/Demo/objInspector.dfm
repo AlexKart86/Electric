@@ -27,7 +27,6 @@ object ObjInspectForm: TObjInspectForm
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 320
     object eComponentInfo: TEdit
       Left = 8
       Top = 6
@@ -63,7 +62,6 @@ object ObjInspectForm: TObjInspectForm
     OnKeyPress = vleKeyPress
     OnSetEditText = vleSetEditText
     OnValidate = vleValidate
-    ExplicitWidth = 320
     ColWidths = (
       160
       148)
@@ -76,7 +74,6 @@ object ObjInspectForm: TObjInspectForm
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitWidth = 320
   end
   object FontDialog1: TFontDialog
     Font.Charset = DEFAULT_CHARSET

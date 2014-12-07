@@ -8,7 +8,7 @@ uses
   Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls, Vcl.Ribbon,
   Vcl.RibbonLunaStyleActnCtrls, Vcl.ActnList, DBGridEhGrouping, ToolCtrlsEh,
   DBGridEhToolCtrls, DynVarsEh, GridsEh, DBAxisGridsEh, DBGridEh, uGraphic,
-  Vcl.StdCtrls, JvExForms, JvScrollBox, Data.DB, MemTableDataEh, MemTableEh;
+  Vcl.StdCtrls, JvExForms, JvScrollBox, Data.DB, MemTableDataEh, MemTableEh, objInspector;
 
 type
   TfrmMain = class(TForm)
@@ -23,7 +23,7 @@ type
     pnl1: TPanel;
     grp1: TGroupBox;
     spl1: TSplitter;
-    grp2: TGroupBox;
+    gbObjectInspector: TGroupBox;
     sbMain: TScrollBox;
     act2: TAction;
     act3: TAction;
@@ -50,6 +50,7 @@ type
     procedure acSaveExecute(Sender: TObject);
     procedure actLoadFromFileExecute(Sender: TObject);
     procedure dbgObjectListCellClick(Column: TColumnEh);
+    procedure FormShow(Sender: TObject);
   private
     FLockChangeMemSelection: Boolean;
   public
@@ -99,6 +100,8 @@ begin
   vText := TText.Create(self);
   vText.Strings.Text := 'A';
   vText.OwnerObject := vSolidPoint;
+  vText.Width := 50;
+  vText.Height := 50;
   vText.Left := 100;
   vText.Top := 200;
   vText.IsLinkedObjectNeed := True;
@@ -143,6 +146,7 @@ begin
     memObjectList.GotoBookmark(vBookMark);
     memObjectList.EnableControls;
   end;
+  ObjInspectForm.AssignObj(TComponent(memObjectListOBJECT.Value), []);
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
@@ -152,6 +156,14 @@ begin
   FObjectList := TDrawObjectList.Create;
   memObjectList.CreateDataSet;
   memObjectList.Open;
+
+end;
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+  ObjInspectForm.Parent := gbObjectInspector;
+  ObjInspectForm.Visible := True;
+  ObjInspectForm.Align := alClient;
 end;
 
 procedure TfrmMain.OnChangeFocus(Sender: TObject);
