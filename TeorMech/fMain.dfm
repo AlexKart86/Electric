@@ -35,17 +35,37 @@ object frmMain: TfrmMain
         Caption = #1053#1072#1075#1088#1091#1079#1082#1072
         Page = RibbonPage3
       end>
+    TabIndex = 2
+    ExplicitTop = -4
     DesignSize = (
       860
       143)
     StyleName = 'Ribbon - Luna'
-    object RibbonPage3: TRibbonPage
+    object RibbonPage2: TRibbonPage
       Left = 0
       Top = 50
       Width = 859
       Height = 93
-      Caption = #1060#1072#1081#1083
-      Index = 2
+      Caption = #1053#1072#1075#1088#1091#1079#1082#1072
+      Index = 0
+      object RibbonGroup3: TRibbonGroup
+        Left = 4
+        Top = 3
+        Width = 125
+        Height = 86
+        ActionManager = amMain
+        Caption = #1057#1086#1093#1088#1072#1085#1077#1085#1080#1077
+        GroupIndex = 0
+      end
+      object RibbonGroup4: TRibbonGroup
+        Left = 131
+        Top = 3
+        Width = 134
+        Height = 86
+        ActionManager = amMain
+        Caption = #1047#1072#1075#1088#1091#1079#1082#1072
+        GroupIndex = 1
+      end
     end
     object rbStructure: TRibbonPage
       Left = 0
@@ -73,31 +93,13 @@ object frmMain: TfrmMain
         GroupIndex = 1
       end
     end
-    object RibbonPage2: TRibbonPage
+    object RibbonPage3: TRibbonPage
       Left = 0
       Top = 50
       Width = 859
       Height = 93
-      Caption = #1053#1072#1075#1088#1091#1079#1082#1072
-      Index = 0
-      object RibbonGroup3: TRibbonGroup
-        Left = 4
-        Top = 3
-        Width = 125
-        Height = 86
-        ActionManager = amMain
-        Caption = #1057#1086#1093#1088#1072#1085#1077#1085#1080#1077
-        GroupIndex = 0
-      end
-      object RibbonGroup4: TRibbonGroup
-        Left = 131
-        Top = 3
-        Width = 134
-        Height = 86
-        ActionManager = amMain
-        Caption = #1047#1072#1075#1088#1091#1079#1082#1072
-        GroupIndex = 1
-      end
+      Caption = #1060#1072#1081#1083
+      Index = 2
     end
   end
   object pnl1: TPanel
@@ -136,11 +138,14 @@ object frmMain: TfrmMain
         Width = 251
         Height = 213
         Align = alClient
+        AllowedSelections = [gstRecordBookmarks]
         AutoFitColWidths = True
         DataSource = dsObjectList
         DynProps = <>
         IndicatorOptions = [gioShowRowIndicatorEh]
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
         TabOrder = 0
+        OnCellClick = dbgObjectListCellClick
         Columns = <
           item
             DynProps = <>
@@ -263,7 +268,6 @@ object frmMain: TfrmMain
   end
   object memObjectList: TMemTableEh
     Params = <>
-    OnCalcFields = memObjectListCalcFields
     Left = 480
     Top = 296
     object memObjectListCONTROL_NAME: TStringField

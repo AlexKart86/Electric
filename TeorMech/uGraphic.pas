@@ -18,6 +18,7 @@ type
 
 
   TDragObjectList = class(TList<TDragListRec>);
+//  TSetParamsForNewItemProc = procedure
 
 
   TDrawObjectList = class(TObjectList<TDrawObject>)
@@ -25,6 +26,7 @@ type
     startDragPt: TPoint;
     FDragObjectList: TDragObjectList;
     procedure OnObjectLoadedFromFile(AObject: TObject);
+
   protected
     function  ConnectorHasStuckEnd(connector: TConnector): boolean;
     procedure AddToDragList(AControl: TControl);
@@ -41,6 +43,7 @@ type
     procedure GetNameForControl(ctrl: TDrawObject);
     procedure SaveToFile(AFileName: String);
     procedure LoadFromFile(AFileName: String; AOwner: TComponent; AParent: TWinControl);
+    procedure ActivateControl(AControl: TDrawObject);
   end;
 
 function RusText(AEngText: String): String;
@@ -61,6 +64,13 @@ begin
   else
     Result := AEngText;
 
+end;
+
+procedure TDrawObjectList.ActivateControl(AControl: TDrawObject);
+begin
+  ClearAllSelection;
+  if Assigned(AControl) then
+    AControl.Focused := True;
 end;
 
 procedure TDrawObjectList.AddToDragList(AControl: TControl);

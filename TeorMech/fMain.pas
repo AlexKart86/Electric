@@ -47,11 +47,15 @@ type
     procedure act2Execute(Sender: TObject);
     procedure pbMainMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure memObjectListCalcFields(DataSet: TDataSet);
     procedure acSaveExecute(Sender: TObject);
     procedure actLoadFromFileExecute(Sender: TObject);
+    procedure dbgObjectListCellClick(Column: TColumnEh);
+  private
+    FLockChangeMemSelection: Boolean;
   public
     FObjectList: TDrawObjectList;
+    procedure SetParamsForNewItem(AItem: TDrawObject);
+    procedure OnChangeFocus(Sender: TObject);
     procedure ReloadControlList;
   end;
 
@@ -75,9 +79,9 @@ var
   vLine: Tline;
 begin
   vLine := TLine.Create(self);
-  vLine.Parent := sbMain;
   vLine.Left := 20;
   vLine.Top := 30;
+  SetParamsForNewItem(vLine);
   FObjectList.Add(vLine);
   ReloadControlList;
 end;
@@ -88,43 +92,94 @@ var
   vText: TText;
 begin
   vSolidPoint := TSolidPoint.Create(self);
-  vSolidPoint.Parent := sbMain;
   vSolidPoint.Left := 100;
   vSolidPoint.Top := 200;
+  SetParamsForNewItem(vSolidPoint);
   FObjectList.Add(vSolidPoint);
   vText := TText.Create(self);
-  vText.Parent := sbMain;
   vText.Strings.Text := 'A';
   vText.OwnerObject := vSolidPoint;
   vText.Left := 100;
   vText.Top := 200;
   vText.IsLinkedObjectNeed := True;
+  SetParamsForNewItem(vText);
   FObjectList.Add(vText);
   ReloadControlList;
 end;
 
 procedure TfrmMain.actLoadFromFileExecute(Sender: TObject);
+var
+ i: Integer;
 begin
   if dlgOpen.Execute then
   begin
     FObjectList.LoadFromFile(dlgOpen.FileName, self, sbMain);
     ReloadControlList;
+    for i:=0 to FObjectList.Count-1 do
+      SetParamsForNewItem(FObjectList.Items[i]);
   end;
+end;
 
+procedure TfrmMain.dbgObjectListCellClick(Column: TColumnEh);
+var i: Integer;
+    vBookMark: TBookmark;
+begin
+  FLockChangeMemSelection := True;
+  vBookMark := memObjectList.GetBookmark;
+  memObjectList.DisableControls;
+  try
+    FObjectList.ClearAllSelection;
+    if dbgObjectList.SelectedRows.Count = 0 then
+    begin
+      dbgObjectList.SelectedRows.CurrentRowSelected := True;
+    end;
+    for i := 0 to dbgObjectList.SelectedRows.Count-1 do
+    begin
+      memObjectList.GotoBookmark(dbgObjectList.SelectedRows[i]);
+      TDrawObject(memObjectListOBJECT.Value).Focused := True;
+    end;
+  finally
+    FLockChangeMemSelection := False;
+    memObjectList.GotoBookmark(vBookMark);
+    memObjectList.EnableControls;
+  end;
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   pbMain.Canvas.Pen.Color := clSilver;
+  FLockChangeMemSelection := False;
   FObjectList := TDrawObjectList.Create;
   memObjectList.CreateDataSet;
   memObjectList.Open;
 end;
 
-procedure TfrmMain.memObjectListCalcFields(DataSet: TDataSet);
+procedure TfrmMain.OnChangeFocus(Sender: TObject);
+var
+  vBookMark: TBookmark;
 begin
-  memObjectListCONTROL_NAME.Value :=  TDrawObject(memObjectListOBJECT).Caption;
-  memObjectListCONTROL_TYPE.Value := RusText(memObjectListOBJECT.ClassName);
+ if FLockChangeMemSelection then
+   Exit;
+  dbgObjectList.SelectedRows.Clear;
+  vBookmark :=  memObjectList.GetBookmark;
+  memObjectList.DisableControls;
+  try
+    memObjectList.First;
+    while not memObjectList.Eof do
+    begin
+      if TDrawObject(memObjectListOBJECT.Value).Focused then
+        dbgObjectList.SelectedRows.InsertItem(dbgObjectList.SelectedRows.Count, memObjectList.GetBookmark);
+      memObjectList.Next;
+    end;
+
+  finally
+    if dbgObjectList.SelectedRows.Count > 0 then
+      memObjectList.GotoBookmark(dbgObjectList.SelectedRows[0])
+    else
+      memObjectList.GotoBookmark(vBookMark);
+    memObjectList.EnableControls;
+  end;
+
 end;
 
 procedure TfrmMain.pbMainMouseDown(Sender: TObject; Button: TMouseButton;
@@ -165,12 +220,17 @@ begin
     memObjectListOBJECT.Value := FObjectList.Items[i];
     memObjectList.Post;
   end;
-
 end;
 
 procedure TfrmMain.sbMainClick(Sender: TObject);
 begin
   FObjectList.ClearAllSelection;
+end;
+
+procedure TfrmMain.SetParamsForNewItem(AItem: TDrawObject);
+begin
+  AItem.Parent := sbMain;
+  AItem.FocusChangedEvent := OnChangeFocus;
 end;
 
 end.
