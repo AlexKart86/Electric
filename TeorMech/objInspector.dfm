@@ -3,8 +3,8 @@ object ObjInspectForm: TObjInspectForm
   Top = 182
   BorderStyle = bsNone
   Caption = 'Object Inspector'
-  ClientHeight = 646
-  ClientWidth = 253
+  ClientHeight = 639
+  ClientWidth = 260
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -21,8 +21,8 @@ object ObjInspectForm: TObjInspectForm
   object vle: TValueListEditor
     Left = 0
     Top = 0
-    Width = 253
-    Height = 639
+    Width = 260
+    Height = 632
     Align = alClient
     Color = clBtnFace
     DefaultColWidth = 120
@@ -30,25 +30,26 @@ object ObjInspectForm: TObjInspectForm
     DisplayOptions = [doAutoColResize, doKeyColFixed]
     FixedCols = 1
     TabOrder = 0
+    OnDrawCell = vleDrawCell
     OnEditButtonClick = vleEditButtonClick
     OnKeyPress = vleKeyPress
     OnSetEditText = vleSetEditText
     OnValidate = vleValidate
-    ExplicitWidth = 289
+    ExplicitTop = -1
     ColWidths = (
       120
-      127)
+      134)
+    RowHeights = (
+      20)
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 639
-    Width = 253
+    Top = 632
+    Width = 260
     Height = 7
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 615
-    ExplicitWidth = 314
   end
   object FontDialog1: TFontDialog
     Font.Charset = DEFAULT_CHARSET

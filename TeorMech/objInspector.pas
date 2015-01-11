@@ -40,6 +40,8 @@ type
       const Value: String);
     procedure FormDeactivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure vleDrawCell(Sender: TObject; ACol, ARow: Integer; Rect: TRect;
+      State: TGridDrawState);
   private
     fObj: TComponent;
     fPropList: TStringlist;
@@ -60,7 +62,7 @@ var
 
 implementation
 
-uses TypInfo;
+uses TypInfo, uGraphic;
 
 {$R *.dfm}
 
@@ -176,9 +178,18 @@ var
 begin
   fObj := Obj;
   if not assigned(fObj) then exit;
+
+
+  if Length(IgnoreProperties) = 0 then
+  begin
+
+  end;
+
   for i := low(IgnoreProperties) to high(IgnoreProperties) do
     fExcludList.Add(IgnoreProperties[i]);
   Initialize;
+
+
   {with vle do
     self.ClientHeight := min(MAX_CLIENT_HEIGHT, RowCount *
       (DefaultRowHeight + GridLineWidth) + pnlTop.Height + pnlBottom.Height + 4);}
@@ -360,7 +371,8 @@ begin
     try
       GetPropInfos(fObj.ClassInfo, pp);
       for i :=0 to pt^.PropCount-1 do
-        if fExcludList.IndexOf(pp^[i].Name) < 0 then fPropList.Add(pp^[i].Name);
+        if (fExcludList.IndexOf(pp^[i].Name) < 0) { and
+            (RusText(pp^[i].Name) <> pp^[i].Name)}  then fPropList.Add(pp^[i].Name);
       fPropList.Sort;
     finally
       FreeMem(pp);
@@ -478,6 +490,20 @@ begin
   end;
 end;
 //------------------------------------------------------------------------------
+
+procedure TObjInspectForm.vleDrawCell(Sender: TObject; ACol, ARow: Integer;
+  Rect: TRect; State: TGridDrawState);
+var
+  vCanvas: TCanvas;
+begin
+  if ACol = 0 then
+  begin
+    vCanvas := vle.Canvas;
+    vCanvas.Brush.Color := clBtnFace;
+    vCanvas.FillRect(Rect);
+    vCanvas.TextOut(Rect.Left + 2, Rect.Top + 2, RusText(vle.Keys[ARow]));
+  end;
+end;
 
 procedure TObjInspectForm.vleEditButtonClick(Sender: TObject);
 var

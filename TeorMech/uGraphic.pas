@@ -61,10 +61,19 @@ begin
     Result := 'Надпись'
   else if LowerCase(AEngText) = 'tsolidpoint' then
     Result := 'Простой узел'
+  else if LowerCase(AEngText) = 'font' then
+    Result := 'Шрифт'
+  else if LowerCase(AEngText) = 'color' then
+    Result := 'Цвет'
+  else if LowerCase(AEngText) = 'height' then
+    Result := 'Высота'
+  else if LowerCase(AEngText) = 'width' then
+    Result := 'Ширина'
   else
     Result := AEngText;
 
 end;
+
 
 procedure TDrawObjectList.ActivateControl(AControl: TDrawObject);
 begin

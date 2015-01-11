@@ -40,6 +40,7 @@ type
     actLoadFromFile: TAction;
     RibbonGroup4: TRibbonGroup;
     dlgOpen: TOpenDialog;
+    Splitter1: TSplitter;
     procedure pbMainPaint(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure act1Execute(Sender: TObject);

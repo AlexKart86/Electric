@@ -15,6 +15,16 @@ object frmMain: TfrmMain
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 16
+  object Splitter1: TSplitter
+    Left = 601
+    Top = 143
+    Width = 4
+    Height = 525
+    Align = alRight
+    Color = clBlue
+    ParentColor = False
+    ExplicitLeft = 602
+  end
   object Ribbon1: TRibbon
     Left = 0
     Top = 0
@@ -37,7 +47,6 @@ object frmMain: TfrmMain
         Page = RibbonPage3
       end>
     TabIndex = 2
-    ExplicitTop = -4
     DesignSize = (
       860
       143)
@@ -175,27 +184,27 @@ object frmMain: TfrmMain
       Align = alClient
       Caption = #1057#1074#1086#1081#1089#1090#1074#1072' '#1086#1073#1098#1077#1082#1090#1072
       TabOrder = 1
-      ExplicitLeft = 4
-      ExplicitTop = 239
     end
   end
   object sbMain: TScrollBox
     Left = 0
     Top = 143
-    Width = 605
+    Width = 601
     Height = 525
     Align = alClient
     TabOrder = 2
     OnClick = sbMainClick
+    ExplicitWidth = 605
     object pbMain: TPaintBox
       Left = 0
       Top = 0
-      Width = 601
+      Width = 597
       Height = 521
       Align = alClient
       OnMouseDown = pbMainMouseDown
       OnPaint = pbMainPaint
       ExplicitLeft = 3
+      ExplicitWidth = 601
     end
   end
   object amMain: TActionManager
