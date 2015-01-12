@@ -35,7 +35,6 @@ object ObjInspectForm: TObjInspectForm
     OnKeyPress = vleKeyPress
     OnSetEditText = vleSetEditText
     OnValidate = vleValidate
-    ExplicitTop = -1
     ColWidths = (
       120
       134)

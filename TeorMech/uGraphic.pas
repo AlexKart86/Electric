@@ -63,12 +63,26 @@ begin
     Result := 'Простой узел'
   else if LowerCase(AEngText) = 'font' then
     Result := 'Шрифт'
-  else if LowerCase(AEngText) = 'color' then
-    Result := 'Цвет'
+  {else if LowerCase(AEngText) = 'color' then
+    Result := 'Цвет'}
   else if LowerCase(AEngText) = 'height' then
     Result := 'Высота'
   else if LowerCase(AEngText) = 'width' then
     Result := 'Ширина'
+  else if LowerCase(AEngText) = 'connection1' then
+    Result := 'Соединение 1'
+  else if LowerCase(AEngText) = 'connection2' then
+    Result := 'Соединение 2'
+  else if LowerCase(AEngText) = 'pen : color' then
+    Result := 'Цвет линии'
+  else if LowerCase(AEngText) = 'pen : width' then
+    Result := 'Толщина линии'
+  else if LowerCase(AEngText) = 'pen : style' then
+    Result := 'Стиль линии'
+  else if LowerCase(AEngText) = 'ownerobject' then
+    Result := 'Привязать к'
+  else if LowerCase(AEngText) = 'strings' then
+    Result := 'Текст'
   else
     Result := AEngText;
 

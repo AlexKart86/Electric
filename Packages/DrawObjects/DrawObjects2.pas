@@ -250,6 +250,7 @@ type
   TText = class(TRectangle)
   private
     FOwnerBoundsRect: TRect;
+    FOldOnResizeOwnerObj: TNotifyEvent;
     FOwnerLinkObject: TDrawObject;
     procedure OnResizeLinkObject(Sender: TObject);
     function GetStrings: TStrings;
@@ -258,6 +259,7 @@ type
   protected
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     procedure DrawObject(Canvas: TCanvas; IsShadow: boolean); override;
+    procedure SaveToPropStrings;  override;
   public
     IsLinkedObjectNeed: Boolean;
     constructor Create(AOwner: TComponent); override;
@@ -3061,6 +3063,8 @@ begin
   DoSaveInfo;
   CanConnect := false;
   IsLinkedObjectNeed := False;
+  FOwnerLinkObject := nil;
+  FOldOnResizeOwnerObj := nil;
 end;
 //------------------------------------------------------------------------------
 
@@ -3090,17 +3094,31 @@ end;
 
 //------------------------------------------------------------------------------
 
+procedure TText.SaveToPropStrings;
+begin
+  inherited;
+  if assigned(OwnerObject) then
+    AddToPropStrings('OwnerObject', inttohex(longint(OwnerObject), 8));
+end;
+
 procedure TText.SetLinkedObject(AValue: TDrawObject);
 begin
-  FOwnerLinkObject := AValue;
-  if Assigned(FOwnerLinkObject) then
+  if FOwnerLinkObject <> AValue then
   begin
-    FOwnerBoundsRect := FOwnerLinkObject.BoundsRect;
-    FOwnerLinkObject.FreeNotification(Self);
-    FOwnerLinkObject.OnResize := OnResizeLinkObject;
+    if Assigned(FOwnerLinkObject) then
+       FOwnerLinkObject.OnResize := FOldOnResizeOwnerObj;
+
+    FOwnerLinkObject := AValue;
+    if Assigned(FOwnerLinkObject) then
+    begin
+      FOwnerBoundsRect := FOwnerLinkObject.BoundsRect;
+      FOwnerLinkObject.FreeNotification(Self);
+      FOldOnResizeOwnerObj := FOwnerLinkObject.OnResize;
+      FOwnerLinkObject.OnResize := OnResizeLinkObject;
+    end;
   end;
-  if not Assigned(FOwnerLinkObject) and IsLinkedObjectNeed then
-    Free;
+  //if not Assigned(FOwnerLinkObject) and IsLinkedObjectNeed then
+  //  Free;
 end;
 
 procedure TText.SetStrings(strings: TStrings);

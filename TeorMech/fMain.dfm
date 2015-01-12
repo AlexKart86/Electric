@@ -194,7 +194,6 @@ object frmMain: TfrmMain
     Align = alClient
     TabOrder = 2
     OnClick = sbMainClick
-    ExplicitWidth = 605
     object pbMain: TPaintBox
       Left = 0
       Top = 0
@@ -203,8 +202,8 @@ object frmMain: TfrmMain
       Align = alClient
       OnMouseDown = pbMainMouseDown
       OnPaint = pbMainPaint
-      ExplicitLeft = 3
-      ExplicitWidth = 601
+      ExplicitLeft = 256
+      ExplicitTop = -56
     end
   end
   object amMain: TActionManager
@@ -280,6 +279,7 @@ object frmMain: TfrmMain
   end
   object memObjectList: TMemTableEh
     Params = <>
+    AfterScroll = memObjectListAfterScroll
     Left = 480
     Top = 296
     object memObjectListCONTROL_NAME: TStringField

@@ -52,6 +52,7 @@ type
     procedure actLoadFromFileExecute(Sender: TObject);
     procedure dbgObjectListCellClick(Column: TColumnEh);
     procedure FormShow(Sender: TObject);
+    procedure memObjectListAfterScroll(DataSet: TDataSet);
   private
     FLockChangeMemSelection: Boolean;
   public
@@ -125,29 +126,30 @@ begin
 end;
 
 procedure TfrmMain.dbgObjectListCellClick(Column: TColumnEh);
-var i: Integer;
-    vBookMark: TBookmark;
+//var i: Integer;
+//    vBookMark: TBookmark;
 begin
-  FLockChangeMemSelection := True;
-  vBookMark := memObjectList.GetBookmark;
-  memObjectList.DisableControls;
-  try
-    FObjectList.ClearAllSelection;
-    if dbgObjectList.SelectedRows.Count = 0 then
-    begin
-      dbgObjectList.SelectedRows.CurrentRowSelected := True;
-    end;
-    for i := 0 to dbgObjectList.SelectedRows.Count-1 do
-    begin
-      memObjectList.GotoBookmark(dbgObjectList.SelectedRows[i]);
-      TDrawObject(memObjectListOBJECT.Value).Focused := True;
-    end;
-  finally
-    FLockChangeMemSelection := False;
-    memObjectList.GotoBookmark(vBookMark);
-    memObjectList.EnableControls;
-  end;
-  ObjInspectForm.AssignObj(TComponent(memObjectListOBJECT.Value), []);
+//  FLockChangeMemSelection := True;
+//  vBookMark := memObjectList.GetBookmark;
+//  memObjectList.DisableControls;
+//  try
+//    FObjectList.ClearAllSelection;
+//    if dbgObjectList.SelectedRows.Count = 0 then
+//    begin
+//      dbgObjectList.SelectedRows.CurrentRowSelected := True;
+//    end;
+//    for i := 0 to dbgObjectList.SelectedRows.Count-1 do
+//    begin
+//      memObjectList.GotoBookmark(dbgObjectList.SelectedRows[i]);
+//      TDrawObject(memObjectListOBJECT.Value).Focused := True;
+//    end;
+//  finally
+//    FLockChangeMemSelection := False;
+//    memObjectList.GotoBookmark(vBookMark);
+//    memObjectList.EnableControls;
+//  end;
+//  ObjInspectForm.AssignObj(TComponent(memObjectListOBJECT.Value), ['CanFocus', 'HelpKeyword','HelpType','Hint',
+//      'ParentFont','PopupMenu','Tag','UseHitTest', 'HelpContext']);
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
@@ -167,14 +169,44 @@ begin
   ObjInspectForm.Align := alClient;
 end;
 
+procedure TfrmMain.memObjectListAfterScroll(DataSet: TDataSet);
+var i: Integer;
+    vBookMark: TBookmark;
+begin
+  //FLockChangeMemSelection := True;
+  {vBookMark := memObjectList.GetBookmark;
+  memObjectList.DisableControls;
+  try
+    FObjectList.ClearAllSelection;
+    if dbgObjectList.SelectedRows.Count = 0 then
+    begin
+      dbgObjectList.SelectedRows.CurrentRowSelected := True;
+    end;
+    for i := 0 to dbgObjectList.SelectedRows.Count-1 do
+    begin
+      memObjectList.GotoBookmark(dbgObjectList.SelectedRows[i]);
+      TDrawObject(memObjectListOBJECT.Value).Focused := True;
+    end;
+  finally
+    FLockChangeMemSelection := False;
+    memObjectList.GotoBookmark(vBookMark);
+    memObjectList.EnableControls;
+  end;}
+  ObjInspectForm.AssignObj(TComponent(memObjectListOBJECT.Value), ['CanFocus', 'HelpKeyword','HelpType','Hint',
+      'ParentFont','PopupMenu','Tag','UseHitTest', 'HelpContext']);
+end;
+
 procedure TfrmMain.OnChangeFocus(Sender: TObject);
 var
   vBookMark: TBookmark;
+  vAfterScroll: TDataSetNotifyEvent;
 begin
  if FLockChangeMemSelection then
    Exit;
   dbgObjectList.SelectedRows.Clear;
   vBookmark :=  memObjectList.GetBookmark;
+  vAfterScroll := memObjectList.AfterScroll;
+  memObjectList.AfterScroll := nil;
   memObjectList.DisableControls;
   try
     memObjectList.First;
@@ -184,8 +216,8 @@ begin
         dbgObjectList.SelectedRows.InsertItem(dbgObjectList.SelectedRows.Count, memObjectList.GetBookmark);
       memObjectList.Next;
     end;
-
   finally
+    memObjectList.AfterScroll := vAfterScroll;
     if dbgObjectList.SelectedRows.Count > 0 then
       memObjectList.GotoBookmark(dbgObjectList.SelectedRows[0])
     else
