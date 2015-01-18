@@ -697,7 +697,7 @@ unit ExprMake;
                    'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о',
                    'п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','э','ю','я' :Result:=Func(Flags)
        else
-        raise EIncorrectExpr.Create('Недопустимый символ в позиции '+IntToStr(P))
+        raise EIncorrectExpr.Create(S+#13#10+'Недопустимый символ в позиции '+IntToStr(P))
       end;
       if PostSymbols then
        while S[P] in ['^','_','!','`'] do

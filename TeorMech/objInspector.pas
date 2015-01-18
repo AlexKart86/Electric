@@ -679,6 +679,8 @@ begin
       end;
       //since components (as well as enumerations) are handled by a picklist
       //we need to handle each differently ...
+      if key = '' then
+         Exit;
       if typinfo.PropType(Obj, key) = tkClass then
       begin
         PersistObj := TPersistent(GetOrdProp(Obj, key));
