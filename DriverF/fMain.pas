@@ -14,6 +14,7 @@ type
     GroupBox1: TGroupBox;
     DBGridEh1: TDBGridEh;
     CRDBGrid1: TCRDBGrid;
+    btnRecalc: TButton;
     procedure FormShow(Sender: TObject);
   protected
          // ³í³ö³àë³çàö³ÿ
@@ -32,6 +33,7 @@ implementation
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   inherited;
+  dmMain.dbMain.Connected := False;
   dmMain.RefreshItems;
 end;
 

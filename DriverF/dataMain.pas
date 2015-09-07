@@ -22,9 +22,17 @@ type
     ldsItemsDESC_UKR: TWideStringField;
     memItemsVALUE: TFloatField;
     memItemsCALC_VALUE: TFloatField;
-    ilItems: TImageList;
     memItemsITEM_IMG: TBlobField;
     dsItems: TDataSource;
+    ldsMeasures: TSQLiteDataset;
+    ldsMeasuresID: TIntegerField;
+    ldsMeasuresLABEL_UKR: TWideStringField;
+    ldsMeasuresKOEFF: TFloatField;
+    ldsMeasuresDESCRIPTION_UKR: TWideStringField;
+    ldsMeasuresBASE_ID: TIntegerField;
+    ldsMeasuresDESCRIPTION_RU: TWideStringField;
+    ldsMeasuresLABEL_RU: TWideStringField;
+    memItemsMEASURE_ID_LOOKUP: TStringField;
   public
     procedure ConnectIfNeeded;
     procedure RefreshItems;
@@ -62,18 +70,19 @@ var
   vImg: TGifImage;
   vStream: TMemoryStream;
 begin
-  ilItems.Clear;
   ConnectIfNeeded;
+  ldsMeasures.Open;
   ldsItems.Close;
   ldsItems.Open;
   ldsItems.First;
+  memItems.Open;
   memItems.EmptyTable;
   vStream := TMemoryStream.Create;
   try
     while not ldsItems.Eof do
     begin
       vImg := GetTexFormulaGif(ldsItemsF_TEX.Value);
-      memItems.Insert;
+      memItems.Append;
       vStream.Clear;
       vImg.Bitmap.SaveToStream(vStream);
       memItemsITEM_IMG.LoadFromStream(vStream);
