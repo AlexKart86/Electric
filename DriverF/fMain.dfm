@@ -8,16 +8,19 @@ inherited frmMain: TfrmMain
   inherited pcMain: TPageControl
     Height = 395
     ActivePage = tsFirst
+    ExplicitHeight = 395
     inherited tsResults: TTabSheet
+      ExplicitHeight = 385
       inherited rvMain: TRichViewEdit
         Height = 360
+        ExplicitHeight = 360
       end
     end
     inherited tsFirst: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 6
       ExplicitWidth = 774
-      ExplicitHeight = 386
+      ExplicitHeight = 385
       object GroupBox1: TGroupBox
         Left = 3
         Top = 47
@@ -58,6 +61,14 @@ inherited frmMain: TfrmMain
             item
               LookupParams.LookupCache = False
               DynProps = <>
+              DropDownBox.Columns = <
+                item
+                  FieldName = 'MEASURE_ID'
+                end
+                item
+                  FieldName = 'MEASURE_NAME'
+                end>
+              DropDownBox.ListSource = dmMain.dsCurMeasList
               EditButtons = <>
               FieldName = 'MEASURE_ID_LOOKUP'
               Footers = <>
@@ -107,11 +118,12 @@ inherited frmMain: TfrmMain
       ExplicitLeft = 4
       ExplicitTop = 6
       ExplicitWidth = 774
-      ExplicitHeight = 386
+      ExplicitHeight = 385
     end
   end
   inherited pnlFooter: TPanel
     Top = 395
+    ExplicitTop = 395
   end
   inherited RVStyle1: TRVStyle
     ParaStyles = <

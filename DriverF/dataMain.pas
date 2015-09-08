@@ -33,6 +33,16 @@ type
     ldsMeasuresDESCRIPTION_RU: TWideStringField;
     ldsMeasuresLABEL_RU: TWideStringField;
     memItemsMEASURE_ID_LOOKUP: TStringField;
+    ldsItemMeas: TSQLiteDataset;
+    ldsItemMeasITEM_ID: TIntegerField;
+    ldsItemMeasMEAS_ID: TIntegerField;
+    ldsItemMeasLABEL_UKR: TWideStringField;
+    memCurMeasList: TMemTableEh;
+    dsCurMeasList: TDataSource;
+    memCurMeasListMEAS_ID: TIntegerField;
+    memCurMeasListMEAS_NAME: TStringField;
+  private
+    procedure RefreshCurMeasList;
   public
     procedure ConnectIfNeeded;
     procedure RefreshItems;
@@ -65,6 +75,30 @@ end;
 
 
 
+procedure TdmMain.RefreshCurMeasList;
+const
+  cnstFilter = 'ITEM_ID = %d';
+begin
+  memCurMeasList.Open;
+  memCurMeasList.EmptyTable;
+  ldsItemMeas.Filter := Format(cnstFilter, [memItemsITEM_ID.Value]);
+  ldsItemMeas.Filtered := True;
+  try
+    ldsItemMeas.First;
+    while not ldsItemMeas.Eof do
+    begin
+      memCurMeasList.Append;
+      memCurMeasListMEAS_ID.Value := ldsItemMeasMEAS_ID.Value;
+      memCurMeasListMEAS_NAME.Value := ldsItemMeasLABEL_UKR.Value;
+      memCurMeasList.Post;
+      ldsItemMeas.Next;
+    end;
+  finally
+    ldsItemMeas.Filtered := False;
+    ldsItemMeas.Filter := '';
+  end;
+end;
+
 procedure TdmMain.RefreshItems;
 var
   vImg: TGifImage;
@@ -75,6 +109,8 @@ begin
   ldsItems.Close;
   ldsItems.Open;
   ldsItems.First;
+  ldsItemMeas.Close;
+  ldsItemMeas.Open;
   memItems.Open;
   memItems.EmptyTable;
   vStream := TMemoryStream.Create;
@@ -85,8 +121,13 @@ begin
       memItems.Append;
       vStream.Clear;
       vImg.Bitmap.SaveToStream(vStream);
+      memItemsITEM_ID.Value := ldsItemsID.Value;
       memItemsITEM_IMG.LoadFromStream(vStream);
+      RefreshCurMeasList;
+      if memCurMeasList.RecordCount >= 1 then
+        memItemsMEASURE_ID.Value := memCurMeasListMEAS_ID.Value;
       memItems.Post;
+
       ldsItems.Next;
     end;
   finally
