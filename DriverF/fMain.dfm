@@ -110,6 +110,15 @@ inherited frmMain: TfrmMain
         Caption = #1056#1086#1079#1088#1072#1093#1091#1074#1072#1090#1080
         TabOrder = 2
       end
+      object Button1: TButton
+        Left = 232
+        Top = 3
+        Width = 75
+        Height = 25
+        Caption = 'Button1'
+        TabOrder = 3
+        OnClick = Button1Click
+      end
     end
     inherited tsHidden: TTabSheet
       ExplicitLeft = 4

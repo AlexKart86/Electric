@@ -15,7 +15,9 @@ type
     DBGridEh1: TDBGridEh;
     CRDBGrid1: TCRDBGrid;
     btnRecalc: TButton;
+    Button1: TButton;
     procedure FormShow(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   protected
          // ³í³ö³àë³çàö³ÿ
     procedure InitDefaultValues; override;
@@ -29,6 +31,12 @@ implementation
 {$R *.dfm}
 
 { TfrmMain }
+
+procedure TfrmMain.Button1Click(Sender: TObject);
+begin
+  inherited;
+  dmMain.RefreshItems;
+end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
