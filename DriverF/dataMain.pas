@@ -39,8 +39,9 @@ type
     ldsItemMeasLABEL_UKR: TWideStringField;
     memCurMeasList: TMemTableEh;
     dsCurMeasList: TDataSource;
-    memCurMeasListMEAS_ID: TIntegerField;
-    memCurMeasListMEAS_NAME: TStringField;
+    memCurMeasListID: TIntegerField;
+    memCurMeasListLABEL_UKR: TStringField;
+    procedure memItemsAfterScroll(DataSet: TDataSet);
   private
     procedure RefreshCurMeasList;
   public
@@ -75,6 +76,11 @@ end;
 
 
 
+procedure TdmMain.memItemsAfterScroll(DataSet: TDataSet);
+begin
+  RefreshCurMeasList;
+end;
+
 procedure TdmMain.RefreshCurMeasList;
 const
   cnstFilter = 'ITEM_ID = %d';
@@ -88,8 +94,8 @@ begin
     while not ldsItemMeas.Eof do
     begin
       memCurMeasList.Append;
-      memCurMeasListMEAS_ID.Value := ldsItemMeasMEAS_ID.Value;
-      memCurMeasListMEAS_NAME.Value := ldsItemMeasLABEL_UKR.Value;
+      memCurMeasListID.Value := ldsItemMeasMEAS_ID.Value;
+      memCurMeasListLABEL_UKR.Value := ldsItemMeasLABEL_UKR.Value;
       memCurMeasList.Post;
       ldsItemMeas.Next;
     end;
@@ -125,7 +131,7 @@ begin
       memItemsITEM_IMG.LoadFromStream(vStream);
       RefreshCurMeasList;
       if memCurMeasList.RecordCount >= 1 then
-        memItemsMEASURE_ID.Value := memCurMeasListMEAS_ID.Value;
+        memItemsMEASURE_ID.Value := memCurMeasListID.Value;
       memItems.Post;
 
       ldsItems.Next;

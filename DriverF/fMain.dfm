@@ -63,10 +63,7 @@ inherited frmMain: TfrmMain
               DynProps = <>
               DropDownBox.Columns = <
                 item
-                  FieldName = 'MEASURE_ID'
-                end
-                item
-                  FieldName = 'MEASURE_NAME'
+                  FieldName = 'LABEL_UKR'
                 end>
               DropDownBox.ListSource = dmMain.dsCurMeasList
               EditButtons = <>

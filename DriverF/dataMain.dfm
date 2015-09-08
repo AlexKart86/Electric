@@ -10,6 +10,7 @@ object dmMain: TdmMain
   end
   object memItems: TMemTableEh
     Params = <>
+    AfterScroll = memItemsAfterScroll
     Left = 40
     Top = 136
     object memItemsITEM_ID: TIntegerField
@@ -219,7 +220,6 @@ object dmMain: TdmMain
     end
   end
   object ldsItemMeas: TSQLiteDataset
-    Active = True
     Aggregates = <>
     CommandText = 
       'select im.*,'#13#10'       m.LABEL_UKR         '#13#10'from item_meas im,'#13#10' ' +
@@ -244,16 +244,6 @@ object dmMain: TdmMain
     Database = dbMain
     Left = 256
     Top = 16
-    Data = {
-      1C0100009619E0BD010000001800000003000C00000003000000580007495445
-      4D5F49440400010000000000074D4541535F49440400010000000000094C4142
-      454C5F554B5202004A000000010005574944544802000200401F000000000100
-      0000010000000200120400000200000002000000020041000000030000000200
-      0000020041000000040000000900000000000000050000000300000006004200
-      19224100000005000000040000000A003A044200192241002000000006000000
-      050000000400120442040000060000000600000006003A041204420400000700
-      0000050000000400120442040000070000000600000006003A04120442040000
-      09000000050000000400120442040000090000000600000006003A0412044204}
     object ldsItemMeasITEM_ID: TIntegerField
       FieldName = 'ITEM_ID'
     end
@@ -269,24 +259,24 @@ object dmMain: TdmMain
     Params = <>
     Left = 40
     Top = 216
-    object memCurMeasListMEAS_ID: TIntegerField
-      FieldName = 'MEAS_ID'
+    object memCurMeasListID: TIntegerField
+      FieldName = 'ID'
     end
-    object memCurMeasListMEAS_NAME: TStringField
-      FieldName = 'MEAS_NAME'
+    object memCurMeasListLABEL_UKR: TStringField
+      FieldName = 'LABEL_UKR'
       Size = 80
     end
     object MemTableData: TMemTableDataEh
       object DataStruct: TMTDataStructEh
-        object MEAS_ID: TMTNumericDataFieldEh
-          FieldName = 'MEAS_ID'
+        object ID: TMTNumericDataFieldEh
+          FieldName = 'ID'
           NumericDataType = fdtIntegerEh
           AutoIncrement = False
           currency = False
           Precision = 15
         end
-        object MEAS_NAME: TMTStringDataFieldEh
-          FieldName = 'MEAS_NAME'
+        object LABEL_UKR: TMTStringDataFieldEh
+          FieldName = 'LABEL_UKR'
           StringDataType = fdtStringEh
           Size = 80
         end
