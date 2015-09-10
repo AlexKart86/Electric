@@ -105,6 +105,9 @@
 			<DCCReference Include="..\SharedCode\uStringUtilsShared.pas"/>
 			<DCCReference Include="..\SharedCode\uGraphicUtils.pas"/>
 			<DCCReference Include="..\SharedCode\uSystem.pas"/>
+			<DCCReference Include="..\SharedCode\ParseClass.pas"/>
+			<DCCReference Include="..\SharedCode\ParseExpr.pas"/>
+			<DCCReference Include="..\SharedCode\oObjects.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

@@ -111,13 +111,21 @@ inherited frmMain: TfrmMain
         TabOrder = 2
       end
       object Button1: TButton
-        Left = 232
+        Left = 352
         Top = 3
         Width = 75
         Height = 25
         Caption = 'Button1'
         TabOrder = 3
         OnClick = Button1Click
+      end
+      object Edit1: TEdit
+        Left = 200
+        Top = 3
+        Width = 121
+        Height = 21
+        TabOrder = 4
+        Text = 'Edit1'
       end
     end
     inherited tsHidden: TTabSheet

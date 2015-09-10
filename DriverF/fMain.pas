@@ -16,6 +16,7 @@ type
     CRDBGrid1: TCRDBGrid;
     btnRecalc: TButton;
     Button1: TButton;
+    Edit1: TEdit;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
   protected
@@ -27,15 +28,26 @@ var
   frmMain: TfrmMain;
 
 implementation
+uses ParseExpr;
 
 {$R *.dfm}
 
 { TfrmMain }
 
 procedure TfrmMain.Button1Click(Sender: TObject);
+var
+ vPar: TExpressionParser;
+ a,b,c: Double;
 begin
   inherited;
-  dmMain.RefreshItems;
+  vPar := TExpressionParser.Create;
+  a := 2;
+  b := 2;
+  c := 2;
+  vPar.DefineVariable('P1n', @a);
+  vPar.DefineVariable('Un', @b);
+  vPar.DefineVariable('cosF', @c);
+  ShowMessage(FloatToStr(vPar.Evaluate(Edit1.Text)));
 end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
