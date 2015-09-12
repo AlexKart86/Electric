@@ -1,18 +1,57 @@
 object dmMain: TdmMain
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 507
   Width = 580
   object dbMain: TSQLiteDatabase
-    Connected = True
     Filename = 'K:\Electric\DriverF\BIN\formulas.db'
     Left = 32
     Top = 16
   end
   object memItems: TMemTableEh
+    FieldDefs = <
+      item
+        Name = 'ITEM_ID'
+        DataType = ftInteger
+        Precision = 15
+      end
+      item
+        Name = 'MEASURE_ID'
+        DataType = ftInteger
+        Precision = 15
+      end
+      item
+        Name = 'VALUE'
+        DataType = ftFloat
+        Precision = 15
+      end
+      item
+        Name = 'CALC_VALUE'
+        DataType = ftFloat
+        Precision = 15
+      end
+      item
+        Name = 'ITEM_IMG'
+        DataType = ftGraphic
+      end
+      item
+        Name = 'HINT'
+        DataType = ftString
+        Size = 4000
+      end
+      item
+        Name = 'CALC_VALUE_CORRECT'
+        DataType = ftFloat
+        Precision = 15
+      end>
+    IndexDefs = <>
     Params = <>
+    StoreDefs = True
     AfterScroll = memItemsAfterScroll
-    Left = 40
-    Top = 136
+    OnCalcFields = memItemsCalcFields
+    Left = 32
+    Top = 128
     object memItemsITEM_ID: TIntegerField
       FieldName = 'ITEM_ID'
     end
@@ -22,10 +61,6 @@ object dmMain: TdmMain
     object memItemsVALUE: TFloatField
       DisplayLabel = #1047#1072#1076#1072#1085#1077' '#1079#1085#1072#1095#1077#1085#1085#1103
       FieldName = 'VALUE'
-    end
-    object memItemsCALC_VALUE: TFloatField
-      DisplayLabel = #1056#1086#1079#1088#1072#1093#1086#1074#1072#1085#1077' '#1079#1085#1072#1095#1077#1085#1085#1103
-      FieldName = 'CALC_VALUE'
     end
     object memItemsITEM_IMG: TBlobField
       FieldName = 'ITEM_IMG'
@@ -41,6 +76,24 @@ object dmMain: TdmMain
       KeyFields = 'MEASURE_ID'
       Size = 40
       Lookup = True
+    end
+    object memItemsHINT: TStringField
+      FieldName = 'HINT'
+      Size = 4000
+    end
+    object memItemsCALC_VALUE_CORRECT: TFloatField
+      FieldName = 'CALC_VALUE_CORRECT'
+    end
+    object memItemsVALUE_CORRECT: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'VALUE_CORRECT'
+      Calculated = True
+    end
+    object memItemsCALC_VALUE: TFloatField
+      DisplayLabel = #1056#1086#1079#1088#1072#1093#1086#1074#1072#1085#1077' '#1079#1085#1072#1095#1077#1085#1085#1103
+      FieldKind = fkCalculated
+      FieldName = 'CALC_VALUE'
+      Calculated = True
     end
     object MemTableData: TMemTableDataEh
       object DataStruct: TMTDataStructEh
@@ -74,9 +127,21 @@ object dmMain: TdmMain
         end
         object ITEM_IMG: TMTBlobDataFieldEh
           FieldName = 'ITEM_IMG'
-          BlobType = ftBlob
+          BlobType = ftGraphic
           GraphicHeader = False
           Transliterate = False
+        end
+        object HINT: TMTStringDataFieldEh
+          FieldName = 'HINT'
+          StringDataType = fdtStringEh
+          Size = 4000
+        end
+        object CALC_VALUE_CORRECT: TMTNumericDataFieldEh
+          FieldName = 'CALC_VALUE_CORRECT'
+          NumericDataType = fdtFloatEh
+          AutoIncrement = False
+          currency = False
+          Precision = 15
         end
       end
       object RecordsList: TRecordsListEh
@@ -289,5 +354,130 @@ object dmMain: TdmMain
     DataSet = memCurMeasList
     Left = 128
     Top = 216
+  end
+  object ldsFormulas: TSQLiteDataset
+    Aggregates = <>
+    CommandText = 'select * from formulas'
+    FieldDefs = <
+      item
+        Name = 'FORMULA_ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'F_STR'
+        DataType = ftWideString
+        Size = 4000
+      end
+      item
+        Name = 'F_TEX'
+        DataType = ftWideString
+        Size = 4000
+      end
+      item
+        Name = 'ITEM_ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NAME_UKR'
+        DataType = ftWideString
+        Size = 4000
+      end
+      item
+        Name = 'NAME_RUS'
+        DataType = ftWideString
+        Size = 4000
+      end
+      item
+        Name = 'TEXT_UKR'
+        DataType = ftWideString
+        Size = 4000
+      end
+      item
+        Name = 'TEXT_RUS'
+        DataType = ftWideString
+        Size = 4000
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Database = dbMain
+    Left = 336
+    Top = 16
+    object ldsFormulasFORMULA_ID: TIntegerField
+      FieldName = 'FORMULA_ID'
+    end
+    object ldsFormulasF_STR: TWideStringField
+      FieldName = 'F_STR'
+      Size = 4000
+    end
+    object ldsFormulasF_TEX: TWideStringField
+      FieldName = 'F_TEX'
+      Size = 4000
+    end
+    object ldsFormulasITEM_ID: TIntegerField
+      FieldName = 'ITEM_ID'
+    end
+    object ldsFormulasNAME_UKR: TWideStringField
+      FieldName = 'NAME_UKR'
+      Size = 4000
+    end
+    object ldsFormulasNAME_RUS: TWideStringField
+      FieldName = 'NAME_RUS'
+      Size = 4000
+    end
+    object ldsFormulasTEXT_UKR: TWideStringField
+      FieldName = 'TEXT_UKR'
+      Size = 4000
+    end
+    object ldsFormulasTEXT_RUS: TWideStringField
+      FieldName = 'TEXT_RUS'
+      Size = 4000
+    end
+  end
+  object ldsFormulaDetail: TSQLiteDataset
+    Aggregates = <>
+    CommandText = 
+      'select fd.*,'#13#10'       f.F_STR,'#13#10'       it.NAME'#13#10'from formula_deta' +
+      'il fd,'#13#10'     formulas f,'#13#10'     items it'#13#10'where f.FORMULA_ID = fd' +
+      '.FORMULA_ID and fd.ITEM_ID = it.ID'
+    FieldDefs = <
+      item
+        Name = 'FORMULA_ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ITEM_ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'F_STR'
+        DataType = ftWideString
+        Size = 4000
+      end
+      item
+        Name = 'NAME'
+        DataType = ftWideString
+        Size = 4000
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Database = dbMain
+    Left = 408
+    Top = 16
+    object ldsFormulaDetailFORMULA_ID: TIntegerField
+      FieldName = 'FORMULA_ID'
+    end
+    object ldsFormulaDetailITEM_ID: TIntegerField
+      FieldName = 'ITEM_ID'
+    end
+    object ldsFormulaDetailF_STR: TWideStringField
+      FieldName = 'F_STR'
+      Size = 4000
+    end
+    object ldsFormulaDetailNAME: TWideStringField
+      FieldName = 'NAME'
+      Size = 4000
+    end
   end
 end

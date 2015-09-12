@@ -1,38 +1,51 @@
 inherited frmMain: TfrmMain
   Caption = 'frmMain'
-  ClientHeight = 436
-  ExplicitWidth = 798
-  ExplicitHeight = 474
+  ClientHeight = 762
+  ClientWidth = 802
+  ExplicitWidth = 818
+  ExplicitHeight = 800
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcMain: TPageControl
-    Height = 395
+    Width = 802
+    Height = 721
     ActivePage = tsFirst
-    ExplicitHeight = 395
+    ExplicitWidth = 802
+    ExplicitHeight = 716
     inherited tsResults: TTabSheet
-      ExplicitHeight = 385
+      ExplicitWidth = 794
+      ExplicitHeight = 706
       inherited rvMain: TRichViewEdit
-        Height = 360
-        ExplicitHeight = 360
+        Width = 794
+        Height = 686
+        ExplicitWidth = 794
+        ExplicitHeight = 681
+      end
+      inherited RVRuler1: TRVRuler
+        Width = 794
+        ExplicitWidth = 794
       end
     end
     inherited tsFirst: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 6
-      ExplicitWidth = 774
-      ExplicitHeight = 385
+      ExplicitWidth = 794
+      ExplicitHeight = 706
       object GroupBox1: TGroupBox
         Left = 3
         Top = 47
-        Width = 758
-        Height = 336
+        Width = 778
+        Height = 662
+        Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 1
-        object DBGridEh1: TDBGridEh
+        ExplicitHeight = 657
+        object dbgParams: TDBGridEh
           Left = 2
           Top = 15
-          Width = 754
-          Height = 319
+          Width = 774
+          Height = 645
           Align = alClient
+          AllowedOperations = [alopUpdateEh]
           ColumnDefValues.AlwaysShowEditButton = True
           DataSource = dmMain.dsItems
           DrawGraphicData = True
@@ -45,9 +58,13 @@ inherited frmMain: TfrmMain
           IndicatorOptions = [gioShowRowIndicatorEh]
           OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghFitRowHeightToText, dghDialogFind, dghColumnResize, dghColumnMove, dghAutoFitRowHeight, dghExtendVertLines]
           ParentFont = False
+          ParentShowHint = False
           RowHeight = 4
           RowLines = 1
+          ShowHint = True
           TabOrder = 0
+          OnDataHintShow = dbgParamsDataHintShow
+          OnGetCellParams = dbgParamsGetCellParams
           Columns = <
             item
               DynProps = <>
@@ -85,6 +102,12 @@ inherited frmMain: TfrmMain
               Footers = <>
               ReadOnly = True
               Width = 194
+            end
+            item
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'VALUE_CORRECT'
+              Footers = <>
             end>
           object RowDetailData: TRowDetailPanelControlEh
             object CRDBGrid1: TCRDBGrid
@@ -109,6 +132,7 @@ inherited frmMain: TfrmMain
         Height = 25
         Caption = #1056#1086#1079#1088#1072#1093#1091#1074#1072#1090#1080
         TabOrder = 2
+        OnClick = btnRecalcClick
       end
       object Button1: TButton
         Left = 352
@@ -131,13 +155,31 @@ inherited frmMain: TfrmMain
     inherited tsHidden: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 6
-      ExplicitWidth = 774
-      ExplicitHeight = 385
+      ExplicitWidth = 794
+      ExplicitHeight = 706
     end
   end
   inherited pnlFooter: TPanel
-    Top = 395
-    ExplicitTop = 395
+    Top = 721
+    Width = 802
+    ExplicitTop = 716
+    ExplicitWidth = 802
+    inherited btnCalc: TButton
+      Left = 620
+      ExplicitLeft = 620
+    end
+    inherited btnCancel: TButton
+      Left = 720
+      ExplicitLeft = 720
+    end
+    inherited btnSaveToFile: TButton
+      Left = 510
+      ExplicitLeft = 510
+    end
+    inherited btnPrev: TButton
+      Left = 620
+      ExplicitLeft = 620
+    end
   end
   inherited RVStyle1: TRVStyle
     ParaStyles = <
