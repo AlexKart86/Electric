@@ -72,6 +72,14 @@ begin
   vtbl.Cells[0, 0].AddBreak;
   AddText('Знайти');
 
+  fDmMain.memItems.First;
+  while not fDmMain.memItems.Eof do
+  begin
+    if fDmMain.memItemsCALC_VALUE.AsString = '' then
+      RVAddFormulaTex(fDmMain.memItemsF_TEX.Value, vtbl.Cells[0,0]);
+    fDmMain.memItems.Next;
+  end;
+
   vtbl.ResizeRow(0, vtbl.Rows[0].GetBestHeight);
   vtbl.ResizeCol(0, 150, True);
 

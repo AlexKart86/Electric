@@ -10,6 +10,9 @@ uses
 type
 
 
+   TCalcCallbackProc = procedure(AStrUkr, AStrRus: String) of object;
+
+
   TdmMain = class(TDataModule)
     dbMain: TSQLiteDatabase;
     memItems: TMemTableEh;
@@ -79,7 +82,7 @@ type
   public
     procedure ConnectIfNeeded;
     procedure RefreshItems;
-    function Calc: Boolean;
+    function Calc(ACallBack: TCalcCallbackProc = nil): Boolean;
     property ProcessedItems: TDictionary<integer, double> read FProcessedItems;
     function GetMeasureName(AMeasureID: Integer): String;
   end;
@@ -103,7 +106,7 @@ const
 
 { TdmMain }
 
-function TdmMain.Calc: Boolean;
+function TdmMain.Calc(ACallBack: TCalcCallbackProc = nil): Boolean;
 var
   vResult: Double;
   vItemId: Integer;
@@ -122,6 +125,9 @@ begin
         memItems.Edit;
         memItemsCALC_VALUE_CORRECT.Value := vResult;
         memItems.Post;
+        ldsFormulas.Locate('FORMULA_ID', vRes, []);
+        if Assigned(ACallBack) then
+          ACallBack(ldsFormulasTEXT_UKR.Value, ldsFormulasTEXT_RUS.Value);
       end
       else
         Exit;
