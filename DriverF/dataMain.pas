@@ -26,13 +26,6 @@ type
     memItemsITEM_IMG: TBlobField;
     dsItems: TDataSource;
     ldsMeasures: TSQLiteDataset;
-    ldsMeasuresID: TIntegerField;
-    ldsMeasuresLABEL_UKR: TWideStringField;
-    ldsMeasuresKOEFF: TFloatField;
-    ldsMeasuresDESCRIPTION_UKR: TWideStringField;
-    ldsMeasuresBASE_ID: TIntegerField;
-    ldsMeasuresDESCRIPTION_RU: TWideStringField;
-    ldsMeasuresLABEL_RU: TWideStringField;
     memItemsMEASURE_ID_LOOKUP: TStringField;
     ldsItemMeas: TSQLiteDataset;
     ldsItemMeasITEM_ID: TIntegerField;
@@ -60,6 +53,16 @@ type
     ldsFormulaDetailITEM_ID: TIntegerField;
     ldsFormulaDetailF_STR: TWideStringField;
     ldsFormulaDetailNAME: TWideStringField;
+    memItemsF_TEX: TStringField;
+    ldsMeasuresID: TIntegerField;
+    ldsMeasuresLABEL_UKR: TWideStringField;
+    ldsMeasuresKOEFF: TFloatField;
+    ldsMeasuresDESCRIPTION_UKR: TWideStringField;
+    ldsMeasuresBASE_ID: TIntegerField;
+    ldsMeasuresDESCRIPTION_RU: TWideStringField;
+    ldsMeasuresLABEL_RU: TWideStringField;
+    ldsMeasuresLABEL_UKR_TR: TWideStringField;
+    ldsMeasuresLABEL_RU_TR: TWideStringField;
     procedure memItemsAfterScroll(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
@@ -77,13 +80,15 @@ type
     procedure ConnectIfNeeded;
     procedure RefreshItems;
     function Calc: Boolean;
+    property ProcessedItems: TDictionary<integer, double> read FProcessedItems;
+    function GetMeasureName(AMeasureID: Integer): String;
   end;
 
 var
   dmMain: TdmMain;
 
 implementation
-uses Forms, uFormulaUtils, Vcl.Imaging.GIFImg, ParseExpr, ParseClass;
+uses Forms, uFormulaUtils, Vcl.Imaging.GIFImg, ParseExpr, ParseClass, uLocalizeShared;
 
 const
   cnstDbName = 'formulas.db';
@@ -147,6 +152,18 @@ end;
 procedure TdmMain.DataModuleDestroy(Sender: TObject);
 begin
   FreeAndNil(FProcessedItems);
+end;
+
+function TdmMain.GetMeasureName(AMeasureID: Integer): String;
+begin
+  Result := '';
+  if ldsMeasures.Locate('ID', AMeasureID, []) then
+  begin
+    case CurrentLang of
+     lngUkr: Result := ldsMeasuresLABEL_UKR_TR.Value;
+     lngRus: Result := ldsMeasuresLABEL_RU_TR.Value;
+    end;
+  end;
 end;
 
 procedure TdmMain.memItemsAfterScroll(DataSet: TDataSet);
@@ -219,6 +236,7 @@ begin
       memItemsITEM_ID.Value := ldsItemsID.Value;
       memItemsITEM_IMG.LoadFromStream(vStream);
       memItemsHINT.Value := ldsItemsDESC_UKR.Value;
+      memItemsF_TEX.Value := ldsItemsF_TEX.Value;
       RefreshCurMeasList;
       if memCurMeasList.RecordCount >= 1 then
         memItemsMEASURE_ID.Value := memCurMeasListID.Value;

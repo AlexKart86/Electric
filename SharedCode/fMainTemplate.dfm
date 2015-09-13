@@ -95,6 +95,10 @@ object frmMainTemplate: TfrmMainTemplate
     object tsFirst: TTabSheet
       Caption = #1042#1074#1077#1076#1077#1085#1085#1103' '#1087#1072#1088#1072#1084#1077#1090#1088#1110#1074
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object rgLanguage: TRadioGroup
         Left = 429
         Top = 3
@@ -114,6 +118,10 @@ object frmMainTemplate: TfrmMainTemplate
       Caption = 'tsHidden'
       ImageIndex = 2
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
   object pnlFooter: TPanel

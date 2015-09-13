@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMainTemplate, RVStyle, Vcl.StdCtrls,
   Vcl.ExtCtrls, Ruler, RVRuler, RVScroll, RichView, RVEdit, Vcl.ComCtrls,
   dataMain, DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls,
-  DynVarsEh, GridsEh, DBAxisGridsEh, DBGridEh, Vcl.Grids, Vcl.DBGrids, CRGrid;
+  DynVarsEh, GridsEh, DBAxisGridsEh, DBGridEh, Vcl.Grids, Vcl.DBGrids, CRGrid,
+  Vcl.Mask, EhLibVCL;
 
 type
   TfrmMain = class(TfrmMainTemplate)
@@ -15,8 +16,6 @@ type
     dbgParams: TDBGridEh;
     CRDBGrid1: TCRDBGrid;
     btnRecalc: TButton;
-    Button1: TButton;
-    Edit1: TEdit;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure dbgParamsDataHintShow(Sender: TCustomDBGridEh; CursorPos: TPoint;
@@ -25,35 +24,31 @@ type
     procedure dbgParamsGetCellParams(Sender: TObject; Column: TColumnEh;
       AFont: TFont; var Background: TColor; State: TGridDrawState);
     procedure btnRecalcClick(Sender: TObject);
+  private
+    function TryCalc: Boolean;
   protected
-         // ініціалізація
+    // ініціалізація
     procedure InitDefaultValues; override;
+    // Собственно, запускает выполнение задания
+    procedure RunSolve; override;
+    // Подготавливает введенные параметры для использования их в алгоритме
+    procedure PrepareInputParams; override;
   end;
 
 var
   frmMain: TfrmMain;
 
 implementation
-uses ParseExpr;
+uses ParseExpr, uCalc, uRounding;
 
 {$R *.dfm}
 
 { TfrmMain }
 
 procedure TfrmMain.btnRecalcClick(Sender: TObject);
-var
-  vResult: Double;
-  vItemId: Integer;
 begin
   inherited;
-{  if dmMain.SearchFormulaForCalc(vResult, vItemId) > 0 then
-  begin
-    ShowMessage('ID: '+IntToStr(vItemId) + #13#10+
-       'Val: ' + FloatToStr(vResult));
-  end;}
-  if dmMain.Calc then
-    ShowMessage('Молодец');
-
+  TryCalc;
 end;
 
 procedure TfrmMain.Button1Click(Sender: TObject);
@@ -62,14 +57,19 @@ var
  a,b,c: Double;
 begin
   inherited;
-  vPar := TExpressionParser.Create;
+{  vPar := TExpressionParser.Create;
   a := 2;
   b := 2;
   c := 2;
   vPar.DefineVariable('P1n', @a);
   vPar.DefineVariable('Un', @b);
   vPar.DefineVariable('cosF', @c);
-  ShowMessage(FloatToStr(vPar.Evaluate(Edit1.Text)));
+  ShowMessage(FloatToStr(vPar.Evaluate(Edit1.Text)));}
+
+
+//  dmMain.memItems.Edit;
+//  dmMain.memItemsVALUE.Value := 3.44;
+//  dmMain.memItems.Post;
 end;
 
 procedure TfrmMain.dbgParamsDataHintShow(Sender: TCustomDBGridEh;
@@ -86,7 +86,7 @@ procedure TfrmMain.dbgParamsGetCellParams(Sender: TObject; Column: TColumnEh;
 begin
   inherited;
   if dmMain.memItemsVALUE.AsString <> '' then
-    Background := clGreen
+    Background := clLime
   else if dmMain.memItemsCALC_VALUE.AsString <> '' then
     Background := clYellow;
 end;
@@ -102,6 +102,28 @@ procedure TfrmMain.InitDefaultValues;
 begin
   inherited;
 
+end;
+
+procedure TfrmMain.PrepareInputParams;
+begin
+  inherited;
+end;
+
+procedure TfrmMain.RunSolve;
+var
+  vSolver: TSolver;
+begin
+ // if not TryCalc then
+ //   Exit;
+  vSolver := TSolver.Create(rvMain, dmMain);
+  vSolver.RunSolve;
+end;
+
+function TfrmMain.TryCalc: Boolean;
+begin
+  Result := dmMain.Calc;
+  if not Result then
+    ShowMessage('Недостатньо вхідних даних для розрахунку');
 end;
 
 end.

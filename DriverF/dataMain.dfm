@@ -27,11 +27,6 @@ object dmMain: TdmMain
         Precision = 15
       end
       item
-        Name = 'CALC_VALUE'
-        DataType = ftFloat
-        Precision = 15
-      end
-      item
         Name = 'ITEM_IMG'
         DataType = ftGraphic
       end
@@ -44,6 +39,11 @@ object dmMain: TdmMain
         Name = 'CALC_VALUE_CORRECT'
         DataType = ftFloat
         Precision = 15
+      end
+      item
+        Name = 'F_TEX'
+        DataType = ftString
+        Size = 100
       end>
     IndexDefs = <>
     Params = <>
@@ -95,6 +95,10 @@ object dmMain: TdmMain
       FieldName = 'CALC_VALUE'
       Calculated = True
     end
+    object memItemsF_TEX: TStringField
+      FieldName = 'F_TEX'
+      Size = 100
+    end
     object MemTableData: TMemTableDataEh
       object DataStruct: TMTDataStructEh
         object ITEM_ID: TMTNumericDataFieldEh
@@ -118,13 +122,6 @@ object dmMain: TdmMain
           currency = False
           Precision = 15
         end
-        object CALC_VALUE: TMTNumericDataFieldEh
-          FieldName = 'CALC_VALUE'
-          NumericDataType = fdtFloatEh
-          AutoIncrement = False
-          currency = False
-          Precision = 15
-        end
         object ITEM_IMG: TMTBlobDataFieldEh
           FieldName = 'ITEM_IMG'
           BlobType = ftGraphic
@@ -142,6 +139,11 @@ object dmMain: TdmMain
           AutoIncrement = False
           currency = False
           Precision = 15
+        end
+        object F_TEX: TMTStringDataFieldEh
+          FieldName = 'F_TEX'
+          StringDataType = fdtStringEh
+          Size = 100
         end
       end
       object RecordsList: TRecordsListEh
@@ -251,6 +253,16 @@ object dmMain: TdmMain
         Name = 'LABEL_RU'
         DataType = ftWideString
         Size = 4000
+      end
+      item
+        Name = 'LABEL_UKR_TR'
+        DataType = ftWideString
+        Size = 4000
+      end
+      item
+        Name = 'LABEL_RU_TR'
+        DataType = ftWideString
+        Size = 4000
       end>
     IndexDefs = <>
     Params = <>
@@ -281,6 +293,14 @@ object dmMain: TdmMain
     end
     object ldsMeasuresLABEL_RU: TWideStringField
       FieldName = 'LABEL_RU'
+      Size = 4000
+    end
+    object ldsMeasuresLABEL_UKR_TR: TWideStringField
+      FieldName = 'LABEL_UKR_TR'
+      Size = 4000
+    end
+    object ldsMeasuresLABEL_RU_TR: TWideStringField
+      FieldName = 'LABEL_RU_TR'
       Size = 4000
     end
   end

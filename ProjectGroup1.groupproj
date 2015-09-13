@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{4BDE6CB0-F7BD-45EE-8A80-D177DDED6068}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="DriverF\DriverM.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="Lin_Parallel\Lin_Parallel.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="DriverM">
+			<MSBuild Projects="DriverF\DriverM.dproj"/>
+		</Target>
+		<Target Name="DriverM:Clean">
+			<MSBuild Targets="Clean" Projects="DriverF\DriverM.dproj"/>
+		</Target>
+		<Target Name="DriverM:Make">
+			<MSBuild Targets="Make" Projects="DriverF\DriverM.dproj"/>
+		</Target>
+		<Target Name="Lin_Parallel">
+			<MSBuild Projects="Lin_Parallel\Lin_Parallel.dproj"/>
+		</Target>
+		<Target Name="Lin_Parallel:Clean">
+			<MSBuild Targets="Clean" Projects="Lin_Parallel\Lin_Parallel.dproj"/>
+		</Target>
+		<Target Name="Lin_Parallel:Make">
+			<MSBuild Targets="Make" Projects="Lin_Parallel\Lin_Parallel.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="DriverM;Lin_Parallel"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="DriverM:Clean;Lin_Parallel:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="DriverM:Make;Lin_Parallel:Make"/>
+		</Target>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+	</Project>

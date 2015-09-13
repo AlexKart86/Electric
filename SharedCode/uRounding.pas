@@ -17,7 +17,7 @@ type
     function FormatDoubleC(a: TRectComplex; AElementType: string): TRectComplex;
 
     // Тоже самое что и предыдущая функа но выводит строковое представление числа
-    function FormatDoubleStr(a: Double; AElementType: string): String;
+    function FormatDoubleStr(a: Double; AElementType: string = 'default'): String;
     class function GetInstance: TRoundArr;
   end;
 
@@ -49,12 +49,13 @@ begin
   // FInstance := nil;
   // Добавляем поля
   FieldDefs.Add('ELEMENT_CAPTION', ftString, 20);
-  FieldDefs.Add('ELEMENT_NAME', ftString, 5);
+  FieldDefs.Add('ELEMENT_NAME', ftString, 10);
   FieldDefs.Add('VALUE', ftInteger);
   CreateDataSet;
   Fields[0].DisplayLabel := 'Назва параметру';
   Fields[1].Visible := False;
   Fields[2].DisplayLabel := 'Кількість знаків після коми ';
+  AddType('За замовчанням', 'default');
 end;
 
 destructor TRoundArr.Destroy;

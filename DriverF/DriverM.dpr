@@ -2,6 +2,7 @@ program DriverM;
 
 uses
   Vcl.Forms,
+  SysUtils,
   fMainTemplate in '..\SharedCode\fMainTemplate.pas' {frmMainTemplate},
   fMain in 'fMain.pas' {frmMain},
   dataMain in 'dataMain.pas' {dmMain: TDataModule},
@@ -15,12 +16,16 @@ uses
   uSystem in '..\SharedCode\uSystem.pas',
   ParseClass in '..\SharedCode\ParseClass.pas',
   ParseExpr in '..\SharedCode\ParseExpr.pas',
-  oObjects in '..\SharedCode\oObjects.pas';
+  oObjects in '..\SharedCode\oObjects.pas',
+  uCalc in 'uCalc.pas',
+  uRounding in '..\SharedCode\uRounding.pas',
+  uLocalize in 'uLocalize.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
+  FormatSettings.DecimalSeparator := '.';
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TdmMain, dmMain);
   Application.CreateForm(TfrmMain, frmMain);
