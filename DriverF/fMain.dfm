@@ -74,6 +74,20 @@ inherited frmMain: TfrmMain
             item
               DynProps = <>
               EditButtons = <>
+              FieldName = 'ITEM_ID'
+              Footers = <>
+              Width = 69
+            end
+            item
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'NAME'
+              Footers = <>
+              Width = 48
+            end
+            item
+              DynProps = <>
+              EditButtons = <>
               FieldName = 'ITEM_IMG'
               Footers = <>
               ReadOnly = True

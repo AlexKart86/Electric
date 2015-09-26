@@ -134,7 +134,7 @@ begin
       end
       else
         Exit;
-    until true;
+    until false;
   finally
     memItems.GotoBookmark(vBookMark);
     memItems.EnableControls;
@@ -164,6 +164,10 @@ begin
     memItems.GotoBookmark(vBookmark);
     memItems.EnableControls;
   end;
+  ldsFormulas.Close;
+  ldsFormulas.Open;
+  ldsFormulaDetail.Close;
+  ldsFormulaDetail.Open;
 end;
 
 procedure TdmMain.ConnectIfNeeded;

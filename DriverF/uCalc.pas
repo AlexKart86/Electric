@@ -1,11 +1,12 @@
 unit uCalc;
 
 interface
-uses dataMain, RVEdit, Graphics, RegularExpressions;
+uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable;
 
 type
   TSolver = class
   private
+    FTaskTable: TRVTableItemInfo;
     FRichView: TRichViewEdit;
     fDmMain: TdmMain;
     procedure PrintTask;
@@ -18,7 +19,7 @@ type
   end;
 
 implementation
-uses  RVTable, uFormulaUtils, SysUtils, uRounding, uLocalizeShared;
+uses  uFormulaUtils, SysUtils, uRounding, uLocalizeShared;
 
 { TSolver }
 
@@ -47,10 +48,15 @@ begin
 end;
 
 procedure TSolver.ParseFormulaAndText(AStr: String);
+const
+  rows_left = 15;
 var
   vText: TArray<string>;
   vFormulas: TArray<String>;
   i: integer;
+  row_count: Integer;
+  vParaNo: Integer;
+
 
   procedure BindFormulas;
   var
@@ -60,19 +66,36 @@ var
       vFormulas[i] := TRegEx.Replace(vFormulas[i], '(\[)(.*)(\])', Evaluator);
   end;
 begin
+  if AStr = '' then
+    Exit;
   ParseText(AStr, vText, vFormulas);
   BindFormulas;
+  row_count := 0;
   for i := Low(vText) to High(vText) do
   begin
-    FRichView.InsertTextW(vText[i]);
+    if row_count < rows_left then
+    begin
+      if Copy(vText[i], 1, 1) = #10 then
+        vParaNo := 0
+      else
+        vParaNo := -1;
+
+      FTaskTable.Cells[0,1].AddTextNL(vText[i], 0, vParaNo, -1);
+    end
+    else
+      FRichView.InsertTextW(vText[i]);
     if i<=High(vFormulas) then
-      RVAddFormulaTex(vFormulas[i], FRichView);
+    begin
+      if row_count < rows_left then
+        RVAddFormulaTex(vFormulas[i], FTaskTable.Cells[0,1])
+      else
+        RVAddFormulaTex(vFormulas[i], FRichView);
+    end;
   end;
 end;
 
 procedure TSolver.PrintTask;
 var
-  vtbl: TRVTableItemInfo;
   i: Integer;
 const
   cnstFormulaPatt = '%s = %s \quad \cyr{%s}';
@@ -85,22 +108,22 @@ const
       vParaNo := 0
     else
       vParaNo := -1;
-    vtbl.Cells[0, 0].AddTextNL(AText, 0, vParaNo, 0);
+    FTaskTable.Cells[0, 0].AddTextNL(AText, 0, vParaNo, 0);
   end;
 
 begin
     // Создаем табличку для вывода условия
-  vtbl := TRVTableItemInfo.CreateEx(1, 2, FRichView.RVData);
-  FRichView.InsertItem('table1', vtbl);
+  FTaskTable := TRVTableItemInfo.CreateEx(1, 2, FRichView.RVData);
+  FRichView.InsertItem('table1', FTaskTable);
   // Граница не видна
-  vtbl.VisibleBorders.SetAll(false);
+  FTaskTable.VisibleBorders.SetAll(false);
   // Видна вертикальная черта
-  vtbl.VRuleColor := clBlack;
-  vtbl.VRuleWidth := 1;
+  FTaskTable.VRuleColor := clBlack;
+  FTaskTable.VRuleWidth := 1;
 
   // Заполняем то, что дано.
-  vtbl.Cells[0, 0].Clear;
-  vtbl.Cells[0, 0].AddTextNLW('Дано:', 0, 0, 0, True);
+  FTaskTable.Cells[0, 0].Clear;
+  FTaskTable.Cells[0, 0].AddTextNLW('Дано:', 0, 0, 0, True);
 
   fDmMain.memItems.First;
   while not fDmMain.memItems.Eof do
@@ -109,24 +132,24 @@ begin
     begin
       RVAddFormulaTex(Format(cnstFormulaPatt, [fDmMain.memItemsF_TEX.Value,
          RndArr.FormatDoubleStr(fDmMain.memItemsVALUE.Value),
-         fDmMain.GetMeasureName(fDmMain.memItemsMEASURE_ID.Value)]), vtbl.Cells[0,0]);
+         fDmMain.GetMeasureName(fDmMain.memItemsMEASURE_ID.Value)]), FTaskTable.Cells[0,0]);
     end;
     fDmMain.memItems.Next;
   end;
 
-  vtbl.Cells[0, 0].AddBreak;
+  FTaskTable.Cells[0, 0].AddBreak;
   AddText('Знайти');
 
   fDmMain.memItems.First;
   while not fDmMain.memItems.Eof do
   begin
-    if fDmMain.memItemsCALC_VALUE.AsString = '' then
-      RVAddFormulaTex(fDmMain.memItemsF_TEX.Value, vtbl.Cells[0,0]);
+    if fDmMain.memItemsVALUE.AsString = '' then
+      RVAddFormulaTex(fDmMain.memItemsF_TEX.Value, FTaskTable.Cells[0,0]);
     fDmMain.memItems.Next;
   end;
 
-  vtbl.ResizeRow(0, vtbl.Rows[0].GetBestHeight);
-  vtbl.ResizeCol(0, 150, True);
+  FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
+  FTaskTable.ResizeCol(0, 150, True);
 
 end;
 
