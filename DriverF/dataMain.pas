@@ -66,6 +66,8 @@ type
     ldsMeasuresLABEL_RU: TWideStringField;
     ldsMeasuresLABEL_UKR_TR: TWideStringField;
     ldsMeasuresLABEL_RU_TR: TWideStringField;
+    memItemsNAME: TStringField;
+    memItemsRESULT_VALUE: TFloatField;
     procedure memItemsAfterScroll(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
@@ -80,6 +82,7 @@ type
     //Возвращает Ид формулы
     function SearchFormulaForCalc(var AResult: Double;  var AItemId: Integer): Integer;
   public
+    procedure ClearCalc;
     procedure ConnectIfNeeded;
     procedure RefreshItems;
     function Calc(ACallBack: TCalcCallbackProc = nil): Boolean;
@@ -138,6 +141,31 @@ begin
   end;
 end;
 
+procedure TdmMain.ClearCalc;
+var
+  vBookmark: TBookmark;
+begin
+  vBookmark := memItems.GetBookmark;
+  memItems.DisableControls;
+  try
+    memItems.First;
+    while not memItems.Eof do
+    begin
+      if memItemsCALC_VALUE.AsString <> '' then
+      begin
+        memItems.Edit;
+        memItemsCALC_VALUE.Clear;
+        memItemsCALC_VALUE_CORRECT.Clear;
+        memItems.Post;
+      end;
+      memItems.Next;
+    end;
+  finally
+    memItems.GotoBookmark(vBookmark);
+    memItems.EnableControls;
+  end;
+end;
+
 procedure TdmMain.ConnectIfNeeded;
 begin
   if not dbMain.Connected then
@@ -186,6 +214,12 @@ begin
   if (memItemsCALC_VALUE_CORRECT.AsString <> '') and
      ldsMeasures.Locate('ID', memItemsMEASURE_ID.Value, []) then
     memItemsCALC_VALUE.Value := memItemsCALC_VALUE_CORRECT.Value / ldsMeasuresKOEFF.Value;
+
+  if memItemsVALUE_CORRECT.AsString <> '' then
+    memItemsRESULT_VALUE.Value := memItemsVALUE_CORRECT.Value;
+
+  if memItemsCALC_VALUE_CORRECT.AsString <> '' then
+    memItemsRESULT_VALUE.Value := memItemsCALC_VALUE_CORRECT.Value;
 end;
 
 procedure TdmMain.RefreshCurMeasList;
@@ -243,6 +277,7 @@ begin
       memItemsITEM_IMG.LoadFromStream(vStream);
       memItemsHINT.Value := ldsItemsDESC_UKR.Value;
       memItemsF_TEX.Value := ldsItemsF_TEX.Value;
+      memItemsNAME.Value := ldsItemsNAME.Value;
       RefreshCurMeasList;
       if memCurMeasList.RecordCount >= 1 then
         memItemsMEASURE_ID.Value := memCurMeasListID.Value;
@@ -327,7 +362,7 @@ begin
     //Пробегаемся по всем элементам
     while not memItems.Eof do
     begin
-      if memItemsCALC_VALUE.AsString = '' then
+      if memItemsRESULT_VALUE.AsString = '' then
       begin
         Result := cnstCantCalc;
 

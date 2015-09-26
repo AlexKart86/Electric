@@ -63,6 +63,7 @@ function GetNeast(AValue: Double): Double;
 //¬ыполн€ет парсинг файла, и раскидывает текст и формулы по разным массивам
 //‘ормула должна обрамл€тьс€ тегами {tex} {/tex}
 procedure ParseFile(AFileName: String; var AText: TArray<String>; var AFormulas: TArray<String>);
+procedure ParseText(AStr: String; var AText: TArray<String>; var AFormulas: TArray<String>);
 
 var
   fCoordsCache: TMemTableEh;
@@ -373,15 +374,24 @@ begin
   vList := TStringList.Create;
   try
     vList.LoadFromFile(GetAppPath+AFileName);
-    vRegExp := TRegEx.Create('({tex}+)(.+?)({\\tex}+)', [roMultiLine]);
-    vFormulas := vRegExp.Matches(vList.Text);
-    AText := TRegEx.Split(vList.Text, '{tex}.+?{\\tex}', [roMultiLine]);
-    SetLength(AFormulas, vFormulas.Count);
-    for i := 0 to vFormulas.Count-1 do
-       AFormulas[i] :=  vFormulas.Item[i].Groups[2].Value;
+    ParseText(vList.Text, AText, AFormulas);
   finally
     FreeAndNil(vList);
   end;
+end;
+
+procedure ParseText(AStr: String; var AText: TArray<String>; var AFormulas: TArray<String>);
+var vList: TStringList;
+    vRegExp: TRegEx;
+    vFormulas: TMatchCollection;
+    i: Integer;
+begin
+  vRegExp := TRegEx.Create('({tex}+)(.+?)({\\tex}+)', [roMultiLine]);
+  vFormulas := vRegExp.Matches(AStr);
+  AText := TRegEx.Split(AStr, '{tex}.+?{\\tex}', [roMultiLine]);
+  SetLength(AFormulas, vFormulas.Count);
+  for i := 0 to vFormulas.Count-1 do
+     AFormulas[i] :=  vFormulas.Item[i].Groups[2].Value;
 end;
 
 //ƒобавл€ет текст и формулы, помеченные тегами <formula> </formula> в рич вью

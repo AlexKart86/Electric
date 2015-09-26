@@ -107,12 +107,6 @@ inherited frmMain: TfrmMain
               Footers = <>
               ReadOnly = True
               Width = 194
-            end
-            item
-              DynProps = <>
-              EditButtons = <>
-              FieldName = 'VALUE_CORRECT'
-              Footers = <>
             end>
           object RowDetailData: TRowDetailPanelControlEh
             object CRDBGrid1: TCRDBGrid
@@ -131,11 +125,11 @@ inherited frmMain: TfrmMain
         end
       end
       object btnRecalc: TButton
-        Left = 5
-        Top = 3
+        Left = 9
+        Top = 9
         Width = 163
         Height = 25
-        Caption = #1056#1086#1079#1088#1072#1093#1091#1074#1072#1090#1080' '#1087#1072#1088#1072#1084#1077#1090#1088#1080
+        Caption = #1055#1077#1088#1077#1088#1072#1093#1091#1074#1072#1090#1080' '#1087#1072#1088#1072#1084#1077#1090#1088#1080
         TabOrder = 2
         OnClick = btnRecalcClick
       end

@@ -1,7 +1,7 @@
 unit uCalc;
 
 interface
-uses dataMain, RVEdit, Graphics;
+uses dataMain, RVEdit, Graphics, RegularExpressions;
 
 type
   TSolver = class
@@ -9,13 +9,16 @@ type
     FRichView: TRichViewEdit;
     fDmMain: TdmMain;
     procedure PrintTask;
+    procedure ParseFormulaAndText(AStr: String);
+    function Evaluator(const Match: TMatch): string;
+    procedure OnCalcCallBack(AStrUkr, AStrRus: String);
   public
     constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
     procedure RunSolve;
   end;
 
 implementation
-uses  RVTable, uFormulaUtils, SysUtils, uRounding;
+uses  RVTable, uFormulaUtils, SysUtils, uRounding, uLocalizeShared;
 
 { TSolver }
 
@@ -23,6 +26,48 @@ constructor TSolver.Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
 begin
   FRichView := ARichView;
   fDmMain := AdmMain;
+end;
+
+function TSolver.Evaluator(const Match: TMatch): string;
+var
+  vItemName: String;
+begin
+  Assert(Match.Groups.Count >=2, 'ўось не так п≥шло в процес≥ зам≥ни зразка '+Match.Value);
+  vItemName := Match.Groups.Item[2].Value;
+  Assert(dmMain.memItems.Locate('NAME', vItemName, []), '«м≥нноњ '+vItemName+' не маЇ в перел≥ку зм≥нних');
+  Result := RndArr.FormatDoubleStr(fDmMain.memItemsRESULT_VALUE.Value);
+end;
+
+procedure TSolver.OnCalcCallBack(AStrUkr, AStrRus: String);
+begin
+  case CurrentLang of
+    lngUkr: ParseFormulaAndText(AStrUkr);
+    lngRus: ParseFormulaAndText(AStrRus);
+  end;
+end;
+
+procedure TSolver.ParseFormulaAndText(AStr: String);
+var
+  vText: TArray<string>;
+  vFormulas: TArray<String>;
+  i: integer;
+
+  procedure BindFormulas;
+  var
+    i: Integer;
+  begin
+    for i := Low(vFormulas) to High(vFormulas) do
+      vFormulas[i] := TRegEx.Replace(vFormulas[i], '(\[)(.*)(\])', Evaluator);
+  end;
+begin
+  ParseText(AStr, vText, vFormulas);
+  BindFormulas;
+  for i := Low(vText) to High(vText) do
+  begin
+    FRichView.InsertTextW(vText[i]);
+    if i<=High(vFormulas) then
+      RVAddFormulaTex(vFormulas[i], FRichView);
+  end;
 end;
 
 procedure TSolver.PrintTask;
@@ -89,6 +134,8 @@ procedure TSolver.RunSolve;
 begin
   FRichView.Clear;
   PrintTask;
+  dmMain.ClearCalc;
+  dmMain.Calc(OnCalcCallBack);
 end;
 
 end.

@@ -1724,7 +1724,7 @@ begin
     Add(TBooleanFunction.CreateOper('<', _lt, 2, True, 50));
     Add(TBooleanFunction.CreateOper('<>', _ne, 2, True, 50));
     Add(TBooleanFunction.CreateOper('=', _eq, 2, True, 50));
-    Add(TBooleanFunction.CreateOper('in', _eq, 2, True, 10));
+    //Add(TBooleanFunction.CreateOper('in', _eq, 2, True, 10));
     Add(TBooleanFunction.CreateOper('not', _not, 1, True, 60));
     Add(TBooleanFunction.CreateOper('or', _or, 2, True, 70));
     Add(TBooleanFunction.CreateOper('and', _And, 2, True, 70));

@@ -48,6 +48,7 @@ uses ParseExpr, uCalc, uRounding;
 procedure TfrmMain.btnRecalcClick(Sender: TObject);
 begin
   inherited;
+  dmMain.ClearCalc;
   TryCalc;
 end;
 

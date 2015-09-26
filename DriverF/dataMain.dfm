@@ -44,6 +44,11 @@ object dmMain: TdmMain
         Name = 'F_TEX'
         DataType = ftString
         Size = 100
+      end
+      item
+        Name = 'NAME'
+        DataType = ftString
+        Size = 100
       end>
     IndexDefs = <>
     Params = <>
@@ -99,6 +104,15 @@ object dmMain: TdmMain
       FieldName = 'F_TEX'
       Size = 100
     end
+    object memItemsNAME: TStringField
+      FieldName = 'NAME'
+      Size = 100
+    end
+    object memItemsRESULT_VALUE: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'RESULT_VALUE'
+      Calculated = True
+    end
     object MemTableData: TMemTableDataEh
       object DataStruct: TMTDataStructEh
         object ITEM_ID: TMTNumericDataFieldEh
@@ -142,6 +156,11 @@ object dmMain: TdmMain
         end
         object F_TEX: TMTStringDataFieldEh
           FieldName = 'F_TEX'
+          StringDataType = fdtStringEh
+          Size = 100
+        end
+        object NAME: TMTStringDataFieldEh
+          FieldName = 'NAME'
           StringDataType = fdtStringEh
           Size = 100
         end
