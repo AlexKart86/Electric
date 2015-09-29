@@ -7,7 +7,6 @@ Desktop.ini
 WORK
 Utils
 SQLite3_4_Delphi_RC1
-Packages/SQLite3_4_Delphi_RC2
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -23,6 +22,8 @@ $RECYCLE.BIN/
 *.identcache
 *.gid
 *.doc
+*.dsk
+*.res
 
 
 # =========================

@@ -147,6 +147,15 @@ inherited frmMain: TfrmMain
         TabOrder = 2
         OnClick = btnRecalcClick
       end
+      object Button1: TButton
+        Left = 512
+        Top = 9
+        Width = 75
+        Height = 25
+        Caption = 'MagicButton'
+        TabOrder = 3
+        OnClick = Button1Click
+      end
     end
     inherited tsHidden: TTabSheet
       ExplicitLeft = 4

@@ -110,6 +110,10 @@
 			<DCCReference Include="uCalc.pas"/>
 			<DCCReference Include="..\SharedCode\uRounding.pas"/>
 			<DCCReference Include="uLocalize.pas"/>
+			<DCCReference Include="fFormulaEditor.pas">
+				<Form>frmFormulaEditor</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

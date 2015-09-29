@@ -19,7 +19,8 @@ uses
   oObjects in '..\SharedCode\oObjects.pas',
   uCalc in 'uCalc.pas',
   uRounding in '..\SharedCode\uRounding.pas',
-  uLocalize in 'uLocalize.pas';
+  uLocalize in 'uLocalize.pas',
+  fFormulaEditor in 'fFormulaEditor.pas' {frmFormulaEditor};
 
 {$R *.res}
 

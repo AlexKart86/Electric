@@ -16,6 +16,7 @@ type
     dbgParams: TDBGridEh;
     CRDBGrid1: TCRDBGrid;
     btnRecalc: TButton;
+    Button1: TButton;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure dbgParamsDataHintShow(Sender: TCustomDBGridEh; CursorPos: TPoint;
@@ -39,7 +40,7 @@ var
   frmMain: TfrmMain;
 
 implementation
-uses ParseExpr, uCalc, uRounding;
+uses ParseExpr, uCalc, uRounding, fFormulaEditor;
 
 {$R *.dfm}
 
@@ -58,6 +59,7 @@ var
  a,b,c: Double;
 begin
   inherited;
+  FormulaEditExecute;
 {  vPar := TExpressionParser.Create;
   a := 2;
   b := 2;
