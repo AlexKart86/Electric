@@ -2,7 +2,7 @@ unit uRounding;
 
 interface
 
-uses MemTableDataEh, MemTableEh, Classes, jclMath;
+uses MemTableDataEh, MemTableEh, Classes{, jclMath};
 
 type
   TRoundArr = class(TMemTableEh)
@@ -14,7 +14,7 @@ type
     procedure AddType(ATypeCaption, ATypeName: string; AValue: Integer = 3);
     // Округлить число в соответствии с типом данных
     function FormatDouble(a: Double; AElementType: string): Double;
-    function FormatDoubleC(a: TRectComplex; AElementType: string): TRectComplex;
+    //function FormatDoubleC(a: TRectComplex; AElementType: string): TRectComplex;
 
     // Тоже самое что и предыдущая функа но выводит строковое представление числа
     function FormatDoubleStr(a: Double; AElementType: string = 'default'): String;
@@ -78,12 +78,12 @@ begin
   Result := RoundTo(a, -FieldByName('VALUE').AsInteger);
 end;
 
-function TRoundArr.FormatDoubleC(a: TRectComplex;
+{function TRoundArr.FormatDoubleC(a: TRectComplex;
   AElementType: string): TRectComplex;
 begin
   Result.Re := FormatDouble(a.Re, AElementType);
   Result.Im := FormatDouble(a.Im, AElementType);
-end;
+end;}
 
 function TRoundArr.FormatDoubleStr(a: Double; AElementType: string): String;
 begin

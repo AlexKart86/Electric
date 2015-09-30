@@ -5,7 +5,8 @@ object dmMain: TdmMain
   Height = 507
   Width = 580
   object dbMain: TSQLiteDatabase
-    Filename = 'K:\Electric\DriverF\BIN\formulas.db'
+    Connected = True
+    Filename = 'h:\Electric2\DriverF\BIN\formulas.db'
     Left = 32
     Top = 16
   end
@@ -360,7 +361,10 @@ object dmMain: TdmMain
     end
   end
   object memCurMeasList: TMemTableEh
+    FieldDefs = <>
+    IndexDefs = <>
     Params = <>
+    StoreDefs = True
     Left = 40
     Top = 216
     object memCurMeasListID: TIntegerField
@@ -518,5 +522,9 @@ object dmMain: TdmMain
       FieldName = 'NAME'
       Size = 4000
     end
+  end
+  object ilFormulas: TImageList
+    Left = 224
+    Top = 120
   end
 end

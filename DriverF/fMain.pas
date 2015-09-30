@@ -7,14 +7,14 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fMainTemplate, RVStyle, Vcl.StdCtrls,
   Vcl.ExtCtrls, Ruler, RVRuler, RVScroll, RichView, RVEdit, Vcl.ComCtrls,
   dataMain, DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls,
-  DynVarsEh, GridsEh, DBAxisGridsEh, DBGridEh, Vcl.Grids, Vcl.DBGrids, CRGrid,
+  DynVarsEh, GridsEh, DBAxisGridsEh, DBGridEh, Vcl.Grids, Vcl.DBGrids,
   Vcl.Mask, EhLibVCL;
 
 type
   TfrmMain = class(TfrmMainTemplate)
     GroupBox1: TGroupBox;
     dbgParams: TDBGridEh;
-    CRDBGrid1: TCRDBGrid;
+    CRDBGrid1: TDBGridEh;
     btnRecalc: TButton;
     Button1: TButton;
     procedure FormShow(Sender: TObject);

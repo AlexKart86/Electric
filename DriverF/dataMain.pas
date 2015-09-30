@@ -68,6 +68,7 @@ type
     ldsMeasuresLABEL_RU_TR: TWideStringField;
     memItemsNAME: TStringField;
     memItemsRESULT_VALUE: TFloatField;
+    ilFormulas: TImageList;
     procedure memItemsAfterScroll(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
@@ -178,8 +179,6 @@ begin
     dbMain.Connected := True;
   end;
 end;
-
-
 
 
 procedure TdmMain.DataModuleCreate(Sender: TObject);

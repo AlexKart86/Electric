@@ -11,6 +11,7 @@ object frmFormulaEditor: TfrmFormulaEditor
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -21,13 +22,13 @@ object frmFormulaEditor: TfrmFormulaEditor
     Align = alTop
     Caption = 'Panel1'
     TabOrder = 0
-    object DBGridEh1: TDBGridEh
+    object dbgFormulas: TDBGridEh
       Left = 1
       Top = 1
       Width = 816
       Height = 183
       Align = alClient
-      DataSource = DataSource1
+      DataSource = dsFormulas
       DynProps = <>
       IndicatorOptions = [gioShowRowIndicatorEh]
       TabOrder = 0
@@ -42,44 +43,108 @@ object frmFormulaEditor: TfrmFormulaEditor
         item
           DynProps = <>
           EditButtons = <>
-          FieldName = 'F_TEX'
+          FieldName = 'F_STR'
           Footers = <>
-          Width = 68
+          Width = 240
         end
         item
           DynProps = <>
           EditButtons = <>
           FieldName = 'ITEM_ID'
           Footers = <>
-          Width = 103
+          Width = 107
         end>
       object RowDetailData: TRowDetailPanelControlEh
       end
     end
   end
   object Button1: TButton
-    Left = 576
-    Top = 400
-    Width = 75
-    Height = 25
-    Caption = 'Button1'
+    Left = 344
+    Top = 191
+    Width = 466
+    Height = 34
+    Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
     TabOrder = 1
     OnClick = Button1Click
   end
-  object DBMemo1: TDBMemo
-    Left = 40
-    Top = 216
-    Width = 185
-    Height = 89
-    TabOrder = 2
-  end
   object GroupBox1: TGroupBox
-    Left = 8
+    Left = 10
     Top = 191
-    Width = 305
-    Height = 122
-    Caption = 'GroupBox1'
+    Width = 328
+    Height = 178
+    Caption = #1054#1087#1080#1089#1072#1085#1080#1077' '#1059#1050#1056
+    TabOrder = 2
+    object DBMemo1: TDBMemo
+      Left = 2
+      Top = 15
+      Width = 324
+      Height = 161
+      Align = alClient
+      DataField = 'TEXT_UKR'
+      DataSource = dsFormulas
+      ScrollBars = ssVertical
+      TabOrder = 0
+    end
+  end
+  object GroupBox2: TGroupBox
+    Left = 8
+    Top = 373
+    Width = 328
+    Height = 180
+    Caption = #1054#1087#1080#1089#1072#1085#1080#1077' '#1056#1059#1057
     TabOrder = 3
+    object DBMemo2: TDBMemo
+      Left = 2
+      Top = 15
+      Width = 324
+      Height = 163
+      Align = alClient
+      DataField = 'TEXT_RUS'
+      DataSource = dsFormulas
+      ScrollBars = ssVertical
+      TabOrder = 0
+    end
+  end
+  object DBGridEh2: TDBGridEh
+    Left = 344
+    Top = 231
+    Width = 466
+    Height = 320
+    ColumnDefValues.Title.TitleButton = True
+    DataSource = dsFormulaDetail
+    DynProps = <>
+    IndicatorOptions = [gioShowRowIndicatorEh]
+    OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghMultiSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
+    SortLocal = True
+    TabOrder = 4
+    Columns = <
+      item
+        Checkboxes = True
+        DynProps = <>
+        EditButtons = <>
+        FieldName = 'IS_ITEM_EXISTS'
+        Footers = <>
+        KeyList.Strings = (
+          '1'
+          '0')
+        Title.Caption = ' '
+      end
+      item
+        DynProps = <>
+        EditButtons = <>
+        FieldName = 'NAME'
+        Footers = <>
+        Width = 100
+      end
+      item
+        DynProps = <>
+        EditButtons = <>
+        FieldName = 'ID'
+        Footers = <>
+        Visible = False
+      end>
+    object RowDetailData: TRowDetailPanelControlEh
+    end
   end
   object ldsFormulas: TSQLiteDataset
     Aggregates = <>
@@ -124,12 +189,16 @@ object frmFormulaEditor: TfrmFormulaEditor
         Size = 4000
       end>
     IndexDefs = <>
+    FetchOnDemand = False
     Params = <>
     StoreDefs = True
+    AfterPost = ldsFormulasAfterPost
+    BeforeScroll = ldsFormulasBeforeScroll
+    AfterScroll = ldsFormulasAfterScroll
     Database = dmMain.dbMain
     UpdateSQL = updFormulas
-    Left = 592
-    Top = 72
+    Left = 456
+    Top = 64
     object ldsFormulasFORMULA_ID: TIntegerField
       FieldName = 'FORMULA_ID'
     end
@@ -161,9 +230,9 @@ object frmFormulaEditor: TfrmFormulaEditor
       Size = 4000
     end
   end
-  object DataSource1: TDataSource
+  object dsFormulas: TDataSource
     DataSet = ldsFormulas
-    Left = 488
+    Left = 248
     Top = 208
   end
   object updFormulas: TSQLiteUpdateSQL
@@ -190,6 +259,94 @@ object frmFormulaEditor: TfrmFormulaEditor
       '    text_rus = :text_rus'
       'where formula_id = :formula_id')
     Left = 624
-    Top = 200
+    Top = 120
+  end
+  object dsFormulaDetail: TDataSource
+    DataSet = memItems
+    Left = 232
+    Top = 264
+  end
+  object ldsSelecteditems: TSQLiteDataset
+    Aggregates = <>
+    CommandText = 
+      'select it.ID, it.NAME,'#13#10'       coalesce((select 1'#13#10'        from ' +
+      'formula_detail fd'#13#10'        where fd.FORMULA_ID = :formula_id and' +
+      #13#10'           fd.ITEM_ID = it.ID), 0) is_item_exists'#13#10'from items ' +
+      'it'
+    FieldDefs = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NAME'
+        DataType = ftWideString
+        Size = 4000
+      end
+      item
+        Name = 'IS_ITEM_EXISTS'
+        DataType = ftInteger
+      end>
+    IndexDefs = <>
+    Params = <
+      item
+        DataType = ftString
+        Name = 'formula_id'
+        ParamType = ptUnknown
+      end>
+    StoreDefs = True
+    Database = dmMain.dbMain
+    Left = 384
+    Top = 120
+    object ldsSelecteditemsID: TIntegerField
+      FieldName = 'ID'
+    end
+    object ldsSelecteditemsNAME: TWideStringField
+      FieldName = 'NAME'
+      Size = 4000
+    end
+    object ldsSelecteditemsIS_ITEM_EXISTS: TIntegerField
+      FieldName = 'IS_ITEM_EXISTS'
+    end
+  end
+  object memItems: TMemTableEh
+    FieldDefs = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        Precision = 15
+      end
+      item
+        Name = 'NAME'
+        DataType = ftWideString
+        Size = 4000
+      end
+      item
+        Name = 'IS_ITEM_EXISTS'
+        DataType = ftInteger
+        Precision = 15
+      end>
+    IndexDefs = <>
+    Params = <>
+    DataDriver = dsd
+    StoreDefs = True
+    AfterPost = memItemsAfterPost
+    Left = 640
+    Top = 432
+    object memItemsID: TIntegerField
+      FieldName = 'ID'
+    end
+    object memItemsNAME: TWideStringField
+      FieldName = 'NAME'
+      Size = 4000
+    end
+    object memItemsIS_ITEM_EXISTS: TIntegerField
+      FieldName = 'IS_ITEM_EXISTS'
+    end
+  end
+  object dsd: TDataSetDriverEh
+    ProviderDataSet = ldsSelecteditems
+    Left = 552
+    Top = 424
   end
 end
