@@ -30,7 +30,13 @@ object frmFormulaEditor: TfrmFormulaEditor
       Align = alClient
       DataSource = dsFormulas
       DynProps = <>
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Courier New'
+      Font.Style = []
       IndicatorOptions = [gioShowRowIndicatorEh]
+      ParentFont = False
       TabOrder = 0
       Columns = <
         item
@@ -38,14 +44,14 @@ object frmFormulaEditor: TfrmFormulaEditor
           EditButtons = <>
           FieldName = 'FORMULA_ID'
           Footers = <>
-          Width = 114
+          Width = 129
         end
         item
           DynProps = <>
           EditButtons = <>
           FieldName = 'F_STR'
           Footers = <>
-          Width = 240
+          Width = 253
         end
         item
           DynProps = <>
@@ -105,7 +111,7 @@ object frmFormulaEditor: TfrmFormulaEditor
       TabOrder = 0
     end
   end
-  object DBGridEh2: TDBGridEh
+  object dbgDetail: TDBGridEh
     Left = 344
     Top = 231
     Width = 466
@@ -192,6 +198,7 @@ object frmFormulaEditor: TfrmFormulaEditor
     FetchOnDemand = False
     Params = <>
     StoreDefs = True
+    AfterInsert = ldsFormulasAfterInsert
     AfterPost = ldsFormulasAfterPost
     BeforeScroll = ldsFormulasBeforeScroll
     AfterScroll = ldsFormulasAfterScroll
@@ -288,6 +295,7 @@ object frmFormulaEditor: TfrmFormulaEditor
         DataType = ftInteger
       end>
     IndexDefs = <>
+    FetchOnDemand = False
     Params = <
       item
         DataType = ftString
@@ -326,6 +334,7 @@ object frmFormulaEditor: TfrmFormulaEditor
         DataType = ftInteger
         Precision = 15
       end>
+    FetchAllOnOpen = True
     IndexDefs = <>
     Params = <>
     DataDriver = dsd

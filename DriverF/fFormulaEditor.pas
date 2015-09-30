@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, dataMain, DBGridEhGrouping, ToolCtrlsEh,
   DBGridEhToolCtrls, DynVarsEh, Data.DB, Datasnap.DBClient, SQLite3Dataset,
   GridsEh, DBAxisGridsEh, DBGridEh, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.DBCtrls,
-  MemTableDataEh, DataDriverEh, MemTableEh, SQLiteTable3;
+  MemTableDataEh, DataDriverEh, MemTableEh, SQLiteTable3, Vcl.Mask, DBCtrlsEh,
+  EhLibMTE, dbUtilsEh;
 
 type
   TfrmFormulaEditor = class(TForm)
@@ -29,7 +30,7 @@ type
     DBMemo1: TDBMemo;
     GroupBox2: TGroupBox;
     DBMemo2: TDBMemo;
-    DBGridEh2: TDBGridEh;
+    dbgDetail: TDBGridEh;
     dsFormulaDetail: TDataSource;
     ldsSelecteditems: TSQLiteDataset;
     ldsSelecteditemsID: TIntegerField;
@@ -46,6 +47,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure memItemsAfterPost(DataSet: TDataSet);
     procedure ldsFormulasBeforeScroll(DataSet: TDataSet);
+    procedure ldsFormulasAfterInsert(DataSet: TDataSet);
   private
     qryDeleteItems: TSQLitePreparedStatement;
     qryInsertItems: TSQLitePreparedStatement;
@@ -77,6 +79,10 @@ end;
 
 procedure TfrmFormulaEditor.ApplySelectedItems;
 begin
+  if memItems.State in dsEditModes then
+    memItems.Post;
+  if ldsSelecteditems.State in dsEditModes then
+    ldsSelecteditems.Post;
   if not IsNeedApplySelectedItems then
     Exit;
   ldsSelecteditems.DisableControls;
@@ -103,9 +109,9 @@ end;
 
 procedure TfrmFormulaEditor.Button1Click(Sender: TObject);
 begin
+  ApplySelectedItems;
   ldsFormulas.ApplyUpdates;
   IsNeedApplySelectedItems := True;
-  ApplySelectedItems;
 end;
 
 procedure TfrmFormulaEditor.FillItemList;
@@ -124,6 +130,11 @@ end;
 procedure TfrmFormulaEditor.FormCreate(Sender: TObject);
 begin
   IsNeedApplySelectedItems := False;
+end;
+
+procedure TfrmFormulaEditor.ldsFormulasAfterInsert(DataSet: TDataSet);
+begin
+  ldsFormulasFORMULA_ID.Value := ldsFormulas.RecordCount + 1;
 end;
 
 procedure TfrmFormulaEditor.ldsFormulasAfterPost(DataSet: TDataSet);
@@ -153,6 +164,7 @@ begin
   ldsSelecteditems.Open;
   memItems.Close;
   memItems.Open;
+  GetDatasetFeaturesForDataSet(memItems).ApplySorting(dbgDetail, memItems, False);
 end;
 
 end.

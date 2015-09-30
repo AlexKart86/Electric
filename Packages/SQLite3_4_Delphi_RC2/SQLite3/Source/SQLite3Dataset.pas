@@ -275,7 +275,7 @@ begin
   if Self.State in [dsEdit, dsInsert] then
     Post;
 
-  if (ChangeCount < 1) and not (Assigned(FUpdateSQL)) and not (Assigned(FDB)) then
+  if (ChangeCount < 1) or not (Assigned(FUpdateSQL)) or not (Assigned(FDB)) then
     Exit;
 
   FAutoIncField := FindField(FAutoIncFieldName);
@@ -285,8 +285,6 @@ begin
   OrigFilter := StatusFilter;
   DisableControls;
   oldRecNo := RecNo;
-
-  Assert(Assigned(UpdateSQL), 'You must specify Update SQL to perform apply updates');
 
   FStmtUpd := TSQLitePreparedStatement.Create(FDB, UpdateSQL.ModifySQL.Text);
   FStmtIns := TSQLitePreparedStatement.Create(FDB, UpdateSQL.InsertSQL.Text);
