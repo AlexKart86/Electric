@@ -89,20 +89,7 @@ var
   procedure AddText(AText:  String);
   begin
     if FStage <= stages_tbl then
-    begin
-
-      //Блядские переводы строки игнорируются
-      if (Copy(AText, 1, 1) = #10) or (AText = #13#10) or
-          (Copy(AText, 1, 1) = #13) or (AText[length(Atext)] = #13) then
-      begin
-        vParaNo := 0;
-      end
-      else
-        vParaNo := -1;
-
-        FTaskTable.Cells[0,1].AddTextNL(AText, 0, -1, 0);
-       //FTaskTable.Cells[0,1].AddTextBlockNLA(AText, 0, -1);
-    end
+        FTaskTable.Cells[0,1].AddTextNL(AText, 0, -1, 0)
     else
       FRichView.InsertTextW(AText);
   end;

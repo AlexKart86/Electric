@@ -197,9 +197,10 @@ begin
   if ldsMeasures.Locate('ID', AMeasureID, []) then
   begin
     case CurrentLang of
-     lngUkr: Result := ReplaceStr(ldsMeasuresLABEL_UKR_TR.Value, '∙', '\cdot ');
+     lngUkr: Result := ldsMeasuresLABEL_UKR_TR.Value;
      lngRus: Result := ldsMeasuresLABEL_RU_TR.Value;
     end;
+    Result := ReplaceStr(Result, '∙', '\cdot ')
   end;
 end;
 
