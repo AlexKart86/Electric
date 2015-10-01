@@ -1,4 +1,4 @@
-unit dataMain;
+ï»¿unit dataMain;
 
 interface
 
@@ -78,9 +78,9 @@ type
     FProcessedItems: TDictionary<integer, double>;
     procedure RefreshProcessedItems;
     procedure RefreshCurMeasList;
-     //Ñðåäè ôîðìóë èùåò ôîðìóëó ïî êîòîðîé ìîæíî ÷òî-íèáóäü ïîñ÷èòàòü
-    //È êîòîðàÿ åùå íå ïîñ÷èòàíà
-    //Âîçâðàùàåò Èä ôîðìóëû
+     //Ð¡Ñ€ÐµÐ´Ð¸ Ñ„Ð¾Ñ€Ð¼ÑƒÐ» Ð¸Ñ‰ÐµÑ‚ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ñƒ Ð¿Ð¾ ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¼Ð¾Ð¶Ð½Ð¾ Ñ‡Ñ‚Ð¾-Ð½Ð¸Ð±ÑƒÐ´ÑŒ Ð¿Ð¾ÑÑ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ
+    //Ð˜ ÐºÐ¾Ñ‚Ð¾Ñ€Ð°Ñ ÐµÑ‰Ðµ Ð½Ðµ Ð¿Ð¾ÑÑ‡Ð¸Ñ‚Ð°Ð½Ð°
+    //Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð˜Ð´ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ñ‹
     function SearchFormulaForCalc(var AResult: Double;  var AItemId: Integer): Integer;
   public
     procedure ClearCalc;
@@ -95,13 +95,13 @@ var
   dmMain: TdmMain;
 
 implementation
-uses Forms, uFormulaUtils, Vcl.Imaging.GIFImg, ParseExpr, ParseClass, uLocalizeShared;
+uses Forms, uFormulaUtils, Vcl.Imaging.GIFImg, ParseExpr, ParseClass, uLocalizeShared, StrUtils;
 
 const
   cnstDbName = 'formulas.db';
-  //Âñå çíà÷åíèÿ ïî ôîðìóëàì ðàññ÷èòàíû
+  //Ð’ÑÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð¿Ð¾ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ð°Ð¼ Ñ€Ð°ÑÑÑ‡Ð¸Ñ‚Ð°Ð½Ñ‹
   cnstAllFormulasCalc = -2;
-  //Íåò ôîðìóëû êîòîðóþ áû ìîæíî áûëî âû÷èñëèòü
+  //ÐÐµÑ‚ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ñ‹ ÐºÐ¾Ñ‚Ð¾Ñ€ÑƒÑŽ Ð±Ñ‹ Ð¼Ð¾Ð¶Ð½Ð¾ Ð±Ñ‹Ð»Ð¾ Ð²Ñ‹Ñ‡Ð¸ÑÐ»Ð¸Ñ‚ÑŒ
   cnstCantCalc = -1;
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
@@ -197,7 +197,7 @@ begin
   if ldsMeasures.Locate('ID', AMeasureID, []) then
   begin
     case CurrentLang of
-     lngUkr: Result := ldsMeasuresLABEL_UKR_TR.Value;
+     lngUkr: Result := ReplaceStr(ldsMeasuresLABEL_UKR_TR.Value, 'âˆ™', '\cdot ');
      lngRus: Result := ldsMeasuresLABEL_RU_TR.Value;
     end;
   end;
@@ -328,18 +328,18 @@ const
   cnstFormulaFilter = ' formula_id = %d';
 
 
-  //Äîñòàòî÷íî ëè äàííûõ äëÿ ðàññ÷åòà ïî ôîðìóëå
+  //Ð”Ð¾ÑÑ‚Ð°Ñ‚Ð¾Ñ‡Ð½Ð¾ Ð»Ð¸ Ð´Ð°Ð½Ð½Ñ‹Ñ… Ð´Ð»Ñ Ñ€Ð°ÑÑÑ‡ÐµÑ‚Ð° Ð¿Ð¾ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ðµ
   function IsCanCalcFormula(AFormulaId: Integer): Boolean;
   begin
     Result := True;
-    //Îïðåäåëÿåì, êàêèå ýëåìåíòû äîëæíû áûòü â ôîðìóëå ÷òîáû åå ïîñ÷èòàòü
+    //ÐžÐ¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÐ¼, ÐºÐ°ÐºÐ¸Ðµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð±Ñ‹Ñ‚ÑŒ Ð² Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ðµ Ñ‡Ñ‚Ð¾Ð±Ñ‹ ÐµÐµ Ð¿Ð¾ÑÑ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ
     ldsFormulaDetail.Filter := Format(cnstFormulaFilter, [AFormulaID]);
     ldsFormulaDetail.Filtered := True;
     try
     ldsFormulaDetail.First;
     while not ldsFormulaDetail.Eof do
     begin
-      //Åñëè êàêîé òî ýëåìåíò íå ðàññ÷èòàí - âûõîäèò
+      //Ð•ÑÐ»Ð¸ ÐºÐ°ÐºÐ¾Ð¹ Ñ‚Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ Ð½Ðµ Ñ€Ð°ÑÑÑ‡Ð¸Ñ‚Ð°Ð½ - Ð²Ñ‹Ñ…Ð¾Ð´Ð¸Ñ‚
       if not FProcessedItems.ContainsKey(ldsFormulaDetailITEM_ID.Value) then
       begin
         Result := False;
@@ -362,21 +362,21 @@ begin
   try
     memItems.DisableControls;
     memItems.First;
-    //Ïðîáåãàåìñÿ ïî âñåì ýëåìåíòàì
+    //ÐŸÑ€Ð¾Ð±ÐµÐ³Ð°ÐµÐ¼ÑÑ Ð¿Ð¾ Ð²ÑÐµÐ¼ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð°Ð¼
     while not memItems.Eof do
     begin
       if memItemsRESULT_VALUE.AsString = '' then
       begin
         Result := cnstCantCalc;
 
-        //Áåðåì ôîðìóëû, êîòîðûå ìîãóò áûòü èñïîëüçîâàíû äëÿ äàííîãî ýëåìåíòà
+        //Ð‘ÐµÑ€ÐµÐ¼ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ñ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð¼Ð¾Ð³ÑƒÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ñ‹ Ð´Ð»Ñ Ð´Ð°Ð½Ð½Ð¾Ð³Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð°
         ldsFormulas.Filter := Format(cnstItemFilter, [memItemsITEM_ID.Value]);
         ldsFormulas.Filtered := True;
         try
           ldsFormulas.First;
           while not ldsFormulas.Eof do
           begin
-            //Åñëè äàííàÿ ôîðìóëà ìîæåò áûòü ïîñ÷èòàíà, âûõîäèì
+            //Ð•ÑÐ»Ð¸ Ð´Ð°Ð½Ð½Ð°Ñ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ð° Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¿Ð¾ÑÑ‡Ð¸Ñ‚Ð°Ð½Ð°, Ð²Ñ‹Ñ…Ð¾Ð´Ð¸Ð¼
             if IsCanCalcFormula(ldsFormulasFORMULA_ID.Value) then
             begin
               Result := ldsFormulasFORMULA_ID.Value;
@@ -390,7 +390,7 @@ begin
         end;
 
 
-        //Åñëè íàøëè êàêóþ ëèáî ôîðìóëó ïî êîòîðîé ìîæíî ïîñ÷èòàòü
+        //Ð•ÑÐ»Ð¸ Ð½Ð°ÑˆÐ»Ð¸ ÐºÐ°ÐºÑƒÑŽ Ð»Ð¸Ð±Ð¾ Ñ„Ð¾Ñ€Ð¼ÑƒÐ»Ñƒ Ð¿Ð¾ ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¼Ð¾Ð¶Ð½Ð¾ Ð¿Ð¾ÑÑ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ
         if Result > 0 then
         begin
           vPar := TExpressionParser.Create;

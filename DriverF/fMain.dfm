@@ -1,20 +1,20 @@
 inherited frmMain: TfrmMain
   Caption = #1058#1088#1077#1093#1092#1072#1079#1085#1099#1081' '#1072#1089#1080#1085#1093#1088#1086#1085#1085#1099#1081' '#1076#1074#1080#1075#1072#1090#1077#1083#1100
   ClientHeight = 772
-  ClientWidth = 802
+  ClientWidth = 775
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcMain: TPageControl
-    Width = 802
+    Width = 775
     Height = 737
-    ActivePage = tsFirst
     inherited tsResults: TTabSheet
       inherited rvMain: TRichViewEdit
-        Width = 794
+        Width = 767
         Height = 702
+        RVFOptions = [rvfoSavePicturesBody, rvfoSaveControlsBody, rvfoSaveBinary, rvfoSaveTextStyles, rvfoSaveParaStyles, rvfoSaveLayout, rvfoSaveDocProperties, rvfoLoadDocProperties]
       end
       inherited RVRuler1: TRVRuler
-        Width = 794
+        Width = 767
       end
     end
     inherited tsFirst: TTabSheet
@@ -25,14 +25,14 @@ inherited frmMain: TfrmMain
       object GroupBox1: TGroupBox
         Left = 3
         Top = 40
-        Width = 778
+        Width = 751
         Height = 684
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 1
         object dbgParams: TDBGridEh
           Left = 2
           Top = 15
-          Width = 774
+          Width = 747
           Height = 667
           Align = alClient
           AllowedOperations = [alopUpdateEh]
@@ -145,26 +145,89 @@ inherited frmMain: TfrmMain
   end
   inherited pnlFooter: TPanel
     Top = 737
-    Width = 802
+    Width = 775
     Height = 35
     inherited btnCalc: TButton
-      Left = 620
+      Left = 593
       Top = 3
     end
     inherited btnCancel: TButton
-      Left = 720
+      Left = 693
       Top = 4
     end
     inherited btnSaveToFile: TButton
-      Left = 510
+      Left = 483
       Top = 4
     end
     inherited btnPrev: TButton
-      Left = 620
+      Left = 593
       Top = 4
+    end
+    object Button2: TButton
+      Left = 280
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'Button2'
+      TabOrder = 4
     end
   end
   inherited RVStyle1: TRVStyle
+    TextStyles = <
+      item
+        StyleName = 'Normal text'
+        Charset = RUSSIAN_CHARSET
+        FontName = 'Courier New'
+        Size = 12
+        Unicode = True
+        ModifiedProperties = [rvfiFontName, rvfiSize]
+      end
+      item
+        StyleName = 'Bold'
+        FontName = 'Times New Roman'
+        Size = 12
+        Style = [fsBold]
+        NextStyleNo = 0
+        Unicode = True
+      end
+      item
+        StyleName = 'Heading'
+        FontName = 'Arial'
+        Style = [fsBold]
+        Color = clBlue
+        Unicode = True
+      end
+      item
+        StyleName = 'Subheading'
+        FontName = 'Arial'
+        Style = [fsBold]
+        Color = clNavy
+        Unicode = True
+      end
+      item
+        StyleName = 'Keywords'
+        FontName = 'Arial'
+        Style = [fsItalic]
+        Color = clMaroon
+        Unicode = True
+      end
+      item
+        StyleName = 'Jump 1'
+        FontName = 'Arial'
+        Style = [fsUnderline]
+        Color = clGreen
+        Jump = True
+        Unicode = True
+      end
+      item
+        StyleName = 'Jump 2'
+        FontName = 'Arial'
+        Style = [fsUnderline]
+        Color = clGreen
+        Jump = True
+        BiDiMode = rvbdLeftToRight
+        Unicode = True
+      end>
     ParaStyles = <
       item
         StyleName = 'Paragraph Style'

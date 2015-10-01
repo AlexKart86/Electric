@@ -96,7 +96,7 @@ begin
 end;
 
 function GetTexFormulaGif(AFormulaStr: String): TGIFImage;
-const cnstParams='"%s" -e %s -s 3';
+const cnstParams='"%s" -e %s -s 2';
       cnstTmpFile='tmp.gif';
 begin
   Result := TGIFImage.Create;
@@ -139,7 +139,7 @@ end;
 
 procedure RVAddFormulaTex(AFormulaStr: String; rv: TRVTableCellData);
 begin
-  rv.AddPictureEx(AFormulaStr, GetTexFormulaGif(AFormulaStr), 0, rvvaAbsMiddle);
+  rv.AddPictureEx(AFormulaStr, GetTexFormulaGif(AFormulaStr), -1, rvvaAbsMiddle);
 end;
 
 { TFormula }

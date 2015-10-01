@@ -90,17 +90,21 @@ var
   begin
     if FStage <= stages_tbl then
     begin
-      if (Copy(AText, 1, 1) = #10) or (AText = #13#10) then
+
+      //Блядские переводы строки игнорируются
+      if (Copy(AText, 1, 1) = #10) or (AText = #13#10) or
+          (Copy(AText, 1, 1) = #13) or (AText[length(Atext)] = #13) then
       begin
         vParaNo := 0;
       end
       else
         vParaNo := -1;
 
-      FTaskTable.Cells[0,1].AddTextNL(AText, 0, vParaNo, -1);
+        FTaskTable.Cells[0,1].AddTextNL(AText, 0, -1, 0);
+       //FTaskTable.Cells[0,1].AddTextBlockNLA(AText, 0, -1);
     end
     else
-      FRichView.InsertTextW(vText[i]);
+      FRichView.InsertTextW(AText);
   end;
 
 begin
@@ -116,7 +120,7 @@ begin
   begin
     AddText(vText[i]);
 
-    if i<=High(vFormulas) then
+   if i<=High(vFormulas) then
     begin
       if FStage <= stages_tbl then
         RVAddFormulaTex(vFormulas[i], FTaskTable.Cells[0,1])
@@ -149,12 +153,18 @@ const
 begin
     // Создаем табличку для вывода условия
   FTaskTable := TRVTableItemInfo.CreateEx(1, 2, FRichView.RVData);
+
+  FTaskTable.Options :=  FTaskTable.Options + [rvtoIgnoreContentWidth];
+  FTaskTable.Cells[0,0].BestWidth := 150;
+  FTaskTable.Cells[0,1].BestWidth := 450;
+
   FRichView.InsertItem('table1', FTaskTable);
   // Граница не видна
   FTaskTable.VisibleBorders.SetAll(false);
   // Видна вертикальная черта
   FTaskTable.VRuleColor := clBlack;
   FTaskTable.VRuleWidth := 1;
+
 
   // Заполняем то, что дано.
   FTaskTable.Cells[0, 0].Clear;
@@ -173,19 +183,26 @@ begin
   end;
 
   FTaskTable.Cells[0, 0].AddBreak;
-  AddText('Знайти');
+  AddText('Знайти'#13#10);
 
   fDmMain.memItems.First;
+  i := 1;
   while not fDmMain.memItems.Eof do
   begin
     if fDmMain.memItemsVALUE.AsString = '' then
+    begin
       RVAddFormulaTex(fDmMain.memItemsF_TEX.Value, FTaskTable.Cells[0,0]);
+      if i mod 2 = 0 then
+        FTaskTable.Cells[0,0].AddTextNL(#13#10, 0, -1, 0)
+      else
+        FTaskTable.Cells[0,0].AddNL(',', 0, -1);
+      Inc(i);
+    end;
     fDmMain.memItems.Next;
   end;
 
-  FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
-  FTaskTable.ResizeCol(0, 120, True);
-
+  //FTaskTable.ResizeCol(0, 600, True);
+  //FTaskTable.ResizeCol(1, 620, True);
 end;
 
 procedure TSolver.RunSolve;
@@ -193,9 +210,18 @@ begin
   FRichView.Clear;
   FStage := 0;
   PrintTask;
+{
+
+  FTaskTable.Cells[0,1].DoSelect;
+  FRichView.InsertTextW('ddd');}
+
   dmMain.ClearCalc;
   dmMain.Calc(OnCalcCallBack);
-  FTaskTable.ResizeCol(0, 120, True);
+
+ // FTaskTable.ResizeCol(0, 120, True);
+
+  FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
+
 end;
 
 end.

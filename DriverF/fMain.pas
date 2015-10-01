@@ -17,6 +17,7 @@ type
     CRDBGrid1: TDBGridEh;
     btnRecalc: TButton;
     Button1: TButton;
+    Button2: TButton;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure dbgParamsDataHintShow(Sender: TCustomDBGridEh; CursorPos: TPoint;
