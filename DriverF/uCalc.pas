@@ -6,6 +6,7 @@ uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable;
 type
   TSolver = class
   private
+    FStage: Integer;
     FTaskTable: TRVTableItemInfo;
     FRichView: TRichViewEdit;
     fDmMain: TdmMain;
@@ -68,12 +69,11 @@ end;
 
 procedure TSolver.ParseFormulaAndText(AStr: String);
 const
-  rows_left = 15;
+  stages_tbl = 15;
 var
   vText: TArray<string>;
   vFormulas: TArray<String>;
   i: integer;
-  row_count: Integer;
   vParaNo: Integer;
 
 
@@ -82,35 +82,51 @@ var
     i: Integer;
   begin
     for i := Low(vFormulas) to High(vFormulas) do
-      vFormulas[i] := TRegEx.Replace(vFormulas[i], '(\[)(.*)(\])', Evaluator);
+      vFormulas[i] := TRegEx.Replace(vFormulas[i], '(\[)(.+?)(\])', Evaluator);
   end;
+
+
+  procedure AddText(AText:  String);
+  begin
+    if FStage <= stages_tbl then
+    begin
+      if (Copy(AText, 1, 1) = #10) or (AText = #13#10) then
+      begin
+        vParaNo := 0;
+      end
+      else
+        vParaNo := -1;
+
+      FTaskTable.Cells[0,1].AddTextNL(AText, 0, vParaNo, -1);
+    end
+    else
+      FRichView.InsertTextW(vText[i]);
+  end;
+
 begin
   if AStr = '' then
     Exit;
   ParseText(AStr, vText, vFormulas);
   BindFormulas;
-  row_count := 0;
+
+  Inc(FStage);
+  AddText(IntToStr(FStage)+') ');
+
   for i := Low(vText) to High(vText) do
   begin
-    if row_count < rows_left then
-    begin
-      if Copy(vText[i], 1, 1) = #10 then
-        vParaNo := 0
-      else
-        vParaNo := -1;
+    AddText(vText[i]);
 
-      FTaskTable.Cells[0,1].AddTextNL(vText[i], 0, vParaNo, -1);
-    end
-    else
-      FRichView.InsertTextW(vText[i]);
     if i<=High(vFormulas) then
     begin
-      if row_count < rows_left then
+      if FStage <= stages_tbl then
         RVAddFormulaTex(vFormulas[i], FTaskTable.Cells[0,1])
       else
         RVAddFormulaTex(vFormulas[i], FRichView);
     end;
   end;
+  //Отступы
+  AddText(#13#10);
+  AddText(#13#10);
 end;
 
 procedure TSolver.PrintTask;
@@ -168,16 +184,18 @@ begin
   end;
 
   FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
-  FTaskTable.ResizeCol(0, 150, True);
+  FTaskTable.ResizeCol(0, 120, True);
 
 end;
 
 procedure TSolver.RunSolve;
 begin
   FRichView.Clear;
+  FStage := 0;
   PrintTask;
   dmMain.ClearCalc;
   dmMain.Calc(OnCalcCallBack);
+  FTaskTable.ResizeCol(0, 120, True);
 end;
 
 end.
