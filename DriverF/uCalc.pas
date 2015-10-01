@@ -168,13 +168,14 @@ begin
 
   // Заполняем то, что дано.
   FTaskTable.Cells[0, 0].Clear;
-  FTaskTable.Cells[0, 0].AddTextNLW('Дано:', 0, 0, 0, True);
+  FTaskTable.Cells[0, 0].AddTextNL('Дано:', 0, -1, 0);
 
   fDmMain.memItems.First;
   while not fDmMain.memItems.Eof do
   begin
     if fDmMain.memItemsVALUE_CORRECT.AsString <> '' then
     begin
+      FTaskTable.Cells[0,0].AddTextNL(#13#10, 0, -1, 0);
       RVAddFormulaTex(Format(cnstFormulaPatt, [fDmMain.memItemsF_TEX.Value,
          RndArr.FormatDoubleStr(fDmMain.memItemsVALUE.Value),
          fDmMain.GetMeasureName(fDmMain.memItemsMEASURE_ID.Value)]), FTaskTable.Cells[0,0]);
@@ -183,7 +184,7 @@ begin
   end;
 
   FTaskTable.Cells[0, 0].AddBreak;
-  AddText('Знайти'#13#10);
+  AddText('Знайти:'#13#10);
 
   fDmMain.memItems.First;
   i := 1;
