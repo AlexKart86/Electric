@@ -8,28 +8,19 @@ inherited frmMain: TfrmMain
     Width = 802
     Height = 737
     ActivePage = tsFirst
-    ExplicitWidth = 802
-    ExplicitHeight = 737
     inherited tsResults: TTabSheet
-      ExplicitWidth = 794
-      ExplicitHeight = 727
       inherited rvMain: TRichViewEdit
         Width = 794
         Height = 702
-        ExplicitWidth = 794
-        ExplicitHeight = 702
       end
       inherited RVRuler1: TRVRuler
         Width = 794
-        ExplicitWidth = 794
       end
     end
     inherited tsFirst: TTabSheet
       inherited rgLanguage: TRadioGroup
         Left = 178
         Top = 0
-        ExplicitLeft = 178
-        ExplicitTop = 0
       end
       object GroupBox1: TGroupBox
         Left = 3
@@ -151,43 +142,26 @@ inherited frmMain: TfrmMain
         OnClick = Button1Click
       end
     end
-    inherited tsHidden: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 6
-      ExplicitWidth = 794
-      ExplicitHeight = 727
-    end
   end
   inherited pnlFooter: TPanel
     Top = 737
     Width = 802
     Height = 35
-    ExplicitTop = 737
-    ExplicitWidth = 802
-    ExplicitHeight = 35
     inherited btnCalc: TButton
       Left = 620
       Top = 3
-      ExplicitLeft = 620
-      ExplicitTop = 3
     end
     inherited btnCancel: TButton
       Left = 720
       Top = 4
-      ExplicitLeft = 720
-      ExplicitTop = 4
     end
     inherited btnSaveToFile: TButton
       Left = 510
       Top = 4
-      ExplicitLeft = 510
-      ExplicitTop = 4
     end
     inherited btnPrev: TButton
       Left = 620
       Top = 4
-      ExplicitLeft = 620
-      ExplicitTop = 4
     end
   end
   inherited RVStyle1: TRVStyle

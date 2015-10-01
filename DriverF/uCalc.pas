@@ -32,11 +32,30 @@ end;
 function TSolver.Evaluator(const Match: TMatch): string;
 var
   vItemName: String;
+  vStr: String;
+  vKoeff: Double;
+  i: Integer;
 begin
   Assert(Match.Groups.Count >=2, 'Щось не так пішло в процесі заміни зразка '+Match.Value);
   vItemName := Match.Groups.Item[2].Value;
+
+  vKoeff := 1;
+  vStr := '';
+  //Возможно, вначале есть коэффициент, на который следует умножать
+  for i := 1 to Length(vItemName) do
+  begin
+    if not (vitemName[i] in ['0'..'9','.']) then
+      break;
+     vStr := vStr + vItemName[i];
+  end;
+  if vStr <> '' then
+  begin
+    vItemName := Copy(vItemName, Length(vStr)+1, Length(vItemName)-Length(vStr));
+    vKoeff :=  StrToFloat(vStr);
+  end;
+
   Assert(dmMain.memItems.Locate('NAME', vItemName, []), 'Змінної '+vItemName+' не має в переліку змінних');
-  Result := RndArr.FormatDoubleStr(fDmMain.memItemsRESULT_VALUE.Value);
+  Result := RndArr.FormatDoubleStr(fDmMain.memItemsRESULT_VALUE.Value*vKoeff);
 end;
 
 procedure TSolver.OnCalcCallBack(AStrUkr, AStrRus: String);
