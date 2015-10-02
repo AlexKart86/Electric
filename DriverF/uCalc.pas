@@ -142,8 +142,8 @@ begin
   FTaskTable := TRVTableItemInfo.CreateEx(1, 2, FRichView.RVData);
 
   FTaskTable.Options :=  FTaskTable.Options + [rvtoIgnoreContentWidth];
-  FTaskTable.Cells[0,0].BestWidth := 150;
-  FTaskTable.Cells[0,1].BestWidth := 450;
+  FTaskTable.Cells[0,0].BestWidth := 170;
+  FTaskTable.Cells[0,1].BestWidth := 490;
 
   FRichView.InsertItem('table1', FTaskTable);
   // Граница не видна
