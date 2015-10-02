@@ -69,7 +69,7 @@ end;
 
 procedure TSolver.ParseFormulaAndText(AStr: String);
 const
-  stages_tbl = 15;
+  stages_tbl = 3;
 var
   vText: TArray<string>;
   vFormulas: TArray<String>;
