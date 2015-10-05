@@ -50,7 +50,13 @@ object dmMain: TdmMain
         Name = 'NAME'
         DataType = ftString
         Size = 100
+      end
+      item
+        Name = 'DESC_RU'
+        DataType = ftString
+        Size = 400
       end>
+    FetchAllOnOpen = True
     IndexDefs = <>
     Params = <>
     StoreDefs = True
@@ -114,6 +120,11 @@ object dmMain: TdmMain
       FieldName = 'RESULT_VALUE'
       Calculated = True
     end
+    object memItemsDESC_RU: TStringField
+      DisplayLabel = #1053#1072#1079#1074#1072
+      FieldName = 'DESC_RU'
+      Size = 400
+    end
     object MemTableData: TMemTableDataEh
       object DataStruct: TMTDataStructEh
         object ITEM_ID: TMTNumericDataFieldEh
@@ -164,6 +175,11 @@ object dmMain: TdmMain
           FieldName = 'NAME'
           StringDataType = fdtStringEh
           Size = 100
+        end
+        object DESC_RU: TMTStringDataFieldEh
+          FieldName = 'DESC_RU'
+          StringDataType = fdtStringEh
+          Size = 400
         end
       end
       object RecordsList: TRecordsListEh

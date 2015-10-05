@@ -69,6 +69,7 @@ type
     memItemsNAME: TStringField;
     memItemsRESULT_VALUE: TFloatField;
     ilFormulas: TImageList;
+    memItemsDESC_RU: TStringField;
     procedure memItemsAfterScroll(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
@@ -282,6 +283,7 @@ begin
       memItemsHINT.Value := ldsItemsDESC_UKR.Value;
       memItemsF_TEX.Value := ldsItemsF_TEX.Value;
       memItemsNAME.Value := ldsItemsNAME.Value;
+      memItemsDESC_RU.Value := ldsItemsDESC_RU.Value;
       RefreshCurMeasList;
       if memCurMeasList.RecordCount >= 1 then
         memItemsMEASURE_ID.Value := memCurMeasListID.Value;
@@ -292,6 +294,7 @@ begin
   finally
     FreeAndNil(vStream);
   end;
+  memItems.First;
 end;
 
 procedure TdmMain.RefreshProcessedItems;

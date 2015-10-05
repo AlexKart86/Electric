@@ -1,16 +1,17 @@
 inherited frmMain: TfrmMain
   Caption = #1058#1088#1077#1093#1092#1072#1079#1085#1099#1081' '#1072#1089#1080#1085#1093#1088#1086#1085#1085#1099#1081' '#1076#1074#1080#1075#1072#1090#1077#1083#1100
-  ClientHeight = 772
+  ClientHeight = 481
   ClientWidth = 775
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcMain: TPageControl
     Width = 775
-    Height = 737
+    Height = 446
+    ActivePage = tsFirst
     inherited tsResults: TTabSheet
       inherited rvMain: TRichViewEdit
         Width = 767
-        Height = 702
+        Height = 411
         RVFOptions = [rvfoSavePicturesBody, rvfoSaveControlsBody, rvfoSaveBinary, rvfoSaveTextStyles, rvfoSaveParaStyles, rvfoSaveLayout, rvfoSaveDocProperties, rvfoLoadDocProperties]
       end
       inherited RVRuler1: TRVRuler
@@ -26,16 +27,17 @@ inherited frmMain: TfrmMain
         Left = 3
         Top = 40
         Width = 751
-        Height = 684
+        Height = 393
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 1
         object dbgParams: TDBGridEh
           Left = 2
           Top = 15
           Width = 747
-          Height = 667
+          Height = 376
           Align = alClient
           AllowedOperations = [alopUpdateEh]
+          AutoFitColWidths = True
           ColumnDefValues.AlwaysShowEditButton = True
           DataSource = dmMain.dsItems
           DrawGraphicData = True
@@ -53,6 +55,7 @@ inherited frmMain: TfrmMain
           RowLines = 1
           ShowHint = True
           TabOrder = 0
+          TitleParams.MultiTitle = True
           OnDataHintShow = dbgParamsDataHintShow
           OnGetCellParams = dbgParamsGetCellParams
           Columns = <
@@ -61,6 +64,7 @@ inherited frmMain: TfrmMain
               EditButtons = <>
               FieldName = 'ITEM_ID'
               Footers = <>
+              Visible = False
               Width = 69
             end
             item
@@ -68,7 +72,20 @@ inherited frmMain: TfrmMain
               EditButtons = <>
               FieldName = 'NAME'
               Footers = <>
+              Visible = False
               Width = 48
+            end
+            item
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'DESC_RU'
+              Font.Charset = RUSSIAN_CHARSET
+              Font.Color = clBlack
+              Font.Height = -12
+              Font.Name = 'Courier New'
+              Font.Style = []
+              Footers = <>
+              Width = 314
             end
             item
               DynProps = <>
@@ -77,7 +94,7 @@ inherited frmMain: TfrmMain
               Footers = <>
               ReadOnly = True
               Title.Caption = #1055#1072#1088#1072#1084#1077#1090#1088
-              Width = 104
+              Width = 100
             end
             item
               LookupParams.LookupCache = False
@@ -90,14 +107,14 @@ inherited frmMain: TfrmMain
               EditButtons = <>
               FieldName = 'MEASURE_ID_LOOKUP'
               Footers = <>
-              Width = 163
+              Width = 97
             end
             item
               DynProps = <>
               EditButtons = <>
               FieldName = 'VALUE'
               Footers = <>
-              Width = 156
+              Width = 99
             end
             item
               DisplayFormat = '####0.0##'
@@ -106,20 +123,9 @@ inherited frmMain: TfrmMain
               FieldName = 'CALC_VALUE'
               Footers = <>
               ReadOnly = True
-              Width = 194
+              Width = 101
             end>
           object RowDetailData: TRowDetailPanelControlEh
-            object CRDBGrid1: TDBGridEh
-              Left = -160
-              Top = -56
-              Width = 320
-              Height = 120
-              DynProps = <>
-              IndicatorOptions = [gioShowRowIndicatorEh]
-              TabOrder = 0
-              object RowDetailData: TRowDetailPanelControlEh
-              end
-            end
           end
         end
       end
@@ -144,7 +150,7 @@ inherited frmMain: TfrmMain
     end
   end
   inherited pnlFooter: TPanel
-    Top = 737
+    Top = 446
     Width = 775
     Height = 35
     inherited btnCalc: TButton
@@ -162,14 +168,6 @@ inherited frmMain: TfrmMain
     inherited btnPrev: TButton
       Left = 593
       Top = 4
-    end
-    object Button2: TButton
-      Left = 280
-      Top = 6
-      Width = 75
-      Height = 25
-      Caption = 'Button2'
-      TabOrder = 4
     end
   end
   inherited RVStyle1: TRVStyle
