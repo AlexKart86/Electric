@@ -195,20 +195,19 @@ end;
 
 procedure TSolver.RunSolve;
 begin
-  FRichView.Clear;
-  FStage := 0;
-  PrintTask;
-{
+  dmMain.memItems.DisableControls;
+  try
+    FRichView.Clear;
+    FStage := 0;
+    PrintTask;
 
-  FTaskTable.Cells[0,1].DoSelect;
-  FRichView.InsertTextW('ddd');}
+    dmMain.ClearCalc;
+    dmMain.Calc(OnCalcCallBack);
 
-  dmMain.ClearCalc;
-  dmMain.Calc(OnCalcCallBack);
-
- // FTaskTable.ResizeCol(0, 120, True);
-
-  FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
+    FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
+  finally
+    dmMain.memItems.EnableControls;
+  end;
 
 end;
 
