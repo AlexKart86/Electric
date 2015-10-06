@@ -1,4 +1,4 @@
-unit uCalc;
+п»їunit uCalc;
 
 interface
 uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable, ParseExpr;
@@ -20,7 +20,7 @@ type
     procedure ParseFormulaAndText(AStr: String; AIsUseNumerator: Boolean = True);
     function Evaluator(const Match: TMatch): string;
     procedure OnCalcCallBack(AStrUkr, AStrRus: String);
-    //Печатает таблицу значений, в которую заносит M(s) или M'(s) в зависимости от флага
+    //РџРµС‡Р°С‚Р°РµС‚ С‚Р°Р±Р»РёС†Сѓ Р·РЅР°С‡РµРЅРёР№, РІ РєРѕС‚РѕСЂСѓСЋ Р·Р°РЅРѕСЃРёС‚ M(s) РёР»Рё M'(s) РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С„Р»Р°РіР°
     procedure PrintTable(AIsM1: Boolean);
     procedure PrintCloss;
   public
@@ -58,12 +58,12 @@ var
   vKoeff: Double;
   i: Integer;
 begin
-  Assert(Match.Groups.Count >=2, 'Щось не так пішло в процесі заміни зразка '+Match.Value);
+  Assert(Match.Groups.Count >=2, 'Р©РѕСЃСЊ РЅРµ С‚Р°Рє РїС–С€Р»Рѕ РІ РїСЂРѕС†РµСЃС– Р·Р°РјС–РЅРё Р·СЂР°Р·РєР° '+Match.Value);
   vItemName := Match.Groups.Item[2].Value;
 
   vKoeff := 1;
   vStr := '';
-  //Возможно, вначале есть коэффициент, на который следует умножать
+  //Р’РѕР·РјРѕР¶РЅРѕ, РІРЅР°С‡Р°Р»Рµ РµСЃС‚СЊ РєРѕСЌС„С„РёС†РёРµРЅС‚, РЅР° РєРѕС‚РѕСЂС‹Р№ СЃР»РµРґСѓРµС‚ СѓРјРЅРѕР¶Р°С‚СЊ
   for i := 1 to Length(vItemName) do
   begin
     if not (vitemName[i] in ['0'..'9','.']) then
@@ -76,7 +76,7 @@ begin
     vKoeff :=  StrToFloat(vStr);
   end;
 
-  {Assert(dmMain.memItems.Locate('NAME', vItemName, []), 'Змінної '+vItemName+' не має в переліку змінних');
+  {Assert(dmMain.memItems.Locate('NAME', vItemName, []), 'Р—РјС–РЅРЅРѕС— '+vItemName+' РЅРµ РјР°С” РІ РїРµСЂРµР»С–РєСѓ Р·РјС–РЅРЅРёС…');
   Result := RndArr.FormatDoubleStr(fDmMain.memItemsRESULT_VALUE.Value*vKoeff);}
   Result := RndArr.FormatDoubleStr(dmMain.GetItemValue(vItemName)*vKoeff);
 end;
@@ -87,11 +87,17 @@ const
 var
   m: Double;
 begin
+  if S = 0 then
+  begin
+    Result := 0;
+    Exit;
+  end;
   if AIsM1 then
     m := FM1
   else
     m := dmMain.GetItemValue('Mmax');
 
+  Fs := s;
 
   Result := FN2Parse.Evaluate(
      Format(cnstN, [RndArr.FormatDoubleStr(m),
@@ -103,6 +109,7 @@ function TSolver.N2(S: Double): Double;
 const
   cnstF = '%s*(1-s)';
 begin
+  Fs := S;
   Result := FMParse.Evaluate(Format(cnstF, [RndArr.FormatDoubleStr(dmMain.GetItemValue('n1'))]));
 end;
 
@@ -165,7 +172,7 @@ begin
         RVAddFormulaTex(vFormulas[i], FRichView);
     end;
   end;
-  //Отступы
+  //РћС‚СЃС‚СѓРїС‹
   if AIsUseNumerator then
   begin
     AddText(#13#10);
@@ -175,12 +182,8 @@ end;
 
 procedure TSolver.PrintCloss;
 begin
-  if not dmMain.IsItemCalced('Mmax') or
-     not dmMain.IsItemCalced('skr') or
-     not dmMain.IsItemCalced('n1') then
-   Exit;
   ParseFormulaAndText(lc('Fs'), False);
-  ParseFormulaAndText('Формулу Клосса: {tex}M=\frac{2M_{\cyr{maks}}}{\frac{S}{s_{\cyr{kr}}}+\frac{s_{\cyr{kr}}}{S}}=\frac{2 \cdot [Mmax]}{\frac{S}{[skr]}+\frac{[skr]}{S}} {\tex}',
+  ParseFormulaAndText('Р¤РѕСЂРјСѓР»Сѓ РљР»РѕСЃСЃР°: {tex}M=\frac{2M_{\cyr{maks}}}{\frac{S}{s_{\cyr{kr}}}+\frac{s_{\cyr{kr}}}{S}}=\frac{2 \cdot [Mmax]}{\frac{S}{[skr]}+\frac{[skr]}{S}} {\tex}',
                       False);
   FRichView.InsertTextW(#13#10);
   ParseFormulaAndText(lc('N2'), False);
@@ -188,14 +191,74 @@ begin
 end;
 
 procedure TSolver.PrintTable(AIsM1: Boolean);
+const
+  cnstStep = 0.1;
 var
   mPref: String;
+  vTbl: TRVTableItemInfo;
+  s, sn, skr: Double;
+  i: Integer;
 begin
   if AIsM1 then
     mPref := '_M1'
   else
     mPref := '';
   ParseFormulaAndText(lc('tbl_h'+mPref), False);
+  skr := dmMain.GetItemValue('skr');
+
+  if dmMain.IsItemCalced('sn') then
+    sn := dmMain.GetItemValue('sn')
+  else
+    sn := -1;
+
+  vTbl := TRVTableItemInfo.CreateEx(1, 4, FRichView.RVData);
+  vTbl.Options := vTbl.Options + [rvtoIgnoreContentWidth];
+
+  vTbl.Cells[0,0].BestWidth := 80;
+  vTbl.Cells[0,1].BestWidth := 150;
+  vTbl.Cells[0,2].BestWidth := 150;
+  vTbl.Cells[0,3].BestWidth := 150;
+
+  vtbl.Cells[0,0].AddNL('в„–', 1, -1);
+  vtbl.Cells[0,1].AddNL(lc('tbl_h1'), 1, -1);
+
+  vtbl.BorderColor := clBlack;
+  vtbl.BorderWidth := 1;
+  vtbl.BorderStyle := rvtbColor;
+  vtbl.BorderLightColor := clBlack;
+  vtbl.VRuleColor := clBlack;
+  vtbl.VRuleWidth := 1;
+  vtbl.HRuleWidth := 1;
+  vtbl.HRuleColor := clBlack;
+
+  RVAddFormulaTex('n_2', vtbl.Cells[0,2]);
+  vtbl.Cells[0,2].AddNL(lc('tbl_h2'), 1, -1);
+
+  RVAddFormulaTex(lc('tbl_h3'+mPref), vtbl.Cells[0,3]);
+  vtbl.Cells[0,3].AddNL(' РќвЂўРј', 1, -1);
+
+  s := 0;
+  i := 0;
+  while s<=1 do
+  begin
+    Inc(i);
+    vtbl.InsertRows(i, 1, -1);
+    vTbl.Cells[i, 0].AddNL(IntToStr(i), 0, -1);
+
+    if s=sn then
+      RVAddFormulaTex('s_{\cyr{n}}='+RndArr.FormatDoubleStr(sn), vTbl.Cells[i,1])
+    else if s = skr then
+      RVAddFormulaTex('s_{\cyr{kr}}=' + RndArr.FormatDoubleStr(skr), vTbl.Cells[i,1])
+    else
+      vtbl.Cells[i,1].AddNL(FloatToStr(s), 0, -1);
+
+    vTbl.Cells[i,2].AddNL(RndArr.FormatDoubleStr(N2(s)), 0, -1);
+    vTbl.Cells[i,3].AddNL(RndArr.FormatDoubleStr(M(s, AIsM1)), 0, -1);
+
+    s := s+0.1;
+  end;
+
+  FRichView.InsertItem('tbl'+mPref, vtbl);
 end;
 
 procedure TSolver.PrintTask;
@@ -216,24 +279,24 @@ const
   end;
 
 begin
-    // Создаем табличку для вывода условия
+    // РЎРѕР·РґР°РµРј С‚Р°Р±Р»РёС‡РєСѓ РґР»СЏ РІС‹РІРѕРґР° СѓСЃР»РѕРІРёСЏ
   FTaskTable := TRVTableItemInfo.CreateEx(1, 2, FRichView.RVData);
 
   FTaskTable.Options :=  FTaskTable.Options + [rvtoIgnoreContentWidth];
   FTaskTable.Cells[0,0].BestWidth := 170;
-  FTaskTable.Cells[0,1].BestWidth := 490;
+  FTaskTable.Cells[0,1].BestWidth := 450;
 
   FRichView.InsertItem('table1', FTaskTable);
-  // Граница не видна
+  // Р“СЂР°РЅРёС†Р° РЅРµ РІРёРґРЅР°
   FTaskTable.VisibleBorders.SetAll(false);
-  // Видна вертикальная черта
+  // Р’РёРґРЅР° РІРµСЂС‚РёРєР°Р»СЊРЅР°СЏ С‡РµСЂС‚Р°
   FTaskTable.VRuleColor := clBlack;
   FTaskTable.VRuleWidth := 1;
 
 
-  // Заполняем то, что дано.
+  // Р—Р°РїРѕР»РЅСЏРµРј С‚Рѕ, С‡С‚Рѕ РґР°РЅРѕ.
   FTaskTable.Cells[0, 0].Clear;
-  FTaskTable.Cells[0, 0].AddTextNL('Дано:', 0, -1, 0);
+  FTaskTable.Cells[0, 0].AddTextNL('Р”Р°РЅРѕ:', 0, -1, 0);
 
   fDmMain.memItems.First;
   while not fDmMain.memItems.Eof do
@@ -282,10 +345,15 @@ begin
     dmMain.ClearCalc;
     dmMain.Calc(OnCalcCallBack);
 
-    PrintCloss;
-    PrintTable(False);
-    //TO DO
-    PrintTable(True);
+    if dmMain.IsItemCalced('Mmax') and
+       dmMain.IsItemCalced('skr') and
+       dmMain.IsItemCalced('n1') then
+    begin
+      PrintCloss;
+      PrintTable(False);
+      //TO DO
+      //PrintTable(True);
+    end;
 
     FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
   finally

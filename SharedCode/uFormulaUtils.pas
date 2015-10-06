@@ -42,6 +42,7 @@ procedure RVAddFormulaAndText(AText: String; rv: TRichViewEdit);
 procedure RVAddFormulaTex(AFormulaStr: String; rv: TRichViewEdit); overload;
 procedure RVAddFormulaTex(AFormulaStr: String; rv: TRVTableCellData); overload;
 
+
 // Вставить формулу в виде картинки в битмар
 procedure InsertFormulaIntoPicture(ABitmap: TBitMap; x, y: Integer;
   AFormula: string; AFontSize: Integer = 12);

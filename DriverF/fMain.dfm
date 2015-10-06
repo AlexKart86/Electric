@@ -182,7 +182,7 @@ inherited frmMain: TfrmMain
       end
       item
         StyleName = 'Bold'
-        FontName = 'Times New Roman'
+        FontName = 'Courier New'
         Size = 12
         Style = [fsBold]
         NextStyleNo = 0
