@@ -90,6 +90,8 @@ type
     function Calc(ACallBack: TCalcCallbackProc = nil): Boolean;
     property ProcessedItems: TDictionary<integer, double> read FProcessedItems;
     function GetMeasureName(AMeasureID: Integer): String;
+    function GetItemValue(AItemName: String): Double;
+    function IsItemCalced(AItemName: String): Boolean;
   end;
 
 var
@@ -192,6 +194,13 @@ begin
   FreeAndNil(FProcessedItems);
 end;
 
+function TdmMain.GetItemValue(AItemName: String): Double;
+begin
+  Assert(IsItemCalced(AItemName), 'Змінної '+AItemName+' не має в переліку змінних');
+  Result := memItemsRESULT_VALUE.Value;
+end;
+
+
 function TdmMain.GetMeasureName(AMeasureID: Integer): String;
 begin
   Result := '';
@@ -203,6 +212,12 @@ begin
     end;
     Result := ReplaceStr(Result, '∙', '\cdot ')
   end;
+end;
+
+function TdmMain.IsItemCalced(AItemName: String): Boolean;
+begin
+  Result := memItems.Locate('NAME', AItemName, []) and
+     (memItemsRESULT_VALUE.AsString <> '');
 end;
 
 procedure TdmMain.memItemsAfterScroll(DataSet: TDataSet);

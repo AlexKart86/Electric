@@ -1,21 +1,30 @@
 unit uCalc;
 
 interface
-uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable;
+uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable, ParseExpr;
 
 type
   TSolver = class
   private
+    Fs: Double;
+    FMParse: TExpressionParser;
+    FN1Parse: TExpressionParser;
+    FN2Parse: TExpressionParser;
     FStage: Integer;
     FTaskTable: TRVTableItemInfo;
     FRichView: TRichViewEdit;
     fDmMain: TdmMain;
+    function M(S: Double): Double;
+    function N1(S: Double): Double;
+    function  N2(S:double): Double;
     procedure PrintTask;
-    procedure ParseFormulaAndText(AStr: String);
+    procedure ParseFormulaAndText(AStr: String; AIsUseNumerator: Boolean = True);
     function Evaluator(const Match: TMatch): string;
     procedure OnCalcCallBack(AStrUkr, AStrRus: String);
+    procedure PrintCloss;
   public
     constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
+    destructor Destroy; override;
     procedure RunSolve;
   end;
 
@@ -28,6 +37,20 @@ constructor TSolver.Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
 begin
   FRichView := ARichView;
   fDmMain := AdmMain;
+  FMParse := TExpressionParser.Create;
+  FMParse.DefineVariable('s', @Fs);
+  FN1Parse := TExpressionParser.Create;
+  FN1Parse.DefineVariable('s', @Fs);
+  FN2Parse := TExpressionParser.Create;
+  FN2Parse.DefineVariable('s', @Fs);
+end;
+
+destructor TSolver.Destroy;
+begin
+  FreeAndNil(FMParse);
+  FreeAndNil(FN1Parse);
+  FreeAndNil(FN2Parse);
+  inherited;
 end;
 
 function TSolver.Evaluator(const Match: TMatch): string;
@@ -55,8 +78,24 @@ begin
     vKoeff :=  StrToFloat(vStr);
   end;
 
-  Assert(dmMain.memItems.Locate('NAME', vItemName, []), 'Змінної '+vItemName+' не має в переліку змінних');
-  Result := RndArr.FormatDoubleStr(fDmMain.memItemsRESULT_VALUE.Value*vKoeff);
+  {Assert(dmMain.memItems.Locate('NAME', vItemName, []), 'Змінної '+vItemName+' не має в переліку змінних');
+  Result := RndArr.FormatDoubleStr(fDmMain.memItemsRESULT_VALUE.Value*vKoeff);}
+  Result := RndArr.FormatDoubleStr(dmMain.GetItemValue(vItemName)*vKoeff);
+end;
+
+function TSolver.M(S: Double): Double;
+begin
+
+end;
+
+function TSolver.N1(S: Double): Double;
+begin
+
+end;
+
+function TSolver.N2(S: double): Double;
+begin
+
 end;
 
 procedure TSolver.OnCalcCallBack(AStrUkr, AStrRus: String);
@@ -67,7 +106,7 @@ begin
   end;
 end;
 
-procedure TSolver.ParseFormulaAndText(AStr: String);
+procedure TSolver.ParseFormulaAndText(AStr: String; AIsUseNumerator: Boolean = True);
 const
   stages_tbl = 3;
 var
@@ -100,8 +139,11 @@ begin
   ParseText(AStr, vText, vFormulas);
   BindFormulas;
 
-  Inc(FStage);
-  AddText(IntToStr(FStage)+') ');
+  if AIsUseNumerator then
+  begin
+    Inc(FStage);
+    AddText(IntToStr(FStage)+') ');
+  end;
 
   for i := Low(vText) to High(vText) do
   begin
@@ -116,8 +158,21 @@ begin
     end;
   end;
   //Отступы
-  AddText(#13#10);
-  AddText(#13#10);
+  if AIsUseNumerator then
+  begin
+    AddText(#13#10);
+    AddText(#13#10);
+  end;
+end;
+
+procedure TSolver.PrintCloss;
+begin
+  if not dmMain.IsItemCalced('Mmax') or
+     not dmMain.IsItemCalced('skr') then
+   Exit;
+  ParseFormulaAndText(lc('Fs'), False);
+  ParseFormulaAndText('Формулу Клосса: {tex}M=\frac{2M_{\cyr{maks}}}{\frac{S}{s_{\cyr{kr}}}+\frac{s_{\cyr{kr}}}{S}}=\frac{2 \cdot [Mmax]}{\frac{S}{[skr]}+\frac{[skr]}{S}} {\tex}',
+                      False);
 end;
 
 procedure TSolver.PrintTask;
@@ -171,7 +226,7 @@ begin
   end;
 
   FTaskTable.Cells[0, 0].AddBreak;
-  AddText('Знайти:'#13#10);
+  AddText(lc('Task')+#13#10);
 
   fDmMain.memItems.First;
   i := 1;
@@ -203,6 +258,8 @@ begin
 
     dmMain.ClearCalc;
     dmMain.Calc(OnCalcCallBack);
+
+    PrintCloss;
 
     FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
   finally
