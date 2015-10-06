@@ -7,20 +7,21 @@ type
   TSolver = class
   private
     Fs: Double;
+    FM1: Double;
     FMParse: TExpressionParser;
-    FN1Parse: TExpressionParser;
     FN2Parse: TExpressionParser;
     FStage: Integer;
     FTaskTable: TRVTableItemInfo;
     FRichView: TRichViewEdit;
     fDmMain: TdmMain;
-    function M(S: Double): Double;
-    function N1(S: Double): Double;
+    function M(S: Double; AIsM1: Boolean): Double;
     function  N2(S:double): Double;
     procedure PrintTask;
     procedure ParseFormulaAndText(AStr: String; AIsUseNumerator: Boolean = True);
     function Evaluator(const Match: TMatch): string;
     procedure OnCalcCallBack(AStrUkr, AStrRus: String);
+    //Печатает таблицу значений, в которую заносит M(s) или M'(s) в зависимости от флага
+    procedure PrintTable(AIsM1: Boolean);
     procedure PrintCloss;
   public
     constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
@@ -39,8 +40,6 @@ begin
   fDmMain := AdmMain;
   FMParse := TExpressionParser.Create;
   FMParse.DefineVariable('s', @Fs);
-  FN1Parse := TExpressionParser.Create;
-  FN1Parse.DefineVariable('s', @Fs);
   FN2Parse := TExpressionParser.Create;
   FN2Parse.DefineVariable('s', @Fs);
 end;
@@ -48,7 +47,6 @@ end;
 destructor TSolver.Destroy;
 begin
   FreeAndNil(FMParse);
-  FreeAndNil(FN1Parse);
   FreeAndNil(FN2Parse);
   inherited;
 end;
@@ -83,19 +81,29 @@ begin
   Result := RndArr.FormatDoubleStr(dmMain.GetItemValue(vItemName)*vKoeff);
 end;
 
-function TSolver.M(S: Double): Double;
+function TSolver.M(S: Double; AIsM1: Boolean): Double;
+const
+  cnstN = '2*%s/(s/%s+%s/s)';
+var
+  m: Double;
 begin
+  if AIsM1 then
+    m := FM1
+  else
+    m := dmMain.GetItemValue('Mmax');
 
+
+  Result := FN2Parse.Evaluate(
+     Format(cnstN, [RndArr.FormatDoubleStr(m),
+                    RndArr.FormatDoubleStr(dmMain.GetItemValue('skr')),
+                    RndArr.FormatDoubleStr(dmMain.GetItemValue('skr'))]));
 end;
 
-function TSolver.N1(S: Double): Double;
+function TSolver.N2(S: Double): Double;
+const
+  cnstF = '%s*(1-s)';
 begin
-
-end;
-
-function TSolver.N2(S: double): Double;
-begin
-
+  Result := FMParse.Evaluate(Format(cnstF, [RndArr.FormatDoubleStr(dmMain.GetItemValue('n1'))]));
 end;
 
 procedure TSolver.OnCalcCallBack(AStrUkr, AStrRus: String);
@@ -139,9 +147,9 @@ begin
   ParseText(AStr, vText, vFormulas);
   BindFormulas;
 
+  Inc(FStage);
   if AIsUseNumerator then
   begin
-    Inc(FStage);
     AddText(IntToStr(FStage)+') ');
   end;
 
@@ -168,11 +176,26 @@ end;
 procedure TSolver.PrintCloss;
 begin
   if not dmMain.IsItemCalced('Mmax') or
-     not dmMain.IsItemCalced('skr') then
+     not dmMain.IsItemCalced('skr') or
+     not dmMain.IsItemCalced('n1') then
    Exit;
   ParseFormulaAndText(lc('Fs'), False);
   ParseFormulaAndText('Формулу Клосса: {tex}M=\frac{2M_{\cyr{maks}}}{\frac{S}{s_{\cyr{kr}}}+\frac{s_{\cyr{kr}}}{S}}=\frac{2 \cdot [Mmax]}{\frac{S}{[skr]}+\frac{[skr]}{S}} {\tex}',
                       False);
+  FRichView.InsertTextW(#13#10);
+  ParseFormulaAndText(lc('N2'), False);
+  FRichView.InsertTextW(#13#10);
+end;
+
+procedure TSolver.PrintTable(AIsM1: Boolean);
+var
+  mPref: String;
+begin
+  if AIsM1 then
+    mPref := '_M1'
+  else
+    mPref := '';
+  ParseFormulaAndText(lc('tbl_h'+mPref), False);
 end;
 
 procedure TSolver.PrintTask;
@@ -260,6 +283,9 @@ begin
     dmMain.Calc(OnCalcCallBack);
 
     PrintCloss;
+    PrintTable(False);
+    //TO DO
+    PrintTable(True);
 
     FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
   finally
