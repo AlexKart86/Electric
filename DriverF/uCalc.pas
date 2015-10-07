@@ -22,6 +22,8 @@ type
     procedure OnCalcCallBack(AStrUkr, AStrRus: String);
     //Печатает таблицу значений, в которую заносит M(s) или M'(s) в зависимости от флага
     procedure PrintTable(AIsM1: Boolean);
+    //Рассчет M'
+    procedure PrintM1Calc;
     procedure PrintCloss;
   public
     constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
@@ -30,7 +32,7 @@ type
   end;
 
 implementation
-uses  uFormulaUtils, SysUtils, uRounding, uLocalizeShared;
+uses  uFormulaUtils, SysUtils, uRounding, uLocalizeShared, Math, Types;
 
 { TSolver }
 
@@ -190,6 +192,11 @@ begin
   FRichView.InsertTextW(#13#10);
 end;
 
+procedure TSolver.PrintM1Calc;
+begin
+
+end;
+
 procedure TSolver.PrintTable(AIsM1: Boolean);
 const
   cnstStep = 0.1;
@@ -197,7 +204,7 @@ var
   mPref: String;
   vTbl: TRVTableItemInfo;
   s, sn, skr: Double;
-  i: Integer;
+  i, j: Integer;
 begin
   if AIsM1 then
     mPref := '_M1'
@@ -239,15 +246,16 @@ begin
 
   s := 0;
   i := 0;
+  j := 0;
   while s<=1 do
   begin
     Inc(i);
     vtbl.InsertRows(i, 1, -1);
     vTbl.Cells[i, 0].AddNL(IntToStr(i), 0, -1);
 
-    if s=sn then
+    if SameValue(s, sn) then
       RVAddFormulaTex('s_{\cyr{n}}='+RndArr.FormatDoubleStr(sn), vTbl.Cells[i,1])
-    else if s = skr then
+    else if SameValue(s, skr) then
       RVAddFormulaTex('s_{\cyr{kr}}=' + RndArr.FormatDoubleStr(skr), vTbl.Cells[i,1])
     else
       vtbl.Cells[i,1].AddNL(FloatToStr(s), 0, -1);
@@ -255,7 +263,15 @@ begin
     vTbl.Cells[i,2].AddNL(RndArr.FormatDoubleStr(N2(s)), 0, -1);
     vTbl.Cells[i,3].AddNL(RndArr.FormatDoubleStr(M(s, AIsM1)), 0, -1);
 
-    s := s+0.1;
+    if (CompareValue(sn, s) = GreaterThanValue) and (CompareValue(sn, s+cnstStep) = LessThanValue) then
+      s := sn
+    else if (CompareValue(skr, s) = GreaterThanValue) and (CompareValue(skr, s+cnstStep) = LessThanValue) then
+      s := skr
+    else
+    begin
+      inc(j);
+      s := cnstStep*j;
+    end;
   end;
 
   FRichView.InsertItem('tbl'+mPref, vtbl);
