@@ -6,6 +6,9 @@ uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable, ParseExpr;
 type
   TSolver = class
   private
+    Fu: Double;
+    Fku2: Double;
+    FKDelta: Double;
     Fs: Double;
     FM1: Double;
     FMParse: TExpressionParser;
@@ -59,6 +62,7 @@ var
   vStr: String;
   vKoeff: Double;
   i: Integer;
+  vValue: Double;
 begin
   Assert(Match.Groups.Count >=2, 'Щось не так пішло в процесі заміни зразка '+Match.Value);
   vItemName := Match.Groups.Item[2].Value;
@@ -80,7 +84,20 @@ begin
 
   {Assert(dmMain.memItems.Locate('NAME', vItemName, []), 'Змінної '+vItemName+' не має в переліку змінних');
   Result := RndArr.FormatDoubleStr(fDmMain.memItemsRESULT_VALUE.Value*vKoeff);}
-  Result := RndArr.FormatDoubleStr(dmMain.GetItemValue(vItemName)*vKoeff);
+
+  //Некоторые переменные храняться не в датасете а в внутри класса
+  if vItemName = 'U' then
+    vValue := Fu
+  else if vItemName = 'M''' then
+    vValue := FM1
+  else if vItemName = 'kDelta' then
+    vValue := FKDelta
+  else if vItemName = 'kU2' then
+    vValue := Fku2
+  else
+    vValue := dmMain.GetItemValue(vItemName);
+
+  Result := RndArr.FormatDoubleStr(vValue*vKoeff);
 end;
 
 function TSolver.M(S: Double; AIsM1: Boolean): Double;
@@ -194,7 +211,16 @@ end;
 
 procedure TSolver.PrintM1Calc;
 begin
-
+  FRichView.InsertTextW(#13#10);
+  Fu := dmMain.GetItemValue('Un')*dmMain.GetItemValue('kU');
+  FKDelta := 1-dmMain.GetItemValue('kU');
+  Fku2 := dmMain.GetItemValue('kU') * dmMain.GetItemValue('kU');
+  FM1 := dmMain.GetItemValue('Mpusk')*Fku2;
+  ParseFormulaAndText(lc('M1_1'), False);
+  ParseFormulaAndText('{tex}\frac{M''_{\cyr{pusk}}}{M_{\cyr{pusk}}}=\frac{(U''_{\cyr{n}})^2}{(U_{\cyr{n}})^2}=\frac{(k_U \cdot U_{\cyr{n}})^2}{(U_{\cyr{n}})^2}=(k_U)^2=[kU2]{\tex}', False);
+  FRichView.InsertTextW(lc('M1_2'));
+  FRichView.InsertTextW(#13#10);
+  ParseFormulaAndText('{tex}M''_{\cyr{pusk}}=(k_U)^2\cdot M_{\cyr{pusk}}=[kU2]\cdot[Mpusk]=[M'']{\tex}  Н•м', False);
 end;
 
 procedure TSolver.PrintTable(AIsM1: Boolean);
@@ -367,6 +393,13 @@ begin
     begin
       PrintCloss;
       PrintTable(False);
+      if dmMain.IsItemCalced('kU') and
+         dmMain.IsItemCalced('Un') then
+      begin
+        PrintM1Calc;
+      end;
+
+
       //TO DO
       //PrintTable(True);
     end;
