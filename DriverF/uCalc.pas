@@ -210,17 +210,28 @@ begin
 end;
 
 procedure TSolver.PrintM1Calc;
+var
+  vMPusk: Double;
 begin
   FRichView.InsertTextW(#13#10);
   Fu := dmMain.GetItemValue('Un')*dmMain.GetItemValue('kU');
+  vmPusk := dmMain.GetItemValue('Mpusk');
   FKDelta := 1-dmMain.GetItemValue('kU');
   Fku2 := dmMain.GetItemValue('kU') * dmMain.GetItemValue('kU');
-  FM1 := dmMain.GetItemValue('Mpusk')*Fku2;
+  FM1 := vMPusk*Fku2;
   ParseFormulaAndText(lc('M1_1'), False);
   ParseFormulaAndText('{tex}\frac{M''_{\cyr{pusk}}}{M_{\cyr{pusk}}}=\frac{(U''_{\cyr{n}})^2}{(U_{\cyr{n}})^2}=\frac{(k_U \cdot U_{\cyr{n}})^2}{(U_{\cyr{n}})^2}=(k_U)^2=[kU2]{\tex}', False);
   FRichView.InsertTextW(lc('M1_2'));
   FRichView.InsertTextW(#13#10);
-  ParseFormulaAndText('{tex}M''_{\cyr{pusk}}=(k_U)^2\cdot M_{\cyr{pusk}}=[kU2]\cdot[Mpusk]=[M'']{\tex}  Н•м', False);
+  ParseFormulaAndText('{tex}M''_{\cyr{pusk}}=(k_U)^2\cdot M_{\cyr{pusk}}=[kU2]\cdot[Mpusk]=[M'']{\tex}Н•м. ', False);
+  FRichView.InsertTextW(lc('M1_3'), False);
+  if SameValue(Fm1, vMPusk) then
+    ParseFormulaAndText(lc('M1_3='), False)
+  else if Fm1 > vMPusk then
+    ParseFormulaAndText(lc('M1_3>'), False)
+  else
+    ParseFormulaAndText(lc('M1_3<'), False);
+
 end;
 
 procedure TSolver.PrintTable(AIsM1: Boolean);
