@@ -11,6 +11,7 @@ type
     FKDelta: Double;
     Fs: Double;
     FM1: Double;
+    FM1N: Double;
     FMParse: TExpressionParser;
     FN2Parse: TExpressionParser;
     FStage: Integer;
@@ -90,6 +91,8 @@ begin
     vValue := Fu
   else if vItemName = 'M''' then
     vValue := FM1
+  else if vItemName = 'M''N' then
+    vValue := FM1N
   else if vItemName = 'kDelta' then
     vValue := FKDelta
   else if vItemName = 'kU2' then
@@ -219,6 +222,7 @@ begin
   FKDelta := 1-dmMain.GetItemValue('kU');
   Fku2 := dmMain.GetItemValue('kU') * dmMain.GetItemValue('kU');
   FM1 := vMPusk*Fku2;
+  FM1N := Fku2*dmMain.GetItemValue('Mn');
   ParseFormulaAndText(lc('M1_1'), False);
   ParseFormulaAndText('{tex}\frac{M''_{\cyr{pusk}}}{M_{\cyr{pusk}}}=\frac{(U''_{\cyr{n}})^2}{(U_{\cyr{n}})^2}=\frac{(k_U \cdot U_{\cyr{n}})^2}{(U_{\cyr{n}})^2}=(k_U)^2=[kU2]{\tex}', False);
   FRichView.InsertTextW(lc('M1_2'));
@@ -231,7 +235,15 @@ begin
     ParseFormulaAndText(lc('M1_3>'), False)
   else
     ParseFormulaAndText(lc('M1_3<'), False);
-
+  FRichView.InsertTextW(#13#10);
+  FRichView.InsertTextW(lc('M1_4'));
+  ParseFormulaAndText('{tex}M''_{\cyr{n}}=(k_U)^2\cdot M_{\cyr{n}}=[kU2]\cdot[Mn]=[M''N]{\tex} Н•м.', False);
+  FRichView.InsertTextW(#13#10);
+  FRichView.InsertTextW(lc('M1_5'));
+  FRichView.InsertTextW(#13#10);
+  ParseFormulaAndText('{tex}M''=(k_U)^2\cdot M=\frac{2\cdot (k_U)^2 \cdot M_{\cyr{maks}}}{\frac{S}{S_{\cyr{kr}}}+\frac{S_{\cyr{kr}}}{S}}=\frac{2\cdot[kU2]\cdot [Mmax]}{\frac{S}{[skr]}+\frac{[skr]}{S}}{\tex}',
+    False);
+  FRichView.InsertTextW(#13#10);
 end;
 
 procedure TSolver.PrintTable(AIsM1: Boolean);
@@ -408,11 +420,8 @@ begin
          dmMain.IsItemCalced('Un') then
       begin
         PrintM1Calc;
+        PrintTable(True);
       end;
-
-
-      //TO DO
-      //PrintTable(True);
     end;
 
     FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
