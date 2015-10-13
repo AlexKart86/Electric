@@ -36,6 +36,9 @@ procedure DrawIndexedText(AName, AIndex: String; x, y: Integer;
 // Рисует точку - место соединения проводников
 procedure DrawLineEnd(x, y: Integer; ACanvas: TCanvas);
 
+//Рисует залитую точку
+procedure DrawPoint(x,y: Integer; ACanvas: TCanvas);
+
 //Рисует горизонтальную линию
 //Устарела, следует использовать функцию из ArrowUnit
 procedure DrawHorzArrow(AName, AIndex: String; x,y: Integer; ACanvas: TCanvas); deprecated;
@@ -124,6 +127,13 @@ end;
 procedure DrawLineEnd(x, y: Integer; ACanvas: TCanvas);
 begin
   ACanvas.Ellipse(x - 4, y - 4, x + 4, y + 4);
+end;
+
+//Рисует залитую точку
+procedure DrawPoint(x,y: Integer; ACanvas: TCanvas);
+begin
+  ACanvas.Ellipse(x-2, y-2, x+2, y+2);
+  ACanvas.FloodFill(x, y, ACanvas.Pen.Color, fsSurface);
 end;
 
 //Рисует горизонтальную линию

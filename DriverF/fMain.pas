@@ -8,7 +8,8 @@ uses
   Vcl.ExtCtrls, Ruler, RVRuler, RVScroll, RichView, RVEdit, Vcl.ComCtrls,
   dataMain, DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls,
   DynVarsEh, GridsEh, DBAxisGridsEh, DBGridEh, Vcl.Grids, Vcl.DBGrids,
-  Vcl.Mask, EhLibVCL;
+  Vcl.Mask, EhLibVCL, VCLTee.TeEngine, VCLTee.Series, VCLTee.TeeProcs,
+  VCLTee.Chart;
 
 type
   TfrmMain = class(TfrmMainTemplate)
@@ -16,6 +17,8 @@ type
     dbgParams: TDBGridEh;
     btnRecalc: TButton;
     Button1: TButton;
+    crtMain: TChart;
+    serP: TLineSeries;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure dbgParamsDataHintShow(Sender: TCustomDBGridEh; CursorPos: TPoint;
@@ -117,7 +120,7 @@ var
 begin
  // if not TryCalc then
  //   Exit;
-  vSolver := TSolver.Create(rvMain, dmMain);
+  vSolver := TSolver.Create(rvMain, dmMain, crtMain, serP);
   vSolver.RunSolve;
 end;
 

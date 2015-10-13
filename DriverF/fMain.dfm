@@ -7,7 +7,7 @@ inherited frmMain: TfrmMain
   inherited pcMain: TPageControl
     Width = 775
     Height = 446
-    ActivePage = tsFirst
+    ActivePage = tsHidden
     inherited tsResults: TTabSheet
       inherited rvMain: TRichViewEdit
         Width = 767
@@ -146,6 +146,51 @@ inherited frmMain: TfrmMain
         Caption = 'MagicButton'
         TabOrder = 3
         OnClick = Button1Click
+      end
+    end
+    inherited tsHidden: TTabSheet
+      object crtMain: TChart
+        Left = 24
+        Top = 24
+        Width = 465
+        Height = 289
+        Legend.Visible = False
+        LeftAxis.Title.Angle = 0
+        LeftAxis.Title.Caption = 'M'
+        View3D = False
+        BevelInner = bvRaised
+        BevelOuter = bvLowered
+        Color = clWhite
+        TabOrder = 0
+        ColorPaletteIndex = 4
+        object serP: TLineSeries
+          Marks.Angle = 360
+          Marks.Arrow.Visible = False
+          Marks.Callout.Brush.Color = clBlack
+          Marks.Callout.Style = psCircle
+          Marks.Callout.Visible = True
+          Marks.Callout.Arrow.Visible = False
+          Marks.DrawEvery = 2
+          Marks.Emboss.Color = 8487297
+          Marks.Font.Height = -12
+          Marks.Font.Style = [fsBold]
+          Marks.Shadow.Color = 8750469
+          Marks.Transparent = True
+          Marks.Visible = True
+          LinePen.Width = 2
+          Pointer.Brush.Gradient.EndColor = clBlue
+          Pointer.Gradient.EndColor = clBlue
+          Pointer.InflateMargins = True
+          Pointer.Style = psCircle
+          Pointer.Visible = False
+          XValues.Name = 'X'
+          XValues.Order = loAscending
+          YValues.Name = 'Y'
+          YValues.Order = loNone
+          Data = {
+            00050000000000000000E0604000000000004055400000000000006940000000
+            00008071400000000000B87040}
+        end
       end
     end
   end

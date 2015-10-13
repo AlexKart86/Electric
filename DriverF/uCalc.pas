@@ -1,10 +1,15 @@
 ﻿unit uCalc;
 
 interface
-uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable, ParseExpr;
+uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable, ParseExpr,
+     VCLTee.TeEngine, VCLTee.Series, VCLTee.TeeProcs,
+     VCLTee.Chart, System.Generics.Collections;
 
 type
   TSolver = class
+  private
+  const
+    cnstStep = 0.1;
   private
     Fu: Double;
     Fku2: Double;
@@ -18,6 +23,13 @@ type
     FTaskTable: TRVTableItemInfo;
     FRichView: TRichViewEdit;
     fDmMain: TdmMain;
+
+    FChartM: TChart;
+    FChartM1: TChart;
+    FSeriesM: TLineSeries;
+
+    FTblM: TDictionary<double, double>;
+    FTblM1: TDictionary<double, double>;
     function M(S: Double; AIsM1: Boolean): Double;
     function  N2(S:double): Double;
     procedure PrintTask;
@@ -29,25 +41,33 @@ type
     //Рассчет M'
     procedure PrintM1Calc;
     procedure PrintCloss;
+    procedure DrawGraphM;
   public
-    constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
+    constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain;
+        AChartM: TChart; ASeriesM: TLineSeries);
     destructor Destroy; override;
     procedure RunSolve;
   end;
 
 implementation
-uses  uFormulaUtils, SysUtils, uRounding, uLocalizeShared, Math, Types;
+uses  uFormulaUtils, SysUtils, uRounding, uLocalizeShared, Math, Types, uGraphicUtils,
+      ArrowUnit, RVStyle;
 
 { TSolver }
 
-constructor TSolver.Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
+constructor TSolver.Create(ARichView: TRichViewEdit; AdmMain: TdmMain;
+    AChartM: TChart; ASeriesM: TLineSeries);
 begin
+  FTblM := TDictionary<double, double>.Create;
+  FTblM1 := TDictionary<double, double>.Create;
   FRichView := ARichView;
   fDmMain := AdmMain;
   FMParse := TExpressionParser.Create;
   FMParse.DefineVariable('s', @Fs);
   FN2Parse := TExpressionParser.Create;
   FN2Parse.DefineVariable('s', @Fs);
+  FChartM := AChartM;
+  FSeriesM := ASeriesM;
 end;
 
 destructor TSolver.Destroy;
@@ -55,6 +75,131 @@ begin
   FreeAndNil(FMParse);
   FreeAndNil(FN2Parse);
   inherited;
+end;
+
+{procedure TSolver.DrawGraphM;
+var
+  i: TPair<double, double>;
+  vLabel: String;
+  sn, skr: Double;
+begin
+  FSeriesM.Clear;
+  sn := dmMain.GetItemValue('sn');
+  skr := dmMain.GetItemValue('skr');
+  for i in FTblM do
+  begin
+    if SameValue(i.Key, sn) then
+
+
+    FSeriesM.AddNull(i.Key, i.Value, RndArr.FormatDoubleStr(i.Key))
+
+  end;
+  FChartM.CopyToClipboardBitmap;
+  FRichView.PasteBitmap(false);
+end; }
+
+procedure TSolver.DrawGraphM;
+const
+  cnstWidth = 500;
+  cnstHeight = 500;
+  cnstMargins = 50;
+  cnstMax = 1.1;
+var
+  vBitmap: TBitmap;
+  vMaxy: Double;
+  sn, skr: Double;
+
+  i: TPair<double, double>;
+  k: Double;
+  //Преобразовывает обычные координаты в реальные координаты для битмапа
+  function Px(x: Double): Integer;
+  begin
+    Result := cnstMargins + Trunc(x/cnstMax*cnstWidth);
+  end;
+
+  function Py(y: Double): Integer;
+  begin
+    Result := cnstMargins + cnstHeight - Trunc(y/vMaxy*cnstHeight);
+  end;
+
+begin
+  vBitmap := TBitmap.Create;
+  vBitmap.Width := cnstWidth + 2*cnstMargins;
+  vBitmap.Height := cnstHeight + 2*cnstMargins;
+
+  DrawHorzArrow(cnstMargins, cnstMargins+cnstHeight, cnstWidth, False, vBitmap.Canvas, clBlack, 2);
+  DrawVertArrow(cnstMargins, cnstMargins+cnstHeight, -cnstHeight, False, vBitmap.Canvas, clBlack, 2);
+
+  vMaxy := dmMain.GetItemValue('Mmax')*1.1;
+
+  sn := dmMain.GetItemValue('sn');
+  skr := dmMain.GetItemValue('skr');
+  //Рисуем горизонтальные засечки
+  for i in FTblM do
+  begin
+    vBitmap.Canvas.MoveTo(Px(i.Key), Py(0)-5);
+    vBitmap.Canvas.LineTo(Px(i.Key), Py(0)+5);
+    if SameValue(i.Key, sn) then
+      DrawIndexedText('s', 'н', Px(i.Key), Py(0)+15, vBitmap.Canvas, True)
+    else if SameValue(i.Key, skr) then
+      DrawIndexedText('s', 'кр', Px(i.Key), Py(0)+15, vBitmap.Canvas, True)
+    else if not SameValue(i.Key, 0) then
+      DrawIndexedText(RndArr.FormatDoubleStr(i.Key), '', Px(i.Key), Py(0)+15, vBitmap.Canvas, True);
+  end;
+
+  //Рисуем непосредственно график
+  vBitmap.Canvas.Pen.Width := 2;
+  vBitmap.Canvas.MoveTo(Px(0), Py(0));
+
+  k := 0;
+  while k <= 1 do
+  begin
+    vBitmap.Canvas.LineTo(Px(k), Py(M(k, False)) );
+    k := k+ 0.01;
+  end;
+
+  DrawIndexedText('S', '', Px(1.1)-10, Py(0)+15,  vBitmap.Canvas);
+  DrawIndexedText('M,', '', Px(0)-30, Py(vMaxy)-15,  vBitmap.Canvas);
+  DrawIndexedText('Н•м', '', Px(0)-30, Py(vMaxy),  vBitmap.Canvas);
+
+  k := dmMain.GetItemValue('Mn');
+
+  //Рисуем штриховку для графиков
+  vBitmap.Canvas.Pen.Width := 1;
+  vBitmap.Canvas.Pen.Style := psDash;
+
+
+  vBitmap.Canvas.MoveTo(Px(0), Py(k));
+  vBitmap.Canvas.LineTo(Px(sn),Py(k));
+  vBitmap.Canvas.LineTo(Px(sn),Py(0));
+  DrawPoint(Px(sn), Py(k), vBitmap.Canvas);
+  DrawIndexedText('M', 'н', Px(0)-50, Py(k), vBitmap.Canvas);
+
+
+  k := dmMain.GetItemValue('Mmax');
+  vBitmap.Canvas.MoveTo(Px(0), Py(k));
+  vBitmap.Canvas.LineTo(Px(skr),Py(k));
+  vBitmap.Canvas.LineTo(Px(skr),Py(0));
+  DrawPoint(Px(skr), Py(k), vBitmap.Canvas);
+  DrawIndexedText('M', 'макс', Px(0)-50, Py(k), vBitmap.Canvas);
+
+  k := dmMain.GetItemValue('Mpusk');
+  vBitmap.Canvas.MoveTo(Px(0), Py(k));
+  vBitmap.Canvas.LineTo(Px(1),Py(k));
+  vBitmap.Canvas.LineTo(Px(1),Py(0));
+  DrawPoint(Px(1), Py(k), vBitmap.Canvas);
+  DrawIndexedText('M', 'пуск', Px(0)-50, Py(k), vBitmap.Canvas);
+
+  DrawHorzArrow(Px(0), Py(0)+45, Px(skr)-cnstMargins, False, vBitmap.Canvas, clBlack, 1);
+  DrawHorzArrow(Px(skr), Py(0)+45, -Px(skr)+cnstMargins, False, vBitmap.Canvas, clBlack, 1);
+
+  DrawHorzArrow(Px(skr), Py(0)+45, Px(1-skr)-cnstMargins, False, vBitmap.Canvas, clBlack, 1);
+  DrawHorzArrow(Px(1), Py(0)+45, -Px(1-skr)+cnstMargins, False, vBitmap.Canvas, clBlack, 1);
+
+  DrawIndexedText(lc('Gr1'), '', Px(skr/2), Py(0)+35, vBitmap.Canvas, True);
+  DrawIndexedText(lc('Gr2'), '', Px(skr + (1-skr)/2) , Py(0)+35, vBitmap.Canvas, True);
+
+  FRichView.InsertPicture('picture_M', vBitmap, rvvaMiddle);
 end;
 
 function TSolver.Evaluator(const Match: TMatch): string;
@@ -247,14 +392,13 @@ begin
 end;
 
 procedure TSolver.PrintTable(AIsM1: Boolean);
-const
-  cnstStep = 0.1;
 var
   mPref: String;
   vTbl: TRVTableItemInfo;
   s, sn, skr: Double;
   i, j: Integer;
 begin
+  FTblM.Clear;
   if AIsM1 then
     mPref := '_M1'
   else
@@ -311,6 +455,11 @@ begin
 
     vTbl.Cells[i,2].AddNL(RndArr.FormatDoubleStr(N2(s)), 0, -1);
     vTbl.Cells[i,3].AddNL(RndArr.FormatDoubleStr(M(s, AIsM1)), 0, -1);
+
+    if AIsM1 then
+      FTblM1.AddOrSetValue(s, M(s, AIsM1))
+    else
+      FTblM.AddOrSetValue(s, M(s, AIsM1));
 
     if (CompareValue(sn, s) = GreaterThanValue) and (CompareValue(sn, s+cnstStep) = LessThanValue) then
       s := sn
@@ -416,6 +565,7 @@ begin
     begin
       PrintCloss;
       PrintTable(False);
+      DrawGraphM;
       if dmMain.IsItemCalced('kU') and
          dmMain.IsItemCalced('Un') then
       begin
