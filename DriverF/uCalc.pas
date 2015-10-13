@@ -41,7 +41,11 @@ type
     //Рассчет M'
     procedure PrintM1Calc;
     procedure PrintCloss;
+    //Строит график зависимости момента от S
     procedure DrawGraphM;
+    //Строкит график зависимости s, n от M
+    //AIsDrawM1 - надо ли строить еще и график s, n от M'
+    procedure DrawGraphS(AIsDrawM1: Boolean);
   public
     constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain;
         AChartM: TChart; ASeriesM: TLineSeries);
@@ -164,7 +168,7 @@ begin
 
   k := dmMain.GetItemValue('Mn');
 
-  //Рисуем штриховку для графиков
+  //Рисуем штриховку и точки моментов  для графиков
   vBitmap.Canvas.Pen.Width := 1;
   vBitmap.Canvas.Pen.Style := psDash;
 
@@ -190,6 +194,7 @@ begin
   DrawPoint(Px(1), Py(k), vBitmap.Canvas);
   DrawIndexedText('M', 'пуск', Px(0)-50, Py(k), vBitmap.Canvas);
 
+  //Рисуем области устойчивой и неустойчивой работы внизу
   DrawHorzArrow(Px(0), Py(0)+45, Px(skr)-cnstMargins, False, vBitmap.Canvas, clBlack, 1);
   DrawHorzArrow(Px(skr), Py(0)+45, -Px(skr)+cnstMargins, False, vBitmap.Canvas, clBlack, 1);
 
@@ -200,6 +205,33 @@ begin
   DrawIndexedText(lc('Gr2'), '', Px(skr + (1-skr)/2) , Py(0)+35, vBitmap.Canvas, True);
 
   FRichView.InsertPicture('picture_M', vBitmap, rvvaMiddle);
+end;
+
+procedure TSolver.DrawGraphS(AIsDrawM1: Boolean);
+const
+  cnstWidth = 500;
+  cnstHeight = 500;
+  cnstMargins = 50;
+  cnstMax = 1.1;
+var
+  vBitmap: TBitmap;
+  vMaxy: Double;
+  sn, skr: Double;
+
+  i: TPair<double, double>;
+  k: Double;
+  //Преобразовывает обычные координаты в реальные координаты для битмапа
+  function Px(x: Double): Integer;
+  begin
+    Result := cnstMargins + Trunc(x/cnstMax*cnstWidth);
+  end;
+
+  function Py(y: Double): Integer;
+  begin
+    Result := cnstMargins + cnstHeight - Trunc(y/vMaxy*cnstHeight);
+  end;
+begin
+
 end;
 
 function TSolver.Evaluator(const Match: TMatch): string;
