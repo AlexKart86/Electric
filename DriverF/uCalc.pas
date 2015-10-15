@@ -1,9 +1,7 @@
 ﻿unit uCalc;
 
 interface
-uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable, ParseExpr,
-     VCLTee.TeEngine, VCLTee.Series, VCLTee.TeeProcs,
-     VCLTee.Chart, System.Generics.Collections;
+uses dataMain, RVEdit, Graphics, RegularExpressions, RVTable, ParseExpr, System.Generics.Collections;
 
 type
   TSolver = class
@@ -24,9 +22,6 @@ type
     FRichView: TRichViewEdit;
     fDmMain: TdmMain;
 
-    FChartM: TChart;
-    FChartM1: TChart;
-    FSeriesM: TLineSeries;
 
     FTblM: TDictionary<double, double>;
     FTblM1: TDictionary<double, double>;
@@ -47,8 +42,7 @@ type
     //AIsDrawM1 - надо ли строить еще и график s, n от M'
     procedure DrawGraphS(AIsDrawM1: Boolean);
   public
-    constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain;
-        AChartM: TChart; ASeriesM: TLineSeries);
+    constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
     destructor Destroy; override;
     procedure RunSolve;
   end;
@@ -59,8 +53,7 @@ uses  uFormulaUtils, SysUtils, uRounding, uLocalizeShared, Math, Types, uGraphic
 
 { TSolver }
 
-constructor TSolver.Create(ARichView: TRichViewEdit; AdmMain: TdmMain;
-    AChartM: TChart; ASeriesM: TLineSeries);
+constructor TSolver.Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
 begin
   FTblM := TDictionary<double, double>.Create;
   FTblM1 := TDictionary<double, double>.Create;
@@ -70,8 +63,6 @@ begin
   FMParse.DefineVariable('s', @Fs);
   FN2Parse := TExpressionParser.Create;
   FN2Parse.DefineVariable('s', @Fs);
-  FChartM := AChartM;
-  FSeriesM := ASeriesM;
 end;
 
 destructor TSolver.Destroy;
@@ -211,27 +202,162 @@ procedure TSolver.DrawGraphS(AIsDrawM1: Boolean);
 const
   cnstWidth = 500;
   cnstHeight = 500;
-  cnstMargins = 50;
+  cnstMargins = 60;
   cnstMax = 1.1;
+
+  cnstMargN = 20;
+  cnstMargS = 50;
+  cnstMargY = 15;
 var
   vBitmap: TBitmap;
-  vMaxy: Double;
+  vMaxx: Double;
   sn, skr: Double;
 
   i: TPair<double, double>;
   k: Double;
+
+  vPrefix: String;
+
   //Преобразовывает обычные координаты в реальные координаты для битмапа
   function Px(x: Double): Integer;
   begin
-    Result := cnstMargins + Trunc(x/cnstMax*cnstWidth);
+    Result := cnstMargins + Trunc(x/vMaxx*cnstWidth);
   end;
 
   function Py(y: Double): Integer;
   begin
-    Result := cnstMargins + cnstHeight - Trunc(y/vMaxy*cnstHeight);
+    Result := cnstMargins + cnstHeight - Trunc((1-y)/cnstMax*cnstHeight);
   end;
 begin
+  if AIsDrawM1 then
+    vPrefix := '_M1'
+  else
+    vPrefix := '';
 
+  FRichView.InsertTextW(#13#10);
+  FRichView.InsertTextW(#13#10);
+
+  if AIsDrawM1 then
+  begin
+    ParseFormulaAndText(lc('Gr3'), False);
+    FRichView.InsertTextW(#13#10);
+  end;
+
+  vBitmap := TBitmap.Create;
+  vBitmap.Width := cnstWidth + 2*cnstMargins;
+  vBitmap.Height := cnstHeight + 2*cnstMargins;
+
+  //рисуем координатные оси
+  DrawHorzArrow(cnstMargins, cnstMargins+cnstHeight, cnstWidth, False, vBitmap.Canvas, clBlack, 2);
+  DrawVertArrow(cnstMargins, cnstMargins+cnstHeight, -cnstHeight, False, vBitmap.Canvas, clBlack, 2);
+  DrawVertArrow(cnstMargins div 2, cnstMargins+cnstHeight, -cnstHeight, False, vBitmap.Canvas, clBlack, 2);
+
+  vMaxx := dmMain.GetItemValue('Mmax')*1.1;
+
+  sn := dmMain.GetItemValue('sn');
+  skr := dmMain.GetItemValue('skr');
+
+  //Рисуем непосредственно график
+  vBitmap.Canvas.Pen.Width := 2;
+  vBitmap.Canvas.MoveTo(Px(0), Py(0));
+
+  k := 0;
+  while k <= 1 do
+  begin
+    vBitmap.Canvas.LineTo(Px(M(k, False)), Py(k));
+    k := k+ 0.01;
+  end;
+
+  if AIsDrawM1 then
+  begin
+    k := 0;
+    vBitmap.Canvas.MoveTo(Px(0), Py(0));
+    while k <= 1 do
+    begin
+      vBitmap.Canvas.LineTo(Px(M(k, True)), Py(k));
+      k := k+ 0.01;
+    end;
+  end;
+
+  //Рисуем подписи осей
+  DrawIndexedText('M, Н•м', '', Px(vMaxx)-10, Py(1)+cnstMargY,  vBitmap.Canvas);
+  DrawIndexedText('n', '2', Px(0)-cnstMargN, Py(0)-25,  vBitmap.Canvas);
+  DrawIndexedText('S', '', Px(0)-cnstMargS, Py(0)-25,  vBitmap.Canvas);
+
+  DrawIndexedText('n', '1', Px(0)-cnstMargN, Py(0),  vBitmap.Canvas);
+  DrawIndexedText('0', '', Px(0)-cnstMargS, Py(0),  vBitmap.Canvas);
+  vBitmap.Canvas.MoveTo(Px(0)- (cnstMargins div 2), Py(0));
+  vBitmap.Canvas.LineTo(Px(0)- (cnstMargins div 2) +3, Py(0));
+
+  DrawIndexedText('n', 'н', Px(0)-cnstMargN, Py(sn),  vBitmap.Canvas);
+  DrawIndexedText('s', 'н', Px(0)-cnstMargS, Py(sn),  vBitmap.Canvas);
+  vBitmap.Canvas.MoveTo(Px(0)- (cnstMargins div 2), Py(sn));
+  vBitmap.Canvas.LineTo(Px(0)- (cnstMargins div 2)  +3, Py(sn));
+
+
+  DrawIndexedText('n', 'кр', Px(0)-cnstMargN-3, Py(skr),  vBitmap.Canvas);
+  DrawIndexedText('s', 'кр', Px(0)-cnstMargS-5, Py(skr),  vBitmap.Canvas);
+  vBitmap.Canvas.MoveTo(Px(0)- (cnstMargins div 2), Py(skr));
+  vBitmap.Canvas.LineTo(Px(0)- (cnstMargins div 2)+3, Py(skr));
+
+
+  DrawIndexedText('0', '', Px(0)-cnstMargN, Py(1),  vBitmap.Canvas);
+  DrawIndexedText('1', '', Px(0)-cnstMargS, Py(1),  vBitmap.Canvas);
+  vBitmap.Canvas.MoveTo(Px(0)- (cnstMargins div 2), Py(1));
+  vBitmap.Canvas.LineTo(Px(0) - (cnstMargins div 2)+3, Py(1));
+
+  //Рисуем штриховку и точки моментов  для графиков
+  vBitmap.Canvas.Pen.Width := 1;
+  vBitmap.Canvas.Pen.Style := psDash;
+
+  DrawPoint(Px(0), Py(0), vBitmap.Canvas);
+
+  k := dmMain.GetItemValue('Mn');
+  vBitmap.Canvas.MoveTo(Px(0), Py(sn));
+  vBitmap.Canvas.LineTo(Px(k),Py(sn));
+  vBitmap.Canvas.LineTo(Px(k),Py(1));
+  DrawPoint(Px(k), Py(sn), vBitmap.Canvas);
+  DrawIndexedText('M', 'н', Px(k), Py(1)+cnstMargY,  vBitmap.Canvas, True);
+
+
+  k := dmMain.GetItemValue('Mpusk');
+  DrawPoint(Px(k), Py(1), vBitmap.Canvas);
+  DrawIndexedText('M', 'пуск', Px(k), Py(1)+cnstMargY,  vBitmap.Canvas, True);
+
+  k := dmMain.GetItemValue('Mmax');
+  vBitmap.Canvas.MoveTo(Px(0), Py(skr));
+  vBitmap.Canvas.LineTo(Px(k),Py(skr));
+  vBitmap.Canvas.LineTo(Px(k),Py(1));
+  DrawPoint(Px(k), Py(skr), vBitmap.Canvas);
+  DrawIndexedText('M', 'макс', Px(k), Py(1)+cnstMargY,  vBitmap.Canvas, True);
+
+  if AIsDrawM1 then
+  begin
+    k := M(1, True);
+    DrawPoint(Px(k), Py(1), vBitmap.Canvas);
+    DrawIndexedText('M''', 'пуск', Px(k), Py(1)+cnstMargY,  vBitmap.Canvas, True);
+    k := M(skr, True);
+    DrawPoint(Px(k), Py(skr), vBitmap.Canvas);
+    vBitmap.Canvas.Pen.Style := psSolid;
+    k := dmMain.GetItemValue('Mmax');
+    vBitmap.Canvas.MoveTo(Px(k), Py(skr));
+    vBitmap.Canvas.LineTo(Px(k)+10, Py(0)-10);
+    vBitmap.Canvas.LineTo(Px(k)+30, Py(0)-10);
+    DrawIndexedText('1', '', Px(k)+15, Py(0)-20, vBitmap.Canvas, True);
+
+    k := M(skr, True);
+    vBitmap.Canvas.MoveTo(Px(k), Py(skr));
+    vBitmap.Canvas.LineTo(Px(k)+10, Py(0)-10);
+    vBitmap.Canvas.LineTo(Px(k)+30, Py(0)-10);
+    DrawIndexedText('2', '', Px(k)+15, Py(0)-20, vBitmap.Canvas, True);
+  end;
+
+  FRichView.InsertPicture('picture_S'+vPrefix, vBitmap, rvvaMiddle);
+  if AIsDrawM1 then
+  begin
+    FRichView.InsertTextW(#13#10);
+    ParseFormulaAndText(lc('Gr4'), False);
+  end;
 end;
 
 function TSolver.Evaluator(const Match: TMatch): string;
@@ -598,15 +724,17 @@ begin
       PrintCloss;
       PrintTable(False);
       DrawGraphM;
+      DrawGraphS(False);
       if dmMain.IsItemCalced('kU') and
          dmMain.IsItemCalced('Un') then
       begin
         PrintM1Calc;
         PrintTable(True);
+        DrawGraphS(True);
       end;
     end;
-
     FTaskTable.ResizeRow(0, FTaskTable.Rows[0].GetBestHeight);
+    FRichView.ScrollTo(0);
   finally
     dmMain.memItems.EnableControls;
   end;

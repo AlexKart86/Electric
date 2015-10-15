@@ -17,8 +17,6 @@ type
     dbgParams: TDBGridEh;
     btnRecalc: TButton;
     Button1: TButton;
-    crtMain: TChart;
-    serP: TLineSeries;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure dbgParamsDataHintShow(Sender: TCustomDBGridEh; CursorPos: TPoint;
@@ -120,7 +118,7 @@ var
 begin
  // if not TryCalc then
  //   Exit;
-  vSolver := TSolver.Create(rvMain, dmMain, crtMain, serP);
+  vSolver := TSolver.Create(rvMain, dmMain);
   vSolver.RunSolve;
 end;
 
