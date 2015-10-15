@@ -9,7 +9,7 @@ uses
   dataMain, DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls,
   DynVarsEh, GridsEh, DBAxisGridsEh, DBGridEh, Vcl.Grids, Vcl.DBGrids,
   Vcl.Mask, EhLibVCL, VCLTee.TeEngine, VCLTee.Series, VCLTee.TeeProcs,
-  VCLTee.Chart;
+  VCLTee.Chart, DBCtrlsEh, DB;
 
 type
   TfrmMain = class(TfrmMainTemplate)
@@ -17,6 +17,7 @@ type
     dbgParams: TDBGridEh;
     btnRecalc: TButton;
     Button1: TButton;
+    chbNeedRecalc: TDBCheckBoxEh;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure dbgParamsDataHintShow(Sender: TCustomDBGridEh; CursorPos: TPoint;
@@ -25,8 +26,11 @@ type
     procedure dbgParamsGetCellParams(Sender: TObject; Column: TColumnEh;
       AFont: TFont; var Background: TColor; State: TGridDrawState);
     procedure btnRecalcClick(Sender: TObject);
+    procedure btnPrevClick(Sender: TObject);
+    procedure dbgParamsKeyPress(Sender: TObject; var Key: Char);
   private
     function TryCalc: Boolean;
+    procedure DsAfterPost(DataSet: TDataSet);
   protected
     // ³í³ö³àë³çàö³ÿ
     procedure InitDefaultValues; override;
@@ -45,6 +49,12 @@ uses ParseExpr, uCalc, uRounding, fFormulaEditor;
 {$R *.dfm}
 
 { TfrmMain }
+
+procedure TfrmMain.btnPrevClick(Sender: TObject);
+begin
+  inherited;
+  dmMain.memItems.AfterPost := DsAfterPost;
+end;
 
 procedure TfrmMain.btnRecalcClick(Sender: TObject);
 begin
@@ -94,11 +104,33 @@ begin
     Background := clYellow;
 end;
 
+procedure TfrmMain.dbgParamsKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key = #13) and (dmMain.memItems.State in dsEditModes) then
+    dmMain.memItems.Post;
+end;
+
+procedure TfrmMain.DsAfterPost(DataSet: TDataSet);
+begin
+  if chbNeedRecalc.Checked then
+  begin
+    dmMain.memItems.AfterPost := nil;
+    try
+      dmMain.ClearCalc;
+      dmMain.Calc;
+    finally
+      dmMain.memItems.AfterPost := DsAfterPost;
+    end;
+  end;
+end;
+
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
   inherited;
   dmMain.dbMain.Connected := False;
   dmMain.RefreshItems;
+  dmMain.memItems.AfterPost := DsAfterPost;
 end;
 
 procedure TfrmMain.InitDefaultValues;
@@ -118,6 +150,7 @@ var
 begin
  // if not TryCalc then
  //   Exit;
+  dmMain.memItems.AfterPost := nil;
   vSolver := TSolver.Create(rvMain, dmMain);
   vSolver.RunSolve;
 end;

@@ -41,6 +41,7 @@ type
     //Строкит график зависимости s, n от M
     //AIsDrawM1 - надо ли строить еще и график s, n от M'
     procedure DrawGraphS(AIsDrawM1: Boolean);
+    function IsNeedDrawMPusk: Boolean;
   public
     constructor Create(ARichView: TRichViewEdit; AdmMain: TdmMain);
     destructor Destroy; override;
@@ -178,12 +179,16 @@ begin
   DrawPoint(Px(skr), Py(k), vBitmap.Canvas);
   DrawIndexedText('M', 'макс', Px(0)-50, Py(k), vBitmap.Canvas);
 
-  k := dmMain.GetItemValue('Mpusk');
-  vBitmap.Canvas.MoveTo(Px(0), Py(k));
-  vBitmap.Canvas.LineTo(Px(1),Py(k));
-  vBitmap.Canvas.LineTo(Px(1),Py(0));
-  DrawPoint(Px(1), Py(k), vBitmap.Canvas);
-  DrawIndexedText('M', 'пуск', Px(0)-50, Py(k), vBitmap.Canvas);
+  //Пусковой момент считаем только если он одинаково считается по формуле клосса и через кратность
+  if IsNeedDrawMPusk then
+  begin
+    k := M(1, False);
+    vBitmap.Canvas.MoveTo(Px(0), Py(k));
+    vBitmap.Canvas.LineTo(Px(1),Py(k));
+    vBitmap.Canvas.LineTo(Px(1),Py(0));
+    DrawPoint(Px(1), Py(k), vBitmap.Canvas);
+    DrawIndexedText('M', 'пуск', Px(0)-50, Py(k), vBitmap.Canvas);
+  end;
 
   //Рисуем области устойчивой и неустойчивой работы внизу
   DrawHorzArrow(Px(0), Py(0)+45, Px(skr)-cnstMargins, False, vBitmap.Canvas, clBlack, 1);
@@ -320,9 +325,13 @@ begin
   DrawIndexedText('M', 'н', Px(k), Py(1)+cnstMargY,  vBitmap.Canvas, True);
 
 
-  k := dmMain.GetItemValue('Mpusk');
-  DrawPoint(Px(k), Py(1), vBitmap.Canvas);
-  DrawIndexedText('M', 'пуск', Px(k), Py(1)+cnstMargY,  vBitmap.Canvas, True);
+  //Пусковой момент считаем только если он одинаково считается по формуле клосса и через кратность
+  if IsNeedDrawMPusk then
+  begin
+    k := dmMain.GetItemValue('Mpusk');
+    DrawPoint(Px(k), Py(1), vBitmap.Canvas);
+    DrawIndexedText('M', 'пуск', Px(k), Py(1)+cnstMargY,  vBitmap.Canvas, True);
+  end;
 
   k := dmMain.GetItemValue('Mmax');
   vBitmap.Canvas.MoveTo(Px(0), Py(skr));
@@ -333,11 +342,14 @@ begin
 
   if AIsDrawM1 then
   begin
-    k := M(1, True);
-    DrawPoint(Px(k), Py(1), vBitmap.Canvas);
-    DrawIndexedText('M''', 'пуск', Px(k), Py(1)+cnstMargY,  vBitmap.Canvas, True);
-    k := M(skr, True);
-    DrawPoint(Px(k), Py(skr), vBitmap.Canvas);
+    if IsNeedDrawMPusk then
+    begin
+      k := M(1, True);
+      DrawPoint(Px(k), Py(1), vBitmap.Canvas);
+      DrawIndexedText('M''', 'пуск', Px(k), Py(1)+cnstMargY,  vBitmap.Canvas, True);
+      k := M(skr, True);
+      DrawPoint(Px(k), Py(skr), vBitmap.Canvas);
+    end;
     vBitmap.Canvas.Pen.Style := psSolid;
     k := dmMain.GetItemValue('Mmax');
     vBitmap.Canvas.MoveTo(Px(k), Py(skr));
@@ -404,6 +416,11 @@ begin
     vValue := dmMain.GetItemValue(vItemName);
 
   Result := RndArr.FormatDoubleStr(vValue*vKoeff);
+end;
+
+function TSolver.IsNeedDrawMPusk: Boolean;
+begin
+  Result := SameValue(M(1, false), dmMain.GetItemValue('Mpusk'), 1);
 end;
 
 function TSolver.M(S: Double; AIsM1: Boolean): Double;
