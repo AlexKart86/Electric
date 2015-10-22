@@ -29,7 +29,7 @@ type
   // Возвращает картинку для формулы  AFormulaStr
 function GetFormulaBitMap(AFormulaStr: String; AFontSize: Integer = 12)
   : TBitMap;
-function GetTexFormulaGif(AFormulaStr: String): TGIFImage;
+function GetTexFormulaGif(AFormulaStr: String; AFontSize: Integer = 2): TGIFImage;
 
 // Делает из строки картинку с формулой и вставляет ее в ричвью
 procedure RVAddFormula(AFormulaStr: String; rv: TRichViewEdit); overload;
@@ -39,8 +39,8 @@ procedure RVAddFormula(AFormulaStr: String; rv: TRVTableCellData); overload;
 procedure RVAddFormulaAndText(AText: String; rv: TRichViewEdit);
 
 //ТОже самое для формул в tex формате
-procedure RVAddFormulaTex(AFormulaStr: String; rv: TRichViewEdit); overload;
-procedure RVAddFormulaTex(AFormulaStr: String; rv: TRVTableCellData); overload;
+procedure RVAddFormulaTex(AFormulaStr: String; rv: TRichViewEdit; AFontSize: Integer = 2); overload;
+procedure RVAddFormulaTex(AFormulaStr: String; rv: TRVTableCellData; AFontSize: Integer = 2); overload;
 
 
 // Вставить формулу в виде картинки в битмар
@@ -96,12 +96,12 @@ begin
   end;
 end;
 
-function GetTexFormulaGif(AFormulaStr: String): TGIFImage;
-const cnstParams='"%s" -e %s -s 2';
+function GetTexFormulaGif(AFormulaStr: String; AFontSize: Integer = 2): TGIFImage;
+const cnstParams='"%s" -e %s -s %d';
       cnstTmpFile='tmp.gif';
 begin
   Result := TGIFImage.Create;
-  RunCommand('mimetex.exe', Format(cnstParams, [AFormulaStr, cnstTmpFile]));
+  RunCommand('mimetex.exe', Format(cnstParams, [AFormulaStr, cnstTmpFile, AFontSize]));
   Result.LoadFromFile(cnstTmpFile);
   DeleteFile(cnstTmpFile)
 end;
@@ -133,14 +133,14 @@ end;
 
 
 //ТОже самое для формул в tex формате
-procedure RVAddFormulaTex(AFormulaStr: String; rv: TRichViewEdit);
+procedure RVAddFormulaTex(AFormulaStr: String; rv: TRichViewEdit; AFontSize: Integer = 2);
 begin
-  rv.InsertPicture(AFormulaStr, GetTexFormulaGif(AFormulaStr), rvvaAbsMiddle);
+  rv.InsertPicture(AFormulaStr, GetTexFormulaGif(AFormulaStr, AFontSize), rvvaAbsMiddle);
 end;
 
-procedure RVAddFormulaTex(AFormulaStr: String; rv: TRVTableCellData);
+procedure RVAddFormulaTex(AFormulaStr: String; rv: TRVTableCellData; AFontSize: Integer = 2);
 begin
-  rv.AddPictureEx(AFormulaStr, GetTexFormulaGif(AFormulaStr), -1, rvvaAbsMiddle);
+  rv.AddPictureEx(AFormulaStr, GetTexFormulaGif(AFormulaStr, AFontSize), -1, rvvaAbsMiddle);
 end;
 
 { TFormula }

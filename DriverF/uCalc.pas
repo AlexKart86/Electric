@@ -28,7 +28,8 @@ type
     function M(S: Double; AIsM1: Boolean): Double;
     function  N2(S:double): Double;
     procedure PrintTask;
-    procedure ParseFormulaAndText(AStr: String; AIsUseNumerator: Boolean = True);
+    procedure ParseFormulaAndText(AStr: String; AIsUseNumerator: Boolean = True;
+       AFontSize: Integer = 2);
     function Evaluator(const Match: TMatch): string;
     procedure OnCalcCallBack(AStrUkr, AStrRus: String);
     //Печатает таблицу значений, в которую заносит M(s) или M'(s) в зависимости от флага
@@ -463,7 +464,8 @@ begin
   end;
 end;
 
-procedure TSolver.ParseFormulaAndText(AStr: String; AIsUseNumerator: Boolean = True);
+procedure TSolver.ParseFormulaAndText(AStr: String; AIsUseNumerator: Boolean = True;
+   AFontSize: Integer = 2);
 const
   stages_tbl = 3;
 var
@@ -509,9 +511,9 @@ begin
    if i<=High(vFormulas) then
     begin
       if FStage <= stages_tbl then
-        RVAddFormulaTex(vFormulas[i], FTaskTable.Cells[0,1])
+        RVAddFormulaTex(vFormulas[i], FTaskTable.Cells[0,1], AFontSize)
       else
-        RVAddFormulaTex(vFormulas[i], FRichView);
+        RVAddFormulaTex(vFormulas[i], FRichView, AFontSize);
     end;
   end;
   //Отступы
@@ -525,8 +527,8 @@ end;
 procedure TSolver.PrintCloss;
 begin
   ParseFormulaAndText(lc('Fs'), False);
-  ParseFormulaAndText('Формулу Клосса: {tex}M=\frac{2M_{\cyr{maks}}}{\frac{S}{s_{\cyr{kr}}}+\frac{s_{\cyr{kr}}}{S}}=\frac{2 \cdot [Mmax]}{\frac{S}{[skr]}+\frac{[skr]}{S}} {\tex}',
-                      False);
+  ParseFormulaAndText('Формулу Клосса: {tex}M=\frac{2M_{\cyr{maks}}}{\frac{s}{s_{\cyr{kr}}}+\frac{s_{\cyr{kr}}}{s}}=\frac{2 \cdot [Mmax]}{\frac{s}{[skr]}+\frac{[skr]}{s}} {\tex}',
+                      False, 4);
   FRichView.InsertTextW(#13#10);
   ParseFormulaAndText(lc('N2'), False);
   FRichView.InsertTextW(#13#10);
