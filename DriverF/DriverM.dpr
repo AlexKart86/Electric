@@ -29,6 +29,7 @@ begin
   Application.Initialize;
   FormatSettings.DecimalSeparator := '.';
   Application.MainFormOnTaskbar := True;
+  Application.Title := 'Electric machines and transformers';
   Application.CreateForm(TdmMain, dmMain);
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;

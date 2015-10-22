@@ -10,7 +10,7 @@ uses
 type
 
 
-   TCalcCallbackProc = procedure(AStrUkr, AStrRus: String) of object;
+   TCalcCallbackProc = procedure(AStrUkr, AStrRus: String; AFontSize: Integer) of object;
 
 
   TdmMain = class(TDataModule)
@@ -70,6 +70,7 @@ type
     memItemsRESULT_VALUE: TFloatField;
     ilFormulas: TImageList;
     memItemsDESC_RU: TStringField;
+    ldsFormulasFONT_SIZE: TWideStringField;
     procedure memItemsAfterScroll(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
@@ -92,6 +93,7 @@ type
     function GetMeasureName(AMeasureID: Integer): String;
     function GetItemValue(AItemName: String): Double;
     function IsItemCalced(AItemName: String): Boolean;
+    procedure ClearInputParams;
   end;
 
 var
@@ -134,7 +136,7 @@ begin
         memItems.Post;
         ldsFormulas.Locate('FORMULA_ID', vRes, []);
         if Assigned(ACallBack) then
-          ACallBack(ldsFormulasTEXT_UKR.Value, ldsFormulasTEXT_RUS.Value);
+          ACallBack(ldsFormulasTEXT_UKR.Value, ldsFormulasTEXT_RUS.Value, ldsFormulasFONT_SIZE.AsInteger);
       end
       else
         Exit;
@@ -172,6 +174,32 @@ begin
   ldsFormulas.Open;
   ldsFormulaDetail.Close;
   ldsFormulaDetail.Open;
+end;
+
+procedure TdmMain.ClearInputParams;
+var
+  vAfterPost: TDataSetNotifyEvent;
+  vBookmark: TBookmark;
+begin
+  vAfterPost :=  memItems.AfterPost;
+  memItems.AfterPost := nil;
+  vBookmark := memItems.GetBookmark;
+  memItems.DisableControls;
+  memItems.BeforePost := nil;
+  try
+    memItems.First;
+    while not memItems.Eof do
+    begin
+      memItems.Edit;
+      memItemsVALUE.Clear;
+      memItemsCALC_VALUE_CORRECT.Clear;
+      memItems.Next;
+    end;
+  finally
+    memItems.AfterPost := vAfterPost;
+    memItems.GotoBookmark(vBookmark);
+    memItems.EnableControls;
+  end;
 end;
 
 procedure TdmMain.ConnectIfNeeded;

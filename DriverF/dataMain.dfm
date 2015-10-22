@@ -6,7 +6,7 @@ object dmMain: TdmMain
   Width = 580
   object dbMain: TSQLiteDatabase
     Connected = True
-    Filename = 'h:\Electric2\DriverF\BIN\formulas.db'
+    Filename = 'K:\Electric\DriverF\BIN\formulas.db'
     Left = 32
     Top = 16
   end
@@ -455,6 +455,11 @@ object dmMain: TdmMain
         Name = 'TEXT_RUS'
         DataType = ftWideString
         Size = 4000
+      end
+      item
+        Name = 'FONT_SIZE'
+        DataType = ftWideString
+        Size = 4000
       end>
     IndexDefs = <>
     Params = <>
@@ -490,6 +495,10 @@ object dmMain: TdmMain
     end
     object ldsFormulasTEXT_RUS: TWideStringField
       FieldName = 'TEXT_RUS'
+      Size = 4000
+    end
+    object ldsFormulasFONT_SIZE: TWideStringField
+      FieldName = 'FONT_SIZE'
       Size = 4000
     end
   end

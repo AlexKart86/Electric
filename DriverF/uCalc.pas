@@ -31,7 +31,7 @@ type
     procedure ParseFormulaAndText(AStr: String; AIsUseNumerator: Boolean = True;
        AFontSize: Integer = 2);
     function Evaluator(const Match: TMatch): string;
-    procedure OnCalcCallBack(AStrUkr, AStrRus: String);
+    procedure OnCalcCallBack(AStrUkr, AStrRus: String; AFontSize: Integer);
     //Печатает таблицу значений, в которую заносит M(s) или M'(s) в зависимости от флага
     procedure PrintTable(AIsM1: Boolean);
     //Рассчет M'
@@ -99,7 +99,7 @@ procedure TSolver.DrawGraphM;
 const
   cnstWidth = 500;
   cnstHeight = 500;
-  cnstMargins = 50;
+  cnstMargins = 65;
   cnstMax = 1.1;
 var
   vBitmap: TBitmap;
@@ -198,8 +198,9 @@ begin
   DrawHorzArrow(Px(skr), Py(0)+45, Px(1-skr)-cnstMargins, False, vBitmap.Canvas, clBlack, 1);
   DrawHorzArrow(Px(1), Py(0)+45, -Px(1-skr)+cnstMargins, False, vBitmap.Canvas, clBlack, 1);
 
-  DrawIndexedText(lc('Gr1'), '', Px(skr/2), Py(0)+35, vBitmap.Canvas, True);
-  DrawIndexedText(lc('Gr2'), '', Px(skr + (1-skr)/2) , Py(0)+35, vBitmap.Canvas, True);
+  DrawIndexedText(lc('Gr0'), '', Px(0.5), Py(0)+32, vBitmap.Canvas, True);
+  DrawIndexedText(lc('Gr1'), '', Px(skr/2), Py(0)+55, vBitmap.Canvas, True);
+  DrawIndexedText(lc('Gr2'), '', Px(skr + (1-skr)/2) , Py(0)+55, vBitmap.Canvas, True);
 
   FRichView.InsertPicture('picture_M', vBitmap, rvvaMiddle);
 end;
@@ -288,6 +289,7 @@ begin
   //Рисуем подписи осей
   DrawIndexedText('M, Н•м', '', Px(vMaxx)-10, Py(1)+cnstMargY,  vBitmap.Canvas);
   DrawIndexedText('n', '2', Px(0)-cnstMargN, Py(0)-25,  vBitmap.Canvas);
+  DrawIndexedText(lc('tbl_h2'), '', Px(0)+2, Py(0)-25,  vBitmap.Canvas);
   DrawIndexedText('S', '', Px(0)-cnstMargS, Py(0)-25,  vBitmap.Canvas);
 
   DrawIndexedText('n', '1', Px(0)-cnstMargN, Py(0),  vBitmap.Canvas);
@@ -456,11 +458,11 @@ begin
   Result := FMParse.Evaluate(Format(cnstF, [RndArr.FormatDoubleStr(dmMain.GetItemValue('n1'))]));
 end;
 
-procedure TSolver.OnCalcCallBack(AStrUkr, AStrRus: String);
+procedure TSolver.OnCalcCallBack(AStrUkr, AStrRus: String; AFontSize: Integer);
 begin
   case CurrentLang of
-    lngUkr: ParseFormulaAndText(AStrUkr);
-    lngRus: ParseFormulaAndText(AStrRus);
+    lngUkr: ParseFormulaAndText(AStrUkr, True, AFontSize);
+    lngRus: ParseFormulaAndText(AStrRus, True, AFontSize);
   end;
 end;
 

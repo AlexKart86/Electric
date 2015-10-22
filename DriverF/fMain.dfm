@@ -1,14 +1,14 @@
 inherited frmMain: TfrmMain
-  Caption = #1058#1088#1077#1093#1092#1072#1079#1085#1099#1081' '#1072#1089#1080#1085#1093#1088#1086#1085#1085#1099#1081' '#1076#1074#1080#1075#1072#1090#1077#1083#1100' [1.0.0.1]'
-  ClientHeight = 481
-  ClientWidth = 775
-  ExplicitWidth = 320
-  ExplicitHeight = 240
+  Caption = #1069#1083#1077#1082#1090#1088#1080#1095#1077#1089#1082#1080#1077' '#1084#1072#1096#1080#1085#1099' '#1080' '#1090#1088#1072#1085#1089#1092#1086#1088#1084#1072#1090#1086#1088#1099' [1.0.0.2]'
+  ClientHeight = 503
+  ClientWidth = 790
+  ExplicitWidth = 806
+  ExplicitHeight = 541
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcMain: TPageControl
-    Width = 775
-    Height = 446
+    Width = 790
+    Height = 468
     ActivePage = tsFirst
     ExplicitWidth = 775
     ExplicitHeight = 446
@@ -16,134 +16,29 @@ inherited frmMain: TfrmMain
       ExplicitWidth = 767
       ExplicitHeight = 436
       inherited rvMain: TRichViewEdit
-        Width = 767
-        Height = 411
+        Width = 782
+        Height = 433
         RVFOptions = [rvfoSavePicturesBody, rvfoSaveControlsBody, rvfoSaveBinary, rvfoSaveTextStyles, rvfoSaveParaStyles, rvfoSaveLayout, rvfoSaveDocProperties, rvfoLoadDocProperties]
         ExplicitWidth = 767
         ExplicitHeight = 411
       end
       inherited RVRuler1: TRVRuler
-        Width = 767
+        Width = 782
         ExplicitWidth = 767
       end
     end
     inherited tsFirst: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitLeft = 1
+      ExplicitTop = 4
+      ExplicitWidth = 782
+      ExplicitHeight = 458
       inherited rgLanguage: TRadioGroup
-        Left = 355
-        Top = -4
-        ExplicitLeft = 355
-        ExplicitTop = -4
-      end
-      object GroupBox1: TGroupBox
-        Left = 3
-        Top = 40
-        Width = 751
-        Height = 393
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        TabOrder = 1
-        object dbgParams: TDBGridEh
-          Left = 2
-          Top = 15
-          Width = 747
-          Height = 376
-          Align = alClient
-          AllowedOperations = [alopUpdateEh]
-          AutoFitColWidths = True
-          ColumnDefValues.AlwaysShowEditButton = True
-          DataSource = dmMain.dsItems
-          DrawGraphicData = True
-          DynProps = <>
-          Font.Charset = RUSSIAN_CHARSET
-          Font.Color = clBlack
-          Font.Height = -15
-          Font.Name = 'Courier New'
-          Font.Style = []
-          IndicatorOptions = [gioShowRowIndicatorEh]
-          OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghFitRowHeightToText, dghDialogFind, dghColumnResize, dghColumnMove, dghAutoFitRowHeight, dghExtendVertLines]
-          ParentFont = False
-          ParentShowHint = False
-          RowHeight = 4
-          RowLines = 1
-          ShowHint = True
-          TabOrder = 0
-          TitleParams.MultiTitle = True
-          OnDataHintShow = dbgParamsDataHintShow
-          OnGetCellParams = dbgParamsGetCellParams
-          OnKeyPress = dbgParamsKeyPress
-          Columns = <
-            item
-              DynProps = <>
-              EditButtons = <>
-              FieldName = 'ITEM_ID'
-              Footers = <>
-              Visible = False
-              Width = 69
-            end
-            item
-              DynProps = <>
-              EditButtons = <>
-              FieldName = 'NAME'
-              Footers = <>
-              Visible = False
-              Width = 48
-            end
-            item
-              DynProps = <>
-              EditButtons = <>
-              FieldName = 'DESC_RU'
-              Font.Charset = RUSSIAN_CHARSET
-              Font.Color = clBlack
-              Font.Height = -12
-              Font.Name = 'Courier New'
-              Font.Style = []
-              Footers = <>
-              Width = 314
-            end
-            item
-              DynProps = <>
-              EditButtons = <>
-              FieldName = 'ITEM_IMG'
-              Footers = <>
-              ReadOnly = True
-              Title.Caption = #1055#1072#1088#1072#1084#1077#1090#1088
-              Width = 100
-            end
-            item
-              LookupParams.LookupCache = False
-              DynProps = <>
-              DropDownBox.Columns = <
-                item
-                  FieldName = 'LABEL_UKR'
-                end>
-              DropDownBox.ListSource = dmMain.dsCurMeasList
-              EditButtons = <>
-              FieldName = 'MEASURE_ID_LOOKUP'
-              Footers = <>
-              Width = 97
-            end
-            item
-              DynProps = <>
-              EditButtons = <>
-              FieldName = 'VALUE'
-              Footers = <>
-              Width = 99
-            end
-            item
-              DisplayFormat = '####0.0##'
-              DynProps = <>
-              EditButtons = <>
-              FieldName = 'CALC_VALUE'
-              Footers = <>
-              ReadOnly = True
-              Width = 101
-            end>
-          object RowDetailData: TRowDetailPanelControlEh
-          end
-        end
+        Left = 506
+        Top = 0
+        Width = 259
+        ExplicitLeft = 506
+        ExplicitTop = 0
+        ExplicitWidth = 259
       end
       object btnRecalc: TButton
         Left = 9
@@ -151,16 +46,16 @@ inherited frmMain: TfrmMain
         Width = 163
         Height = 25
         Caption = #1055#1077#1088#1077#1088#1072#1093#1091#1074#1072#1090#1080' '#1087#1072#1088#1072#1084#1077#1090#1088#1080
-        TabOrder = 2
+        TabOrder = 1
         OnClick = btnRecalcClick
       end
       object Button1: TButton
-        Left = 679
-        Top = 9
-        Width = 75
+        Left = 0
+        Top = -6
+        Width = 45
         Height = 25
         Caption = 'MagicButton'
-        TabOrder = 3
+        TabOrder = 2
         Visible = False
         OnClick = Button1Click
       end
@@ -173,43 +68,173 @@ inherited frmMain: TfrmMain
         Checked = True
         DynProps = <>
         State = cbChecked
-        TabOrder = 4
+        TabOrder = 3
       end
-    end
-    inherited tsHidden: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      object PageControl1: TPageControl
+        Left = 3
+        Top = 37
+        Width = 763
+        Height = 418
+        ActivePage = tsDriver
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        TabOrder = 4
+        object tsDriver: TTabSheet
+          Caption = #1058#1088#1077#1093#1092#1072#1079#1085#1099#1081' '#1072#1089#1080#1085#1093#1088#1086#1085#1085#1099#1081' '#1076#1074#1080#1075#1072#1090#1077#1083#1100' '#1089' '#1092#1072#1079#1085#1099#1084' '#1088#1086#1090#1086#1088#1086#1084
+          ExplicitLeft = 20
+          ExplicitTop = 168
+          ExplicitWidth = 617
+          ExplicitHeight = 331
+          object GroupBox1: TGroupBox
+            Left = 0
+            Top = 0
+            Width = 755
+            Height = 390
+            Align = alClient
+            TabOrder = 0
+            ExplicitLeft = -14
+            ExplicitTop = -28
+            ExplicitWidth = 751
+            ExplicitHeight = 393
+            object dbgParams: TDBGridEh
+              Left = 2
+              Top = 15
+              Width = 751
+              Height = 373
+              Align = alClient
+              AllowedOperations = [alopUpdateEh]
+              AutoFitColWidths = True
+              ColumnDefValues.AlwaysShowEditButton = True
+              DataSource = dmMain.dsItems
+              DrawGraphicData = True
+              DynProps = <>
+              Font.Charset = RUSSIAN_CHARSET
+              Font.Color = clBlack
+              Font.Height = -15
+              Font.Name = 'Courier New'
+              Font.Style = []
+              IndicatorOptions = [gioShowRowIndicatorEh]
+              OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghFitRowHeightToText, dghDialogFind, dghColumnResize, dghColumnMove, dghAutoFitRowHeight, dghExtendVertLines]
+              ParentFont = False
+              ParentShowHint = False
+              RowHeight = 4
+              RowLines = 1
+              ShowHint = True
+              TabOrder = 0
+              TitleParams.MultiTitle = True
+              OnDataHintShow = dbgParamsDataHintShow
+              OnGetCellParams = dbgParamsGetCellParams
+              OnKeyPress = dbgParamsKeyPress
+              Columns = <
+                item
+                  DynProps = <>
+                  EditButtons = <>
+                  FieldName = 'ITEM_ID'
+                  Footers = <>
+                  Visible = False
+                  Width = 69
+                end
+                item
+                  DynProps = <>
+                  EditButtons = <>
+                  FieldName = 'NAME'
+                  Footers = <>
+                  Visible = False
+                  Width = 48
+                end
+                item
+                  DynProps = <>
+                  EditButtons = <>
+                  FieldName = 'DESC_RU'
+                  Font.Charset = RUSSIAN_CHARSET
+                  Font.Color = clBlack
+                  Font.Height = -12
+                  Font.Name = 'Courier New'
+                  Font.Style = []
+                  Footers = <>
+                  Width = 314
+                end
+                item
+                  DynProps = <>
+                  EditButtons = <>
+                  FieldName = 'ITEM_IMG'
+                  Footers = <>
+                  ReadOnly = True
+                  Title.Caption = #1055#1072#1088#1072#1084#1077#1090#1088
+                  Width = 100
+                end
+                item
+                  LookupParams.LookupCache = False
+                  DynProps = <>
+                  DropDownBox.Columns = <
+                    item
+                      FieldName = 'LABEL_UKR'
+                    end>
+                  DropDownBox.ListSource = dmMain.dsCurMeasList
+                  EditButtons = <>
+                  FieldName = 'MEASURE_ID_LOOKUP'
+                  Footers = <>
+                  Width = 97
+                end
+                item
+                  DynProps = <>
+                  EditButtons = <>
+                  FieldName = 'VALUE'
+                  Footers = <>
+                  Width = 99
+                end
+                item
+                  DisplayFormat = '####0.0##'
+                  DynProps = <>
+                  EditButtons = <>
+                  FieldName = 'CALC_VALUE'
+                  Footers = <>
+                  ReadOnly = True
+                  Width = 101
+                end>
+              object RowDetailData: TRowDetailPanelControlEh
+              end
+            end
+          end
+        end
+      end
+      object btnClearParams: TButton
+        Left = 368
+        Top = 7
+        Width = 121
+        Height = 25
+        Caption = #1054#1095#1080#1089#1090#1080#1090#1080' '#1087#1072#1088#1072#1084#1077#1090#1088#1080
+        TabOrder = 5
+        OnClick = btnClearParamsClick
+      end
     end
   end
   inherited pnlFooter: TPanel
-    Top = 446
-    Width = 775
+    Top = 468
+    Width = 790
     Height = 35
-    ExplicitTop = 446
+    ExplicitTop = 448
     ExplicitWidth = 775
     ExplicitHeight = 35
     inherited btnCalc: TButton
-      Left = 593
+      Left = 608
       Top = 3
       ExplicitLeft = 593
       ExplicitTop = 3
     end
     inherited btnCancel: TButton
-      Left = 693
+      Left = 708
       Top = 4
       ExplicitLeft = 693
       ExplicitTop = 4
     end
     inherited btnSaveToFile: TButton
-      Left = 483
+      Left = 498
       Top = 4
       ExplicitLeft = 483
       ExplicitTop = 4
     end
     inherited btnPrev: TButton
-      Left = 593
+      Left = 608
       Top = 4
       ExplicitLeft = 593
       ExplicitTop = 4

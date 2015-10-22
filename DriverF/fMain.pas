@@ -13,11 +13,14 @@ uses
 
 type
   TfrmMain = class(TfrmMainTemplate)
-    GroupBox1: TGroupBox;
-    dbgParams: TDBGridEh;
     btnRecalc: TButton;
     Button1: TButton;
     chbNeedRecalc: TDBCheckBoxEh;
+    PageControl1: TPageControl;
+    tsDriver: TTabSheet;
+    GroupBox1: TGroupBox;
+    dbgParams: TDBGridEh;
+    btnClearParams: TButton;
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure dbgParamsDataHintShow(Sender: TCustomDBGridEh; CursorPos: TPoint;
@@ -28,6 +31,7 @@ type
     procedure btnRecalcClick(Sender: TObject);
     procedure btnPrevClick(Sender: TObject);
     procedure dbgParamsKeyPress(Sender: TObject; var Key: Char);
+    procedure btnClearParamsClick(Sender: TObject);
   private
     function TryCalc: Boolean;
     procedure DsAfterPost(DataSet: TDataSet);
@@ -49,6 +53,12 @@ uses ParseExpr, uCalc, uRounding, fFormulaEditor;
 {$R *.dfm}
 
 { TfrmMain }
+
+procedure TfrmMain.btnClearParamsClick(Sender: TObject);
+begin
+  inherited;
+  dmMain.ClearInputParams;
+end;
 
 procedure TfrmMain.btnPrevClick(Sender: TObject);
 begin
