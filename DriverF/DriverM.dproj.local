@@ -1,37 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.477,=C:\AK\WORK\Electric\SharedCode\uConstsShared.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.207,C:\Users\alex_kart\Documents\RAD Studio\Projects\Project1.dproj=C:\AK\WORK\Electric\DriverF\DriverM.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.819,=C:\AK\WORK\Electric\DriverF\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.568,C:\AK\WORK\Electric\DriverF\Unit2.pas=C:\AK\WORK\Electric\DriverF\fMain.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.982,K:\Electric\DriverF\Unit2.pas=K:\Electric\DriverF\uLocalize.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.483,=K:\Electric\DriverF\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.395,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.592,C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas=C:\AK\WORK\Electric\DriverF\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.536,C:\AK\WORK\Electric\DriverF\Unit1.pas=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.113,=C:\AK\WORK\Electric\SharedCode\uLocalizeShared.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.613,=C:\AK\WORK\Electric\SharedCode\uStringUtilsShared.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.278,K:\Electric\DriverF\uCalc.pas=K:\Electric\DriverF\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.501,=C:\AK\WORK\Electric\DriverF\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.341,C:\AK\WORK\Electric\DriverF\Unit2.pas=C:\AK\WORK\Electric\DriverF\dataMain.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.271,K:\Electric\DriverF\fFormulaEditor.dfm=K:\Electric\DriverF\Unit2.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.073,=K:\Electric\SharedCode\uRounding.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.685,=C:\AK\WORK\Electric\SharedCode\uSystem.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.007,=C:\AK\WORK\Electric\SharedCode\ExprDraw.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.662,=K:\Electric\SharedCode\oObjects.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.500,=C:\AK\WORK\Electric\SharedCode\uFormulaUtils.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.817,=C:\AK\WORK\Electric\SharedCode\fMainTemplate.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.033,=C:\AK\WORK\Electric\SharedCode\ExprMake.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.430,=K:\Electric\SharedCode\ParseClass.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.766,=h:\Electric2\SharedCode\ArrowUnit.Pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.341,C:\AK\WORK\Electric\DriverF\Unit2.dfm=C:\AK\WORK\Electric\DriverF\dataMain.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.568,C:\AK\WORK\Electric\DriverF\Unit2.dfm=C:\AK\WORK\Electric\DriverF\fMain.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.480,=K:\Electric\DriverF\Unit2.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.571,=K:\Electric\DriverF\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.271,K:\Electric\DriverF\fFormulaEditor.pas=K:\Electric\DriverF\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.592,C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.dfm=C:\AK\WORK\Electric\DriverF\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.483,=C:\AK\WORK\Electric\SharedCode\uGraphicUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.278,K:\Electric\DriverF\Unit2.pas=K:\Electric\DriverF\uCalc.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.271,K:\Electric\DriverF\Unit2.pas=K:\Electric\DriverF\fFormulaEditor.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.480,=K:\Electric\DriverF\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.662,=K:\Electric\SharedCode\oObjects.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.568,C:\AK\WORK\Electric\DriverF\fMain.dfm=C:\AK\WORK\Electric\DriverF\Unit2.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.483,=K:\Electric\DriverF\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.568,C:\AK\WORK\Electric\DriverF\fMain.pas=C:\AK\WORK\Electric\DriverF\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.592,C:\AK\WORK\Electric\DriverF\Unit1.pas=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.073,=K:\Electric\SharedCode\uRounding.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.113,=C:\AK\WORK\Electric\SharedCode\uLocalizeShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.536,C:\AK\WORK\Electric\DriverF\Unit1.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.819,=C:\AK\WORK\Electric\DriverF\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.477,=C:\AK\WORK\Electric\SharedCode\uConstsShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.341,C:\AK\WORK\Electric\DriverF\dataMain.pas=C:\AK\WORK\Electric\DriverF\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.501,=C:\AK\WORK\Electric\DriverF\Unit2.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.470,=K:\Electric\SharedCode\ParseExpr.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.500,=C:\AK\WORK\Electric\SharedCode\uFormulaUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.395,=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.483,=C:\AK\WORK\Electric\SharedCode\uGraphicUtils.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.592,C:\AK\WORK\Electric\DriverF\Unit1.dfm=C:\Users\alex_kart\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.817,=C:\AK\WORK\Electric\SharedCode\fMainTemplate.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.341,C:\AK\WORK\Electric\DriverF\dataMain.dfm=C:\AK\WORK\Electric\DriverF\Unit2.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.007,=C:\AK\WORK\Electric\SharedCode\ExprDraw.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.430,=K:\Electric\SharedCode\ParseClass.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.207,C:\AK\WORK\Electric\DriverF\DriverM.dproj=C:\Users\alex_kart\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.685,=C:\AK\WORK\Electric\SharedCode\uSystem.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.271,K:\Electric\DriverF\Unit2.dfm=K:\Electric\DriverF\fFormulaEditor.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.613,=C:\AK\WORK\Electric\SharedCode\uStringUtilsShared.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.033,=C:\AK\WORK\Electric\SharedCode\ExprMake.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.982,K:\Electric\DriverF\uLocalize.pas=K:\Electric\DriverF\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.766,=h:\Electric2\SharedCode\ArrowUnit.Pas</Transaction>
   </Transactions>
 </BorlandProject>
