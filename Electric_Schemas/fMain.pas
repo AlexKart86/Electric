@@ -62,7 +62,19 @@ type
     grpW0: TGroupBox;
     edtT: TDBNumberEditEh;
     Label4: TLabel;
-    btnEditDiagram: TButton;
+    gbScale: TGroupBox;
+    chbAutoScale: TCheckBox;
+    edtScaleI: TEdit;
+    edtScaleU: TEdit;
+    lblScaleI: TLabel;
+    lblScaleU: TLabel;
+    Series5: TLineSeries;
+    Series6: TLineSeries;
+    Series7: TLineSeries;
+    Series8: TLineSeries;
+    Series9: TLineSeries;
+    Series10: TLineSeries;
+    Series11: TLineSeries;
     procedure chbFClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure chbW0Click(Sender: TObject);
@@ -78,6 +90,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure rgFClick(Sender: TObject);
     procedure edtTEditButtons0Click(Sender: TObject; var Handled: Boolean);
+    procedure chbAutoScaleClick(Sender: TObject);
   private
     procedure RefreshToolbar;
     procedure RecalcAddParameters;
@@ -120,6 +133,7 @@ var
   vSolver: TSolver;
   i: Integer;
   vC: Double;
+  vScaleU, vScaleI: Double;
 begin
   // Проверяем корректность введенных параметров
   if not CheckInputParams then
@@ -166,7 +180,12 @@ begin
         StrToFloatDef(sgElements.Cells[2, i], cnstNotSetValue), vC);
     end;
 
-    vSolver := TSolver.Create(vElementList, rvMain, serU, serI, crtU, crtI);
+    if not chbAutoScale.Checked then
+    begin
+      vScaleI := StrToFloat(edtScaleI.Text);
+      vScaleU := StrToFloat(edtScaleU.Text);
+    end;
+    vSolver := TSolver.Create(vElementList, rvMain, serU, serI, crtU, crtI, chbAutoScale.Checked, vScaleI, vScaleU);
     vSolver.RunSolve;
     pcMain.ActivePage := tsResults;
     RefreshBtnsVisible;
@@ -203,6 +222,14 @@ begin
   RecalcAddParameters;
 end;
 
+procedure TfrmMain.chbAutoScaleClick(Sender: TObject);
+begin
+  lblScaleI.Visible := not chbAutoScale.Checked;
+  lblScaleU.Visible := not chbAutoScale.Checked;
+  edtScaleI.Visible := not chbAutoScale.Checked;
+  edtScaleU.Visible := not chbAutoScale.Checked;
+end;
+
 procedure TfrmMain.chbFClick(Sender: TObject);
 begin
   RefreshToolbar;
@@ -219,7 +246,22 @@ end;
 
 function TfrmMain.CheckInputParams: Boolean;
 begin
-  // TO Do
+  Result := False;
+  if not chbAutoScale.Checked then
+  begin
+    if edtScaleI.Text = '' then
+    begin
+      ShowMessage('Не заповнений масштаб I');
+      edtScaleI.SetFocus;
+      Exit;
+    end;
+    if edtScaleU.Text = '' then
+    begin
+      ShowMessage('Не заповнений масштаб U');
+      edtScaleU.SetFocus;
+      Exit;
+    end;
+  end;
   Result := True;
 end;
 

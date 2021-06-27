@@ -17,6 +17,9 @@ type
     FSerI: TLineSeries;
     FChrtTotal: TChart;
     FCrtI: TChart;
+    FIsAutoScale: Boolean;
+    FScaleU: Double;
+    FScaleI: Double;
     // Буква начала ветви i
     function GetLetterNodeBegin(i: Integer): Char;
     // Буква конца ветви i
@@ -53,7 +56,8 @@ type
   public
     property SchemaInfo: TSchemaInfo read GetSchemaInfo;
     constructor Create(AElementList: TRLCList; ARichView: TRichViewEdit;
-      ASerU, ASerI: TLineSeries; AChrtTotal, ACrtI: TChart);
+      ASerU, ASerI: TLineSeries; AChrtTotal, ACrtI: TChart; AIsAutoScale: Boolean;
+      AScaleI, AScaleU: Double);
     procedure RunSolve;
   end;
 
@@ -79,7 +83,8 @@ end;
 { TSolver }
 
 constructor TSolver.Create(AElementList: TRLCList; ARichView: TRichViewEdit;
-  ASerU, ASerI: TLineSeries; AChrtTotal, ACrtI: TChart);
+  ASerU, ASerI: TLineSeries; AChrtTotal, ACrtI: TChart; AIsAutoScale: Boolean;
+      AScaleI, AScaleU: Double);
 begin
   FElementList := AElementList;
   FRichView := ARichView;
@@ -87,6 +92,9 @@ begin
   FSerI := ASerI;
   FChrtTotal := AChrtTotal;
   FCrtI := ACrtI;
+  FIsAutoScale := AIsAutoScale;
+  FScaleI := AScaleI;
+  FScaleU := AScaleU;
 end;
 
 procedure TSolver.DrawSchema(Abitmap: TBitmap);
@@ -210,6 +218,8 @@ const
   cnstMargins = 20;
   // Шаг изменения радиуса в дуге угла
   cnstPhiRadStep = 40;
+  //сколько точек будет в 1 единице
+  cnstScaleRatio = 50;
 
 var
   vBitmap, vBitmapPrefix: TBitmap;
@@ -259,7 +269,7 @@ var
     vBitmapPrefix.Canvas.MoveTo(60 - 50, vStartY);
     vBitmapPrefix.Canvas.LineTo(60, vStartY);
     vBitmapPrefix.Canvas.TextOut(60 - 45, vStartY - 20,
-      PrepareDouble(50 * koeffU) + ' B');
+      PrepareDouble(cnstScaleRatio * koeffU) + ' B');
     vBitmapPrefix.Canvas.MoveTo(60, vStartY - 5);
     vBitmapPrefix.Canvas.LineTo(60, vStartY + 5);
     vBitmapPrefix.Canvas.MoveTo(60 - 50, vStartY - 5);
@@ -268,7 +278,7 @@ var
     vBitmapPrefix.Canvas.MoveTo(60 - 50, vStartY + 40);
     vBitmapPrefix.Canvas.LineTo(60, vStartY + 40);
     vBitmapPrefix.Canvas.TextOut(60 - 45, vStartY + 20,
-      PrepareDouble(50 * koeffI) + ' A');
+      PrepareDouble(cnstScaleRatio * koeffI) + ' A');
     vBitmapPrefix.Canvas.MoveTo(60 - 50, vStartY + 35);
     vBitmapPrefix.Canvas.LineTo(60 - 50, vStartY + 45);
     vBitmapPrefix.Canvas.MoveTo(60, vStartY + 35);
@@ -305,7 +315,7 @@ begin
   if y0 > 0 then
     y0 := 0;
 
-  koeffI := GetMultKoeff(Max(vSumA, vMaxR - vMinR), MaxWidth - 40);
+  koeffI := IfThen(FIsAutoScale, GetMultKoeff(Max(vSumA, vMaxR - vMinR), MaxWidth - 40), FScaleI / cnstScaleRatio);
   // Уменьшаем Высоту диаграммы на случай, если ее ширина будет значительно превосходить выосту
   vBitmap.Height := Round(MaxValue([Abs(vSumR), vMaxR - vMinR, vSumR - vMinR]) /
     koeffI) + 2 * cnstMargins;
@@ -379,7 +389,7 @@ begin
   end;
 
   // Рисуем напряжение
-  koeffU := GetMultKoeff(Abs(FElementList.U), MaxWidth / 2 - 40);
+  koeffU := IfThen(FIsAutoScale, GetMultKoeff(Abs(FElementList.U), MaxWidth / 2 - 40), FScaleU / cnstScaleRatio);
   DrawArrow(TxU(x0), TyI(y0), TxU(FElementList.U + x0), TyI(y0), false,
     vBitmap.Canvas);
   DrawIndexedText('U', '', TxU(x0 + FElementList.U) + 10, TyI(y0) + 9,

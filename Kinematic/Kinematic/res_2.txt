@@ -1,11 +1,11 @@
 {tex}t_1=1\;c{\tex}
 {tex}M_1(1;1){\tex}
-{tex}v_1_x=1{\tex}
-{tex}v_1_y=2{\tex}
+{tex}v_1_x=2{\tex}
+{tex}v_1_y=1{\tex}
 {tex}v_1=2.236{\tex}
-{tex}W_{1_x}=0{\tex}
-{tex}W_{1_y}=2{\tex}
-{tex}W_1=2\; \frac{\cyr{m}}{c^2}{\tex}
-{tex}W_1^{\tau}=1.789{\tex}
-{tex}W_1^n=0.894{\tex}
-{tex}\rho_1=OM_1=5.59{\tex}
+{tex}W_{1_x}=2{\tex}
+{tex}W_{1_y}=1{\tex}
+{tex}W_1=2.236\; \frac{\cyr{m}}{c^2}{\tex}
+{tex}W_1^{\tau}=2.236{\tex}
+{tex}W_1^n=0{\tex}
+{tex}\rho_1=OM_1=Infinity{\tex}

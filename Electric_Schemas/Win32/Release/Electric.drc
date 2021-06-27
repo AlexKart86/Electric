@@ -1216,20 +1216,20 @@ BEGIN
 	System_SysConst_SIntOverflow,	L"Integer overflow"
 END
 
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\controls.res */
+/* c:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\Win32\Release\controls.res */
 /* D:\WORK\Package_XE2\RichView\Src\RVTable.res */
 /* D:\WORK\Package_XE2\RichView\Src\RVStyle.res */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\buttons.res */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\Vcl.DBLogDlg.dfm */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\Vcl.DBPWDlg.dfm */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\dbctrls.res */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\CalculatorEh.dfm */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\DBGridEhToolCtrls.dfm */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\DBGridEhFindDlgs.dfm */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\DBGridEhSimpleFilterDlg.dfm */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\DBGridEh.res */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\TeeFonts.res */
-/* c:\program files (x86)\embarcadero\rad studio\9.0\lib\Win32\release\TeeResou.res */
+/* c:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\Win32\Release\buttons.res */
+/* c:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\Win32\Release\Vcl.DBLogDlg.dfm */
+/* c:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\Win32\Release\Vcl.DBPWDlg.dfm */
+/* c:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\Win32\Release\dbctrls.res */
+/* d:\WORK\EhLib 6.3 Build 6.3.184 source\EhLib 6.3 Build 6.3.184 source\Common\CalculatorEh.dfm */
+/* d:\WORK\EhLib 6.3 Build 6.3.184 source\EhLib 6.3 Build 6.3.184 source\Common\DBGridEhToolCtrls.dfm */
+/* d:\WORK\EhLib 6.3 Build 6.3.184 source\EhLib 6.3 Build 6.3.184 source\Common\DBGridEhFindDlgs.dfm */
+/* d:\WORK\EhLib 6.3 Build 6.3.184 source\EhLib 6.3 Build 6.3.184 source\Common\DBGridEhSimpleFilterDlg.dfm */
+/* d:\WORK\EhLib 6.3 Build 6.3.184 source\EhLib 6.3 Build 6.3.184 source\Common\DBGridEh.res */
+/* c:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\Win32\Release\TeeFonts.res */
+/* c:\Program Files (x86)\Embarcadero\RAD Studio\9.0\lib\Win32\Release\TeeResou.res */
 /* K:\Electric\Electric_Schemas\fMain.dfm */
 /* K:\Electric\Electric_Schemas\Electric.res */
 /* K:\Electric\Electric_Schemas\Electric.drf */

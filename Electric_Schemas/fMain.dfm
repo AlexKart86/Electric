@@ -1,9 +1,9 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1087#1072#1088#1072#1083#1077#1083#1100#1085#1086#1075#1086' '#1079#39#1108#1076#1085#1072#1085#1085#1103' '#1087#1088#1086#1074#1110#1076#1085#1080#1082#1110#1074' ['#1042#1077#1088#1089#1110#1103' 1.0.1.1]'
+  Caption = #1056#1086#1079#1088#1072#1093#1091#1085#1086#1082' '#1087#1072#1088#1072#1083#1077#1083#1100#1085#1086#1075#1086' '#1079#39#1108#1076#1085#1072#1085#1085#1103' '#1087#1088#1086#1074#1110#1076#1085#1080#1082#1110#1074' ['#1042#1077#1088#1089#1110#1103' 1.0.1.2]'
   ClientHeight = 437
-  ClientWidth = 782
+  ClientWidth = 769
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,37 +20,40 @@ object frmMain: TfrmMain
   object pcMain: TPageControl
     Left = 0
     Top = 0
-    Width = 782
+    Width = 769
     Height = 396
     ActivePage = tsFirst
     Align = alClient
     TabOrder = 0
     OnChange = pcMainChange
+    ExplicitWidth = 782
     object tsResults: TTabSheet
       Caption = 'tsResults'
       ImageIndex = 2
       TabVisible = False
+      ExplicitWidth = 774
       object rvMain: TRichViewEdit
         Left = 0
         Top = 25
-        Width = 774
+        Width = 761
         Height = 361
         ReadOnly = False
         Align = alClient
         TabOrder = 0
         DoInPaletteMode = rvpaCreateCopiesEx
-        MaxTextWidth = 783
-        MinTextWidth = 783
+        MaxTextWidth = 784
+        MinTextWidth = 784
         RTFOptions = [rvrtfSavePicturesBinary, rvrtfSaveDocParameters, rvrtfSaveHeaderFooter]
         RTFReadProperties.TextStyleMode = rvrsAddIfNeeded
         RTFReadProperties.ParaStyleMode = rvrsAddIfNeeded
         RVFOptions = [rvfoSavePicturesBody, rvfoSaveControlsBody, rvfoSaveBinary, rvfoSaveTextStyles, rvfoSaveParaStyles, rvfoSaveDocProperties, rvfoLoadDocProperties]
         Style = RVStyle1
+        ExplicitWidth = 774
       end
       object RVRuler1: TRVRuler
         Left = 0
         Top = 0
-        Width = 774
+        Width = 761
         Height = 25
         Align = alTop
         BottomMargin = 2.540000000000000000
@@ -90,13 +93,15 @@ object frmMain: TfrmMain
         TableEditor.RowIndex = 0
         TableEditor.Rows = <>
         TableEditor.TableOffset = 0
+        ExplicitWidth = 774
       end
     end
     object tsFirst: TTabSheet
       Caption = #1042#1074#1077#1076#1077#1085#1085#1103' '#1087#1072#1088#1072#1084#1077#1090#1088#1110#1074
       TabVisible = False
+      ExplicitWidth = 774
       DesignSize = (
-        774
+        761
         386)
       object Label1: TLabel
         Left = 3
@@ -108,8 +113,8 @@ object frmMain: TfrmMain
       object rgElemtTypes: TRadioGroup
         Left = 3
         Top = 42
-        Width = 768
-        Height = 62
+        Width = 385
+        Height = 68
         Anchors = [akLeft, akTop, akRight]
         Caption = #1058#1080#1087' '#1079#1072#1076#1072#1085#1085#1103' '#1087#1072#1088#1072#1084#1077#1090#1088#1110#1074' '#1082#1072#1090#1091#1096#1086#1082' '#1090#1072' '#1082#1086#1085#1076#1077#1085#1089#1072#1090#1086#1088#1110#1074
         Columns = 2
@@ -126,30 +131,38 @@ object frmMain: TfrmMain
         Width = 145
         Height = 22
         Style = csOwnerDrawFixed
-        ItemIndex = 1
+        ItemIndex = 0
         TabOrder = 1
-        Text = '2'
+        Text = '1'
         OnChange = cbNodeCountChange
         Items.Strings = (
           '1'
           '2'
           '3'
           '4'
-          '5')
+          '5'
+          '6'
+          '7'
+          '8'
+          '9'
+          '10'
+          '11'
+          '12')
       end
       object gbOtherParams: TGroupBox
         Left = 3
         Top = 110
-        Width = 766
+        Width = 753
         Height = 156
         Anchors = [akLeft, akTop, akRight]
         Caption = #1030#1085#1096#1110' '#1087#1072#1088#1072#1084#1077#1090#1088#1080
         TabOrder = 2
+        ExplicitWidth = 766
         DesignSize = (
-          766
+          753
           156)
         object rgUType: TRadioGroup
-          Left = 619
+          Left = 613
           Top = 16
           Width = 129
           Height = 76
@@ -162,13 +175,14 @@ object frmMain: TfrmMain
           TabOrder = 0
         end
         object gbAddParameter: TGroupBox
-          Left = 285
+          Left = 272
           Top = 98
           Width = 476
           Height = 51
           Anchors = [akTop, akRight]
           Caption = #1044#1086#1076#1072#1090#1082#1086#1074#1080#1081' '#1087#1072#1088#1072#1084#1077#1090#1088
           TabOrder = 1
+          ExplicitLeft = 285
           object lblNode: TLabel
             Left = 119
             Top = 23
@@ -230,13 +244,14 @@ object frmMain: TfrmMain
           end
         end
         object grpTime: TGroupBox
-          Left = 465
+          Left = 452
           Top = 18
           Width = 149
           Height = 74
           Anchors = [akTop, akRight]
           Caption = #1063#1072#1089' '#1085#1072' '#1075#1088#1072#1092#1110#1082#1072#1093
           TabOrder = 2
+          ExplicitLeft = 465
           object Label4: TLabel
             Left = 15
             Top = 48
@@ -262,6 +277,7 @@ object frmMain: TfrmMain
             Width = 82
             Height = 21
             Alignment = taLeftJustify
+            DynProps = <>
             EditButtons = <
               item
                 Style = ebsEllipsisEh
@@ -302,13 +318,14 @@ object frmMain: TfrmMain
           end
         end
         object grpW0: TGroupBox
-          Left = 285
+          Left = 272
           Top = 19
           Width = 175
           Height = 73
           Anchors = [akTop, akRight]
           Caption = #1055#1086#1095#1072#1090#1082#1086#1074#1072' '#1092#1072#1079#1072' '#1085#1072#1087#1088#1091#1075#1080' W0'
           TabOrder = 4
+          ExplicitLeft = 285
           DesignSize = (
             175
             73)
@@ -325,20 +342,22 @@ object frmMain: TfrmMain
       object GroupBox1: TGroupBox
         Left = 3
         Top = 272
-        Width = 768
+        Width = 755
         Height = 111
         Anchors = [akLeft, akTop, akRight, akBottom]
         Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1080' '#1089#1093#1077#1084#1080
         TabOrder = 3
+        ExplicitWidth = 768
         object sgElements: TStringGrid
           Left = 2
           Top = 15
-          Width = 764
+          Width = 751
           Height = 94
           Align = alClient
           ColCount = 4
           Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing, goAlwaysShowEditor]
           TabOrder = 0
+          ExplicitWidth = 764
           ColWidths = (
             64
             147
@@ -347,10 +366,11 @@ object frmMain: TfrmMain
         end
       end
       object rgLanguage: TRadioGroup
-        Left = 293
+        Left = 397
         Top = -2
-        Width = 318
+        Width = 361
         Height = 38
+        Anchors = [akTop, akRight]
         Caption = #1052#1086#1074#1072' '#1074#1080#1074#1086#1076#1091' '#1088#1077#1079#1091#1083#1100#1090#1072#1090#1091
         Columns = 2
         ItemIndex = 0
@@ -360,11 +380,69 @@ object frmMain: TfrmMain
         TabOrder = 4
         OnClick = rgLanguageClick
       end
+      object gbScale: TGroupBox
+        Left = 397
+        Top = 42
+        Width = 359
+        Height = 68
+        Anchors = [akTop, akRight]
+        Caption = #1052#1072#1089#1096#1090#1072#1073' '#1076#1110#1072#1075#1088#1072#1084#1080
+        TabOrder = 5
+        DesignSize = (
+          359
+          68)
+        object lblScaleI: TLabel
+          Left = 216
+          Top = 15
+          Width = 18
+          Height = 13
+          Caption = 'I = '
+          Visible = False
+        end
+        object lblScaleU: TLabel
+          Left = 216
+          Top = 43
+          Width = 18
+          Height = 13
+          Caption = 'U ='
+          Visible = False
+        end
+        object chbAutoScale: TCheckBox
+          Left = 11
+          Top = 30
+          Width = 142
+          Height = 17
+          Caption = #1055#1110#1076#1073#1080#1088#1072#1090#1080' '#1072#1074#1090#1086#1084#1072#1090#1080#1095#1085#1086
+          Checked = True
+          State = cbChecked
+          TabOrder = 0
+          OnClick = chbAutoScaleClick
+        end
+        object edtScaleI: TEdit
+          Left = 243
+          Top = 12
+          Width = 77
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          TabOrder = 1
+          Visible = False
+        end
+        object edtScaleU: TEdit
+          Left = 243
+          Top = 40
+          Width = 77
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          TabOrder = 2
+          Visible = False
+        end
+      end
     end
     object tsHidden: TTabSheet
       Caption = 'tsHidden'
       ImageIndex = 2
       TabVisible = False
+      ExplicitWidth = 774
       object crtU: TChart
         Left = 10
         Top = 3
@@ -565,6 +643,107 @@ object frmMain: TfrmMain
             Factor = 8
           end
         end
+        object Series5: TLineSeries
+          Marks.Arrow.Visible = True
+          Marks.Callout.Brush.Color = clBlack
+          Marks.Callout.Arrow.Visible = True
+          Marks.Visible = False
+          Title = #1057#1090#1088#1091#1084' I6'
+          Pointer.Brush.Gradient.EndColor = 6519581
+          Pointer.Gradient.EndColor = 6519581
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.Name = 'X'
+          XValues.Order = loAscending
+          YValues.Name = 'Y'
+          YValues.Order = loNone
+        end
+        object Series6: TLineSeries
+          Marks.Arrow.Visible = True
+          Marks.Callout.Brush.Color = clBlack
+          Marks.Callout.Arrow.Visible = True
+          Marks.Visible = False
+          Title = #1057#1090#1088#1091#1084' I7'
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.Name = 'X'
+          XValues.Order = loAscending
+          YValues.Name = 'Y'
+          YValues.Order = loNone
+        end
+        object Series7: TLineSeries
+          Marks.Arrow.Visible = True
+          Marks.Callout.Brush.Color = clBlack
+          Marks.Callout.Arrow.Visible = True
+          Marks.Visible = False
+          Title = #1057#1090#1088#1091#1084' I8'
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.Name = 'X'
+          XValues.Order = loAscending
+          YValues.Name = 'Y'
+          YValues.Order = loNone
+        end
+        object Series8: TLineSeries
+          Marks.Arrow.Visible = True
+          Marks.Callout.Brush.Color = clBlack
+          Marks.Callout.Arrow.Visible = True
+          Marks.Visible = False
+          Title = #1057#1090#1088#1091#1084' I9'
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.Name = 'X'
+          XValues.Order = loAscending
+          YValues.Name = 'Y'
+          YValues.Order = loNone
+        end
+        object Series9: TLineSeries
+          LegendTitle = #1057#1090#1088#1091#1084' I10'
+          Marks.Arrow.Visible = True
+          Marks.Callout.Brush.Color = clBlack
+          Marks.Callout.Arrow.Visible = True
+          Marks.Visible = False
+          Title = #1057#1090#1088#1091#1084' I10'
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.Name = 'X'
+          XValues.Order = loAscending
+          YValues.Name = 'Y'
+          YValues.Order = loNone
+        end
+        object Series10: TLineSeries
+          Marks.Arrow.Visible = True
+          Marks.Callout.Brush.Color = clBlack
+          Marks.Callout.Arrow.Visible = True
+          Marks.Visible = False
+          Title = #1057#1090#1088#1091#1084' I11'
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.Name = 'X'
+          XValues.Order = loAscending
+          YValues.Name = 'Y'
+          YValues.Order = loNone
+        end
+        object Series11: TLineSeries
+          Marks.Arrow.Visible = True
+          Marks.Callout.Brush.Color = clBlack
+          Marks.Callout.Arrow.Visible = True
+          Marks.Visible = False
+          Title = #1057#1090#1088#1091#1084' I12'
+          Pointer.InflateMargins = True
+          Pointer.Style = psRectangle
+          Pointer.Visible = False
+          XValues.Name = 'X'
+          XValues.Order = loAscending
+          YValues.Name = 'Y'
+          YValues.Order = loNone
+        end
         object Series4: TLineSeries
           Marks.Arrow.Visible = True
           Marks.Callout.Brush.Color = clBlack
@@ -594,16 +773,16 @@ object frmMain: TfrmMain
   object pnlFooter: TPanel
     Left = 0
     Top = 396
-    Width = 782
+    Width = 769
     Height = 41
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 395
+    ExplicitWidth = 782
     DesignSize = (
-      782
+      769
       41)
     object btnCalc: TButton
-      Left = 600
+      Left = 587
       Top = 6
       Width = 83
       Height = 25
@@ -611,9 +790,10 @@ object frmMain: TfrmMain
       Caption = #1056#1086#1079#1088#1072#1093#1091#1074#1072#1090#1080
       TabOrder = 0
       OnClick = btnCalcClick
+      ExplicitLeft = 600
     end
     object btnCancel: TButton
-      Left = 700
+      Left = 687
       Top = 6
       Width = 75
       Height = 25
@@ -622,9 +802,10 @@ object frmMain: TfrmMain
       ModalResult = 2
       TabOrder = 1
       OnClick = btnCancelClick
+      ExplicitLeft = 700
     end
     object btnSaveToFile: TButton
-      Left = 490
+      Left = 477
       Top = 6
       Width = 104
       Height = 25
@@ -632,9 +813,10 @@ object frmMain: TfrmMain
       Caption = #1047#1073#1077#1088#1077#1075#1090#1080' '#1074' '#1092#1072#1081#1083
       TabOrder = 2
       OnClick = btnSaveToFileClick
+      ExplicitLeft = 490
     end
     object btnPrev: TButton
-      Left = 600
+      Left = 587
       Top = 6
       Width = 83
       Height = 25
@@ -642,14 +824,7 @@ object frmMain: TfrmMain
       Caption = #1057#1087#1086#1095#1072#1090#1082#1091
       TabOrder = 3
       OnClick = btnPrevClick
-    end
-    object btnEditDiagram: TButton
-      Left = 352
-      Top = 6
-      Width = 132
-      Height = 25
-      Caption = #1056#1077#1076#1072#1075#1091#1074#1072#1090#1080' '#1076#1110#1072#1075#1088#1072#1084#1091
-      TabOrder = 4
+      ExplicitLeft = 600
     end
   end
   object dlgSave: TSaveDialog

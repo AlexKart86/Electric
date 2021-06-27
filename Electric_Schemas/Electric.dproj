@@ -103,8 +103,8 @@
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
 			<VerInfo_Release>1</VerInfo_Release>
-			<VerInfo_Build>1</VerInfo_Build>
-			<VerInfo_Keys>FileVersion=1.0.1.1;InternalName=;LegalTrademarks=;OriginalFilename=;ProductVersion=1.0.1.1;Comments=</VerInfo_Keys>
+			<VerInfo_Build>2</VerInfo_Build>
+			<VerInfo_Keys>FileVersion=1.0.1.2;InternalName=;LegalTrademarks=;OriginalFilename=;ProductVersion=1.0.1.2;Comments=</VerInfo_Keys>
 			<Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
 		</PropertyGroup>
 		<ItemGroup>
@@ -180,6 +180,8 @@
 						<Language Name="ProjectLang">$00000419</Language>
 					</Language>
 					<Excluded_Packages>
+						<Excluded_Packages Name="C:\Users\alex_kart\Downloads\graphics32-1-9-1-fixes-r2148\Graphics32\bpl\GR32_DSGN_RSXE2.bpl">File C:\Users\alex_kart\Downloads\graphics32-1-9-1-fixes-r2148\Graphics32\bpl\GR32_DSGN_RSXE2.bpl not found</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclIPIndyImpl160.bpl">IP Abstraction Indy Implementation Design Time</Excluded_Packages>
 						<Excluded_Packages Name="$(BDSBIN)\dcloffice2k160.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
 						<Excluded_Packages Name="$(BDSBIN)\dclofficexp160.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
 					</Excluded_Packages>
@@ -197,6 +199,7 @@
 					<Platform value="Win64">False</Platform>
 					<Platform value="Win32">True</Platform>
 				</Platforms>
+				<ModelSupport>False</ModelSupport>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>

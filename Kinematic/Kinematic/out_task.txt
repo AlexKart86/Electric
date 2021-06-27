@@ -1,1 +1,1 @@
-{tex}x(t)=t{\tex}, ì{tex}y(t)=t^{2}{\tex}, ì{tex}t_1=1{\tex}, ñ
+{tex}x(t)=t^{2}{\tex}, ì{tex}y(t)=e^{t - 1}{\tex}, ì{tex}t_1=1{\tex}, ñ
