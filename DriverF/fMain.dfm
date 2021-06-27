@@ -2,43 +2,27 @@ inherited frmMain: TfrmMain
   Caption = #1069#1083#1077#1082#1090#1088#1080#1095#1077#1089#1082#1080#1077' '#1084#1072#1096#1080#1085#1099' '#1080' '#1090#1088#1072#1085#1089#1092#1086#1088#1084#1072#1090#1086#1088#1099' [1.0.0.2]'
   ClientHeight = 503
   ClientWidth = 790
-  ExplicitWidth = 806
-  ExplicitHeight = 541
   PixelsPerInch = 96
   TextHeight = 13
   inherited pcMain: TPageControl
     Width = 790
     Height = 468
     ActivePage = tsFirst
-    ExplicitWidth = 775
-    ExplicitHeight = 446
     inherited tsResults: TTabSheet
-      ExplicitWidth = 767
-      ExplicitHeight = 436
       inherited rvMain: TRichViewEdit
         Width = 782
         Height = 433
         RVFOptions = [rvfoSavePicturesBody, rvfoSaveControlsBody, rvfoSaveBinary, rvfoSaveTextStyles, rvfoSaveParaStyles, rvfoSaveLayout, rvfoSaveDocProperties, rvfoLoadDocProperties]
-        ExplicitWidth = 767
-        ExplicitHeight = 411
       end
       inherited RVRuler1: TRVRuler
         Width = 782
-        ExplicitWidth = 767
       end
     end
     inherited tsFirst: TTabSheet
-      ExplicitLeft = 1
-      ExplicitTop = 4
-      ExplicitWidth = 782
-      ExplicitHeight = 458
       inherited rgLanguage: TRadioGroup
         Left = 506
         Top = 0
         Width = 259
-        ExplicitLeft = 506
-        ExplicitTop = 0
-        ExplicitWidth = 259
       end
       object btnRecalc: TButton
         Left = 9
@@ -79,11 +63,7 @@ inherited frmMain: TfrmMain
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 4
         object tsDriver: TTabSheet
-          Caption = #1058#1088#1077#1093#1092#1072#1079#1085#1099#1081' '#1072#1089#1080#1085#1093#1088#1086#1085#1085#1099#1081' '#1076#1074#1080#1075#1072#1090#1077#1083#1100' '#1089' '#1092#1072#1079#1085#1099#1084' '#1088#1086#1090#1086#1088#1086#1084
-          ExplicitLeft = 20
-          ExplicitTop = 168
-          ExplicitWidth = 617
-          ExplicitHeight = 331
+          Caption = #1058#1088#1077#1093#1092#1072#1079#1085#1099#1081' '#1072#1089#1080#1085#1093#1088#1086#1085#1085#1099#1081' '#1076#1074#1080#1075#1072#1090#1077#1083#1100' '#1089' '#1082#1086#1088#1086#1090#1082#1086#1079#1072#1084#1082#1085#1091#1090#1099#1084' '#1088#1086#1090#1086#1088#1086#1084
           object GroupBox1: TGroupBox
             Left = 0
             Top = 0
@@ -91,10 +71,6 @@ inherited frmMain: TfrmMain
             Height = 390
             Align = alClient
             TabOrder = 0
-            ExplicitLeft = -14
-            ExplicitTop = -28
-            ExplicitWidth = 751
-            ExplicitHeight = 393
             object dbgParams: TDBGridEh
               Left = 2
               Top = 15
@@ -212,32 +188,21 @@ inherited frmMain: TfrmMain
     Top = 468
     Width = 790
     Height = 35
-    ExplicitTop = 448
-    ExplicitWidth = 775
-    ExplicitHeight = 35
     inherited btnCalc: TButton
       Left = 608
       Top = 3
-      ExplicitLeft = 593
-      ExplicitTop = 3
     end
     inherited btnCancel: TButton
       Left = 708
       Top = 4
-      ExplicitLeft = 693
-      ExplicitTop = 4
     end
     inherited btnSaveToFile: TButton
       Left = 498
       Top = 4
-      ExplicitLeft = 483
-      ExplicitTop = 4
     end
     inherited btnPrev: TButton
       Left = 608
       Top = 4
-      ExplicitLeft = 593
-      ExplicitTop = 4
     end
   end
   inherited RVStyle1: TRVStyle
